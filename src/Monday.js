@@ -13,7 +13,6 @@ const Monday = () => {
   };
   const signStyle = {
     flexGrow: "1",
-    height: "100%",
     paddingRight: "15px",
     width: "24px",
     height: "24px",

@@ -11,7 +11,7 @@ const EvenWeekButton = ({ label}) => {
     display: "inline-flex",
   };
   return (
-    <button className="filter-button2">
+    <button className="filter-button1">
       <span className="button-content">
         <IconMenu style={iconStyle} />
         <span className="filter-button-text">{label}</span>
