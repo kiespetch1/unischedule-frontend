@@ -1,0 +1,438 @@
+@import-normalize;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+header {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.headerFlex{
+
+}
+
+.logoText {
+  /* Расписание группы */
+  position: absolute;
+  width: 356px;
+  height: 45px;
+  left: 50px;
+  top: 34px;
+  margin: 0;
+  padding: 0;
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 38px;
+  line-height: 45px;
+
+  color: #111112;
+}
+
+.groupText {
+  /* ИВТ1-Б21 */
+  position: absolute;
+  left: 50px;
+  top: 81px;
+  margin: 0;
+  padding: 0;
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 38px;
+
+  color: #0e51b5;
+}
+
+.divider1 {
+  /* дивидер */
+  position: absolute;
+  width: 0px;
+  height: 88px;
+  left: 460px;
+  top: 36px;
+  margin: 0;
+  padding: 0;
+
+  border-left: 1px solid #e1e1e1;
+}
+
+.header-rect {
+  /* футер */
+  position: fixed;
+  
+  width: 100%;
+  height: 17.9%;
+  z-index: -1;
+
+  display: flex;
+  max-width: 1920px;
+  background: #fafafafa;
+}
+
+.filterText {
+  /* Фильтровать по: */
+
+  position: absolute;
+  height: 32px;
+  left: 501px;
+  top: 64px;
+  margin: 0;
+  padding: 0;
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 27px;
+  line-height: 32px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #2b2b2b;
+}
+.filter-button1 {
+  /* Rectangle 13 */
+
+  position: absolute;
+  width: 209px;
+  height: 40px;
+  left: 750px;
+  top: 32px;
+  border: none;
+
+  background: #d9d9d9;
+  /* тень */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 15px;
+}
+
+.filter-button2 {
+  /* Rectangle 13 */
+
+  position: absolute;
+  width: 209px;
+  height: 40px;
+  left: 750px;
+  top: 88px;
+  border: none;
+
+  background: #d9d9d9;
+  /* тень */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 15px;
+}
+
+.filter-button3 {
+  /* Rectangle 13 */
+
+  position: absolute;
+  width: 209px;
+  height: 40px;
+  left: 991px;
+  top: 32px;
+  border: none;
+
+  background: #d9d9d9;
+  /* тень */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 15px;
+}
+
+.filter-button4 {
+  /* Rectangle 13 */
+
+  position: absolute;
+  width: 209px;
+  height: 40px;
+  left: 991px;
+  top: 88px;
+  border: none;
+
+  background: #d9d9d9;
+  /* тень */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 15px;
+}
+
+.filter-button-text {
+  margin-right: 8px; /* Отступ между текстом и иконкой */
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 570;
+  font-size: 16px;
+
+  color: #111112;
+}
+
+.login-button {
+  /* Rectangle 13 */
+
+  position: absolute;
+  width: 209px;
+  height: 54px;
+  left: 1661px;
+  top: 51px;
+  border: none;
+
+  background: #d9d9d9;
+  /* тень */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 15px;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.currentWeekText {
+  /* Сейчас четная неделя - С 19.02.2024 по 24.02.2024 - 3 неделя (верхняя/нечетная) */
+  position: absolute;
+  top: 184px;
+  left: 40px;
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 650;
+  font-size: 18px;
+  line-height: 90%;
+
+  color: #111112;
+}
+
+.nextWeekText {
+  /* Следующая неделя нечетная - С 26.02.2024 по 02.03.2024 - 4 неделя (нижняя/четная) */
+
+  position: absolute;
+  left: 40px;
+  top: 211px;
+
+  font-family: "Raleway";
+  font-style: italic;
+  font-weight: 450;
+  font-size: 18px;
+
+  color: #111112;
+}
+
+.dayHeader {
+  /* верх дня */
+  position: relative;
+  width: 600px;
+  height: 49px;
+
+  background: #0966bb;
+  border-radius: 5px 5px 0px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-basis: auto;
+}
+
+.dayHeaderText {
+  /* Понедельник */
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 27px;
+  display: flex;
+  align-items: left;
+  padding-left: 20px;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.classesText {
+  /* 4 пары */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 350;
+  font-size: 27px;
+  display: flex;
+  align-items: center;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+.class1 {
+  /* Rectangle 15 */
+  width: 600px;
+  height: 127px;
+
+  display: flex;
+  align-items: center;
+
+  background: #f0f0f0;
+  border-radius: 0px 0px 5px 5px;
+}
+
+.class2 {
+  /* Rectangle 15 */
+  width: 600px;
+  height: 127px;
+  margin-top: 1.2%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  background: #f0f0f0;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.dayFull {
+  /* общий контейнер дня */
+  position: absolute;
+  width: 600px;
+  height: 590px;
+  left: 40px;
+  top: 258px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  padding-left: 32px;
+  padding-right: 16px;
+}
+.classTime {
+  /* 9:00 - 10:30 */
+
+  font-family: "Readex Pro", serif;
+  font-style: normal;
+  font-weight: 550;
+  font-size: 24px;
+  line-height: 80%;
+  /* or 19px */
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #232323;
+}
+
+.className {
+  /* Элективные курсы по физической культуре */
+  display: flex;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 550;
+  font-size: 18px;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+}
+
+.classTeacher {
+  /* Пляскин А.В. */
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 450;
+  font-size: 14px;
+  /* identical to box height, or 13px */
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+}
+
+.classType {
+  /* Практика */
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 450;
+  font-size: 18px;
+  /* or 16px */
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+}
+
+.locationInfo {
+  position: relative;
+  width: 159px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  height: 64px;
+}
+
+.locationType {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 550;
+  font-size: 20px;
+  /* or 16px */
+  display: flex;
+
+  color: #000000;
+}
+
+.irlLocation {
+  /* 2-609 */
+
+  font-family: "Readex Pro";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  /* or 16px */
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+
+  color: #000000;
+}
