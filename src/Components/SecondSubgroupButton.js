@@ -1,17 +1,17 @@
 import React from "react";
-import "./index.css";
-import { ReactComponent as IconMenu } from "./assets/user-pic.svg";
+import "../index.css";
+import { ReactComponent as IconMenu } from "../assets/2sg.svg";
 
-const LoginButton = ({ label}) => {
+const SecondSubgroupButton = ({ label}) => {
   const iconStyle = {
-    width: "19px",
+    width: "24px",
     height: "24px",
     verticalAlign: "middle",
-    marginRight: "20px",
+    marginRight: "15px",
     display: "inline-flex",
   };
   return (
-    <button className="login-button">
+    <button className="filter-button1">
       <span className="button-content">
         <IconMenu style={iconStyle} />
         <span className="filter-button-text">{label}</span>
@@ -20,6 +20,6 @@ const LoginButton = ({ label}) => {
   );
 };
 
-export default LoginButton;
+export default SecondSubgroupButton;
 
 

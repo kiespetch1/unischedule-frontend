@@ -1,7 +1,7 @@
 import React from "react";
-import "./index.css";
-import { ReactComponent as IconMenu } from "./assets/evenWeek.svg";
-import { ReactComponent as DotDivider } from "./assets/blackDot.svg";
+import "../index.css";
+import { ReactComponent as IconMenu } from "../assets/evenWeek.svg";
+import { ReactComponent as DotDivider } from "../assets/blackDot.svg";
 import HeaderDay from "./DayHeader";
 
 const Monday = () => {

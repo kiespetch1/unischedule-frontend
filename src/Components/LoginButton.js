@@ -1,17 +1,17 @@
 import React from "react";
-import "./index.css";
-import { ReactComponent as IconMenu } from "./assets/oddWeek.svg";
+import "../index.css";
+import { ReactComponent as IconMenu } from "../assets/user-pic.svg";
 
-const OddWeekButton = ({ label}) => {
+const LoginButton = ({ label}) => {
   const iconStyle = {
-    width: "24px",
+    width: "19px",
     height: "24px",
     verticalAlign: "middle",
-    marginRight: "15px",
+    marginRight: "20px",
     display: "inline-flex",
   };
   return (
-    <button className="filter-button1">
+    <button className="login-button">
       <span className="button-content">
         <IconMenu style={iconStyle} />
         <span className="filter-button-text">{label}</span>
@@ -20,6 +20,6 @@ const OddWeekButton = ({ label}) => {
   );
 };
 
-export default OddWeekButton;
+export default LoginButton;
 
 

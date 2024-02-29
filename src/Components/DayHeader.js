@@ -1,6 +1,6 @@
 import React from 'react'
-import "./index.css";
-import { ReactComponent as DotDivider } from "./assets/dot.svg";
+import "../index.css";
+import { ReactComponent as DotDivider } from "../assets/dot.svg";
 
 const HeaderDay = ({ name, classCount}) => {
     const dotStyle = {

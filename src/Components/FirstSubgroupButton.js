@@ -1,8 +1,8 @@
 import React from "react";
-import "./index.css";
-import { ReactComponent as IconMenu } from "./assets/evenWeek.svg";
+import "../index.css";
+import { ReactComponent as IconMenu } from "../assets/1sg.svg";
 
-const EvenWeekButton = ({ label}) => {
+const FirstSubgroupButton = ({ label}) => {
   const iconStyle = {
     width: "24px",
     height: "24px",
@@ -20,4 +20,6 @@ const EvenWeekButton = ({ label}) => {
   );
 };
 
-export default EvenWeekButton;
+export default FirstSubgroupButton;
+
+

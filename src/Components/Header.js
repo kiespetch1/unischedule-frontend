@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import "../index.css";
 import OddWeekButton from "./OddWeekButton";
 import EvenWeekButton from "./EvenWeekButton";
 import FirstGroupButton from "./FirstSubgroupButton"
