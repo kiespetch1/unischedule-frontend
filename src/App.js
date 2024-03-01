@@ -1,12 +1,13 @@
 import "./App.css";
 import Header from "./Components/Header";
 import Monday from "./Components/Monday";
+import Footer from "./Components/Footer"
 
 function App() {
     return (
         <div className="App">
             <div className="appContainer">
-                <Header/>
+
 
                 <div className="weekContainer">
                     <strong className="currentWeekText">
@@ -27,6 +28,7 @@ function App() {
                     <Monday/>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

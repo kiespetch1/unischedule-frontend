@@ -145,7 +145,7 @@ header {
     margin-right: 32px;
 }
 
-.buttonsBlock{
+.buttonsBlock {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -244,7 +244,7 @@ header {
 .currentWeekText {
     /* Сейчас четная неделя - С 19.02.2024 по 24.02.2024 - 3 неделя (верхняя/нечетная) */
     position: relative;
-    padding-bottom: 16px;
+    padding-bottom: 7px;
 
     font-family: "Raleway", serif;
     font-style: normal;
@@ -480,6 +480,7 @@ header {
     flex-flow: row wrap;
     justify-content: space-around;
     align-items: flex-start;
+    margin-top: -10px;
 }
 
 .appContainer {
@@ -503,4 +504,65 @@ header {
     align-self: center;
     justify-content: flex-start;
     flex-flow: column wrap;
+}
+
+/*620px это минимум с обычной версткой*/
+.footerContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 36px;
+
+}
+
+.footerDivider {
+    /* нижний дивидер */
+    position: relative;
+    width: 80%;
+
+    border: 1px solid #E1E1E1;
+}
+
+.footerTextContainer {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0 26px;
+}
+
+.footerTexts{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+    flex: 1;
+}
+
+.footerText {
+    /* 2024 */
+    position: relative;
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 90%;
+    padding: 27px 7px;
+    /* or 14px */
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #767676;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
 }
