@@ -31,13 +31,15 @@ header {
     display: flex;
 }
 
-.header-rect {
+.headerContainer {
     /* футер */
+    position: relative;
 
     width: 100%;
-
+    padding: 0 20px;
     max-width: 1920px;
-    height: 160px;
+    height: 90px;
+    border-bottom: 2px solid #BABABA;
     z-index: -1;
     justify-content: space-between;
     align-items: center;
@@ -48,9 +50,16 @@ header {
 }
 
 @media screen and (min-width: 1920px) {
-    .header-rect {
+    .headerContainer {
         margin: 0 auto;
     }
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .header60 {
@@ -116,24 +125,6 @@ header {
     padding: 0;
 
     border-left: 1px solid #e1e1e1;
-}
-
-.filterText {
-    /* Фильтровать по: */
-
-    height: 32px;
-    margin: 0;
-    padding: 0 40px;
-
-    font-family: "Raleway", serif;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 27px;
-    line-height: 32px;
-    /* identical to box height */
-    text-align: center;
-
-    color: #2b2b2b;
 }
 
 .weekButtons {
@@ -251,6 +242,7 @@ header {
     font-weight: 650;
     font-size: 18px;
     align-self: flex-start;
+    font-feature-settings: 'pnum' on, 'lnum' on;
 
     color: #111112;
 }
@@ -260,10 +252,11 @@ header {
     position: relative;
 
     font-family: "Raleway", serif;
-    font-style: italic;
+    font-style: normal;
     font-weight: 450;
     font-size: 18px;
     align-self: flex-start;
+    font-feature-settings: 'pnum' on, 'lnum' on;
 
     color: #111112;
 }
@@ -279,7 +272,9 @@ header {
     display: flex;
     align-items: center;
     justify-content: left;
-    flex: 1;
+}
+.width{
+    width: 100%;
 }
 
 .dayHeaderText {
@@ -328,6 +323,7 @@ header {
 
     background: #f0f0f0;
     border-radius: 0 0 5px 5px;
+    padding: 3px 0;
 }
 
 .class2 {
@@ -335,6 +331,7 @@ header {
     width: 600px;
     height: 127px;
     margin-top: 1.2%;
+    padding: 3px 0;
 
     display: flex;
     align-items: center;
@@ -349,7 +346,7 @@ header {
     position: relative;
     width: 600px;
     height: 590px;
-    margin: 10px;
+    margin: 8px;
 
     display: flex;
     flex-direction: column;
@@ -399,7 +396,8 @@ header {
     font-weight: 550;
     font-size: 18px;
     align-items: center;
-    text-align: center;
+    text-align: start;
+
 
     color: #000000;
 }
@@ -475,10 +473,11 @@ header {
 
 .daysContainer {
     position: relative;
-    width: 100%;
+    width: calc(100% - 54px);
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    margin: 0 28px;
     align-items: flex-start;
     margin-top: -10px;
 }
@@ -488,13 +487,6 @@ header {
     flex-flow: column wrap;
     align-items: center;
 
-}
-
-.headerContainer {
-    display: flex;
-    flex-flow: column wrap;
-    align-items: flex-start;
-    justify-content: center;
 }
 
 .weekContainer {
@@ -552,7 +544,7 @@ header {
     font-weight: 400;
     font-size: 16px;
     line-height: 90%;
-    padding: 27px 7px;
+    padding: 27px 10px;
     /* or 14px */
     display: flex;
     align-items: center;
@@ -565,4 +557,169 @@ header {
     flex: none;
     order: 0;
     flex-grow: 0;
+}
+
+.headerText{
+    /* Расписание занятий */
+
+    position: relative;
+    padding-left: 32px;
+    width: 260px;
+    height: 23px;
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.filtersContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0 42px;
+    margin-top: 24px;
+}
+
+.groupContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-right: 32px;
+}
+
+.boldGroupText{
+    /* ИВТ1-Б21 */
+    width: 122px;
+    height: 23px;
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+
+    display: flex;
+    align-items: center;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+
+    color: #000000;
+}
+.groupFilterText {
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 450;
+    font-size: 16px;
+    margin-bottom: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content:  flex-start;
+
+    color: #3D3D3D;
+}
+
+.filterText {
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 450;
+    font-size: 16px;
+    margin-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content:  flex-start;
+
+    color: #3D3D3D;
+}
+
+.weekTypeContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-right: 32px;
+}
+
+.subgroupContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.groupName {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.toggleOuter {
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 315px;
+    height: 47px;
+    background: #F7F7F7;
+    border: 2px solid #0966BB;
+    border-radius: 40px;
+}
+
+.toggleInner {
+    position: relative;
+    display: flex;
+    width: 150px;
+    height: 37px;
+    top: 3px;
+    left: 3px;
+    align-items: center;
+    justify-content: center;
+
+    background: #CDCDCD;
+    border-radius: 20px;
+}
+
+.toggleInnerInactive {
+    position: relative;
+    display: flex;
+    width: 150px;
+    height: 37px;
+    top: 3px;
+    right: 3px;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+}
+
+.toggleActiveText {
+    position: relative;
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 450;
+    font-size: 18px;
+    margin-left: 12px;
+
+    color: #000000;
+
+
+}
+
+.toggleInactiveText {
+    position: relative;
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 450;
+    font-size: 18px;
+
+    color: #3D3D3D;
 }

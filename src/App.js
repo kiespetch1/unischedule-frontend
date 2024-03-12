@@ -1,14 +1,15 @@
 import "./App.css";
-import Header from "./Components/Header";
+import HeaderNew from "./Components/HeaderNew";
 import Monday from "./Components/Monday";
 import Footer from "./Components/Footer"
 
 function App() {
     return (
         <div className="App">
+            <header>
+                <HeaderNew />
+            </header>
             <div className="appContainer">
-
-
                 <div className="weekContainer">
                     <strong className="currentWeekText">
                         Сейчас четная неделя - С 19.02.2024 по 24.02.2024 - 3 неделя
@@ -28,7 +29,7 @@ function App() {
                     <Monday/>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     );
 }

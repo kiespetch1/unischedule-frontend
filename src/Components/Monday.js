@@ -31,7 +31,7 @@ const Monday = () => {
           </div>
           <div className="infoRow">
             <div className="className">
-              Элективные курсы по физической культуре
+              Социальные взаимодействия и общественные отношения
             </div>
           </div>
           <div className="infoRow">
