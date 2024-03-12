@@ -8,12 +8,10 @@ import {ReactComponent as OddWeekIcon} from "../assets/oddWeek.svg";
 import {ReactComponent as EvenWeekIcon} from "../assets/evenWeek.svg";
 import {ReactComponent as FirstSG} from "../assets/1sg.svg";
 import {ReactComponent as SecondSG} from "../assets/2sg.svg";
+import GetCurrentWeekText from "./CurrentWeekText";
 
 
 const HeaderNew = () => {
-    const settingsStyle = {
-        paddingRight: "40px"
-    };
     return (
         <div className="width">
             <header className="headerContainer">
@@ -25,7 +23,7 @@ const HeaderNew = () => {
                 </div>
 
                 <div>
-                    <SettingsIcon style={settingsStyle}/>
+                    <SettingsIcon style={{paddingRight: "40px"}}/>
                     <AuthIcon/>
                 </div>
             </header>

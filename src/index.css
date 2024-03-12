@@ -62,88 +62,6 @@ header {
     justify-content: flex-start;
 }
 
-.header60 {
-    width: 65%;
-    max-width: 1920px;
-    height: 160px;
-    justify-content: space-between;
-    align-items: center;
-
-    display: flex;
-
-    background: #fafafafa;
-}
-
-.logoBlock {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 0 37px;
-
-}
-
-.logoText {
-    /* Расписание группы */
-    position: relative;
-    width: 356px;
-    height: 45px;
-
-    margin: 0;
-    padding: 0;
-
-    font-family: "Raleway", serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 38px;
-    line-height: 45px;
-
-    color: #111112;
-}
-
-.groupText {
-    /* ИВТ1-Б21 */
-    position: relative;
-    margin: 0;
-    padding: 0;
-
-    font-family: "Raleway", serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 38px;
-
-    color: #0e51b5;
-}
-
-.headerDivider {
-    /* дивидер */
-    width: 0;
-    height: 88px;
-    left: 460px;
-    top: 36px;
-    margin: 0;
-    padding: 0;
-
-    border-left: 1px solid #e1e1e1;
-}
-
-.weekButtons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 100%;
-    margin-right: 32px;
-}
-
-.buttonsBlock {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    height: 100%;
-}
-
 .filter-button1 {
     /* Rectangle 13 */
 
@@ -346,7 +264,7 @@ header {
     position: relative;
     width: 600px;
     height: 590px;
-    margin: 8px;
+    margin: 10px 6px;
 
     display: flex;
     flex-direction: column;
