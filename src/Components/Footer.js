@@ -10,11 +10,11 @@ const Footer = () => {
                 <div className="footerTextContainer">
                     <div className="footerText">2024</div>
                     <DotDivider/>
-                    <div className="footerText">UniSchedule</div>
+                    <div className="footerText">UniSchedule - неофициальное расписание занятий</div>
                 </div>
                 <div className="footerTextContainer">
-                    <div className="footerText">Поддержать проект</div>
-                    <div className="footerText">Контакты</div>
+                    <a href="https://yoomoney.ru/to/410017122242919" target="_blank" rel="noreferrer" className="footerText">Поддержать проект</a>
+                    <a href="https://t.me/kiespetchq" target="_blank" rel="noreferrer" className="footerText">Контакты</a>
                 </div>
             </div>
         </div>
