@@ -6,15 +6,15 @@ const Footer = () => {
     return (
         <div className="footerContainer">
             <div className="footerDivider"></div>
-            <div className="footerTexts">
-                <div className="footerTextContainer">
-                    <div className="footerText">2024</div>
+            <div className="footer-texts-container">
+                <div className="footer-text-container">
+                    <div className="footer-text">2024</div>
                     <DotDivider/>
-                    <div className="footerText">UniSchedule - неофициальное расписание занятий</div>
+                    <div className="footer-text">UniSchedule - неофициальное расписание занятий</div>
                 </div>
-                <div className="footerTextContainer">
-                    <a href="https://yoomoney.ru/to/410017122242919" target="_blank" rel="noreferrer" className="footerText">Поддержать проект</a>
-                    <a href="https://t.me/kiespetchq" target="_blank" rel="noreferrer" className="footerText">Контакты</a>
+                <div className="footer-text-container">
+                    <a href="https://yoomoney.ru/to/410017122242919" target="_blank" rel="noreferrer" className="footer-text">Поддержать проект</a>
+                    <a href="https://t.me/kiespetchq" target="_blank" rel="noreferrer" className="footer-text">Контакты</a>
                 </div>
             </div>
         </div>

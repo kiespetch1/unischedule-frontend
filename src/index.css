@@ -21,17 +21,7 @@ header {
     position: relative;
 }
 
-.headerFlex {
-    width: 100%;
-    max-width: 1920px;
-    height: 160px;
-    justify-content: space-between;
-    align-items: center;
-
-    display: flex;
-}
-
-.headerContainer {
+.header-container {
     /* футер */
     position: relative;
 
@@ -50,122 +40,42 @@ header {
 }
 
 @media screen and (min-width: 1920px) {
-    .headerContainer {
+    .header-container {
         margin: 0 auto;
     }
 }
 
-.logoContainer {
+.logo-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
 }
 
-.filter-button1 {
-    /* Rectangle 13 */
-
-    position: relative;
-    width: 209px;
-    height: 40px;
-    border: none;
-
-    background: #d9d9d9;
-    /* тень */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 15px;
-}
-
-.filter-button2 {
-    /* Rectangle 13 */
-    width: 209px;
-    height: 40px;
-    border: none;
-
-    background: #d9d9d9;
-    /* тень */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 15px;
-}
-
-.filter-button3 {
-    /* Rectangle 13 */
-
-    position: absolute;
-    width: 209px;
-    height: 40px;
-    left: 991px;
-    top: 32px;
-    border: none;
-
-    background: #d9d9d9;
-    /* тень */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 15px;
-}
-
-.filter-button4 {
-    /* Rectangle 13 */
-
-    position: absolute;
-    width: 209px;
-    height: 40px;
-    left: 991px;
-    top: 88px;
-    border: none;
-
-    background: #d9d9d9;
-    /* тень */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 15px;
-}
-
-.filter-button-text {
-    margin-right: 8px; /* Отступ между текстом и иконкой */
-
-    font-family: "Raleway", serif;
-    font-style: normal;
-    font-weight: 570;
-    font-size: 16px;
-
-    color: #111112;
-}
-
-.login-button {
-    /* Rectangle 13 */
-    width: 209px;
-    height: 54px;
-    border: none;
-    margin: 0 40px;
-
-    background: #d9d9d9;
-    /* тень */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 15px;
-}
-
-.button-content {
+.week-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 24px 40px;
+    width: calc(100% - 80px);
+    align-items: flex-start;
+    flex-flow: column wrap;
+    text-align: left;
 }
 
-.currentWeekText {
+.current-week-text {
     /* Сейчас четная неделя - С 19.02.2024 по 24.02.2024 - 3 неделя (верхняя/нечетная) */
     position: relative;
-    padding-bottom: 7px;
+    margin-bottom: 7px;
 
     font-family: "Raleway", serif;
     font-style: normal;
     font-weight: 650;
     font-size: 18px;
-    align-self: flex-start;
     font-feature-settings: 'pnum' on, 'lnum' on;
 
     color: #111112;
 }
 
-.nextWeekText {
+.next-week-text {
     /* Следующая неделя нечетная - С 26.02.2024 по 02.03.2024 - 4 неделя (нижняя/четная) */
     position: relative;
 
@@ -173,13 +83,12 @@ header {
     font-style: normal;
     font-weight: 450;
     font-size: 18px;
-    align-self: flex-start;
     font-feature-settings: 'pnum' on, 'lnum' on;
 
     color: #111112;
 }
 
-.dayHeader {
+.day-header {
     /* верх дня */
     position: relative;
     width: 600px;
@@ -195,7 +104,7 @@ header {
     width: 100%;
 }
 
-.dayHeaderText {
+.day-header-text {
     /* Понедельник */
 
     font-family: "Inter", serif;
@@ -214,7 +123,7 @@ header {
     flex-grow: 0;
 }
 
-.classesText {
+.classes-text {
     /* 4 пары */
     font-family: "Inter", serif;
     font-style: normal;
@@ -231,7 +140,7 @@ header {
     flex-grow: 0;
 }
 
-.class1 {
+.day-block-top {
     /* Rectangle 15 */
     width: 600px;
     height: 127px;
@@ -244,7 +153,7 @@ header {
     padding: 3px 0;
 }
 
-.class2 {
+.day-block {
     /* Rectangle 15 */
     width: 600px;
     height: 127px;
@@ -259,12 +168,12 @@ header {
     border-radius: 5px 5px 5px 5px;
 }
 
-.dayFull {
+.day-full {
     /* общий контейнер дня */
     position: relative;
     width: 600px;
     height: 590px;
-    margin: 10px 6px;
+    margin: 10px 6px 15px;
 
     display: flex;
     flex-direction: column;
@@ -272,7 +181,7 @@ header {
     justify-content: flex-start;
 }
 
-.mainContent {
+.main-content {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -281,7 +190,7 @@ header {
     height: 100%;
 }
 
-.infoRow {
+.info-row {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -290,7 +199,7 @@ header {
     padding-right: 16px;
 }
 
-.classTime {
+.class-time {
     /* 9:00 - 10:30 */
 
     font-family: "Readex Pro", serif;
@@ -306,7 +215,7 @@ header {
     color: #232323;
 }
 
-.className {
+.class-name {
     /* Элективные курсы по физической культуре */
     display: flex;
     font-family: "Raleway", serif;
@@ -320,7 +229,7 @@ header {
     color: #000000;
 }
 
-.classTeacher {
+.class-teacher {
     /* Пляскин А.В. */
 
     font-family: "Raleway", serif;
@@ -335,7 +244,7 @@ header {
     color: #000000;
 }
 
-.classType {
+.class-type {
     /* Практика */
 
     font-family: "Raleway", serif;
@@ -351,7 +260,7 @@ header {
     color: #000000;
 }
 
-.locationInfo {
+.location-info {
     position: relative;
     width: 159px;
     display: flex;
@@ -363,7 +272,7 @@ header {
     height: 64px;
 }
 
-.locationType {
+.location-type {
     font-family: "Raleway", serif;
     font-style: normal;
     font-weight: 550;
@@ -374,7 +283,7 @@ header {
     color: #000000;
 }
 
-.irlLocation {
+.irl-location {
     /* 2-609 */
 
     font-family: "Readex Pro", serif;
@@ -389,7 +298,7 @@ header {
     color: #000000;
 }
 
-.daysContainer {
+.days-container {
     position: relative;
     width: calc(100% - 54px);
     display: flex;
@@ -400,21 +309,13 @@ header {
     margin-top: -10px;
 }
 
-.appContainer {
+.app-container {
     display: flex;
     flex-flow: column wrap;
     align-items: center;
 
 }
 
-.weekContainer {
-    display: flex;
-    padding: 24px 40px;
-    width: calc(100% - 80px);
-    align-self: center;
-    justify-content: flex-start;
-    flex-flow: column wrap;
-}
 
 /*620px это минимум с обычной версткой*/
 .footerContainer {
@@ -435,7 +336,7 @@ header {
     border: 1px solid #E1E1E1;
 }
 
-.footerTextContainer {
+.footer-text-container {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -444,7 +345,7 @@ header {
     padding: 0 26px;
 }
 
-.footerTexts{
+.footer-texts-container{
     position: relative;
     display: flex;
     flex-direction: row;
@@ -453,7 +354,7 @@ header {
     flex: 1;
 }
 
-.footerText {
+.footer-text {
     /* 2024 */
     position: relative;
 
@@ -478,7 +379,7 @@ header {
     flex-grow: 0;
 }
 
-.headerText{
+.header-text{
     /* Расписание занятий */
 
     position: relative;
@@ -496,7 +397,7 @@ header {
     color: #000000;
 }
 
-.filtersContainer {
+.filters-container {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -504,14 +405,14 @@ header {
     margin-top: 24px;
 }
 
-.groupContainer {
+.group-container {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     margin-right: 32px;
 }
 
-.boldGroupText{
+.bold-group-text{
     /* ИВТ1-Б21 */
     width: 122px;
     height: 23px;
@@ -527,7 +428,7 @@ header {
 
     color: #000000;
 }
-.groupFilterText {
+.group-filter-text {
 
     font-family: 'Raleway', serif;
     font-style: normal;
@@ -542,7 +443,7 @@ header {
     color: #3D3D3D;
 }
 
-.filterText {
+.filter-text {
 
     font-family: 'Raleway', serif;
     font-style: normal;
@@ -557,32 +458,33 @@ header {
     color: #3D3D3D;
 }
 
-.weekTypeContainer {
+.week-type-container {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     margin-right: 32px;
 }
 
-.subgroupContainer {
+.subgroup-container {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
 
-.groupName {
+.group-name {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.toggleOuter {
+.toggle-outer {
 
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 0 3px;
 
     width: 315px;
     height: 47px;
@@ -591,33 +493,31 @@ header {
     border-radius: 40px;
 }
 
-.toggleInner {
+.toggle-inner-active {
     position: relative;
     display: flex;
     width: 150px;
     height: 37px;
-    left: 3px;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 
     background: #CDCDCD;
     border-radius: 20px;
 }
 
-.toggleInnerInactive {
+.toggle-inner-inactive {
     position: relative;
     display: flex;
     width: 150px;
     height: 37px;
-    right: 3px;
     align-items: center;
     justify-content: center;
 
     border-radius: 20px;
-
 }
 
-.toggleActiveText {
+.toggle-text-active {
     position: relative;
 
     font-family: 'Raleway', serif;
@@ -625,19 +525,19 @@ header {
     font-weight: 450;
     font-size: 18px;
     margin-left: 12px;
+    cursor: pointer;
 
     color: #000000;
-
-
 }
 
-.toggleInactiveText {
+.toggle-text-inactive {
     position: relative;
 
     font-family: 'Raleway', serif;
     font-style: normal;
     font-weight: 450;
     font-size: 18px;
+    cursor: pointer;
 
     color: #3D3D3D;
 }

@@ -15,8 +15,6 @@ function GetNextWeekText({ date }) {
 
         startOfWeek.setDate(currentDay - dayOfWeek + (dayOfWeek === 0 ? -6 : 1));
         endOfWeek.setDate(currentDay + (7 - dayOfWeek) % 7);
-        console.log(startOfWeek)
-        console.log(endOfWeek)
 
         const formatDate = (date) => {
             let day = date.getDate().toString().padStart(2, "0");
@@ -27,8 +25,9 @@ function GetNextWeekText({ date }) {
 
         return {
             startOfWeek: formatDate(new Date(startOfWeek.setDate(startOfWeek.getDate() + 7))),
-            endOfWeek: formatDate(new Date(endOfWeek.setDate(endOfWeek.getDate() + 6))), //супер костыль потому что брались первые и последние дни недели от нынешней даты, а не от той которая передана
-                                                                                        // т.к. у нас всегда грубо говоря разрыв в неделю это решение пойдет, но желательно переписать позже
+            endOfWeek: formatDate(new Date(endOfWeek.setDate(endOfWeek.getDate() + 6))),
+            //супер костыль потому что брались первые и последние дни недели от нынешней даты, а не от той которая передана
+            // т.к. у нас всегда грубо говоря разрыв в неделю это решение пойдет, но желательно переписать позже
         };
     }
 

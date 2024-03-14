@@ -15,8 +15,6 @@ function GetCurrentWeekText({ date }) {
 
         startOfWeek.setDate(currentDay - dayOfWeek + (dayOfWeek === 0 ? -6 : 1));
         endOfWeek.setDate(currentDay + (6 - dayOfWeek) % 7);
-        console.log(startOfWeek)
-        console.log(endOfWeek)
 
         const formatDate = (date) => {
             let day = date.getDate().toString().padStart(2, "0");

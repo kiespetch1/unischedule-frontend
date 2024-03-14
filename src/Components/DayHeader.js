@@ -8,10 +8,10 @@ const HeaderDay = ({ name, classCount}) => {
         paddingRight: "15px"
       };
     return (
-        <div className="dayHeader">
-        <div className="dayHeaderText">{name}</div>
+        <div className="day-header">
+        <div className="day-header-text">{name}</div>
         <DotDivider style={dotStyle}/>
-        <div className="classesText">{classCount} пары</div>
+        <div className="classes-text">{classCount} пары</div>
       </div>
   )};
   
