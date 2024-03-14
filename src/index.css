@@ -39,12 +39,6 @@ header {
     background: #fafafafa;
 }
 
-@media screen and (min-width: 1920px) {
-    .header-container {
-        margin: 0 auto;
-    }
-}
-
 .logo-container {
     display: flex;
     flex-direction: row;
@@ -102,6 +96,13 @@ header {
 }
 .width{
     width: 100%;
+    max-width: 1920px;
+}
+
+@media screen and (min-width: 1920px) {
+    .width {
+        margin: 0 auto;
+    }
 }
 
 .day-header-text {
@@ -313,22 +314,33 @@ header {
     display: flex;
     flex-flow: column wrap;
     align-items: center;
-
+    max-width: 1920px;
 }
 
+@media screen and (min-width: 1920px) {
+    .app-container {
+        margin: 0 auto;
+    }
+}
 
 /*620px это минимум с обычной версткой*/
-.footerContainer {
+.footer-container {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     top: 36px;
-
+    max-width: 1920px;
 }
 
-.footerDivider {
+@media screen and (min-width: 1920px) {
+    .footer-container {
+        margin: 0 auto;
+    }
+}
+
+.footer-divider {
     /* нижний дивидер */
     position: relative;
     width: 80%;
@@ -491,6 +503,66 @@ header {
     background: #F7F7F7;
     border: 2px solid #0966BB;
     border-radius: 40px;
+    z-index: -1;
+}
+
+
+.toggle-slider-untoggled {
+    display: block;
+    width: 150px;
+    height: 37px;
+    cursor: pointer;
+    position: absolute;
+    transition: transform 0.1s ease-in-out;
+    background: #CDCDCD;
+    border-radius: 20px;
+    z-index: 0;
+    top: 147.5px;
+    left: 229.5px;
+}
+
+.toggle-slider-toggled {
+    width: 150px;
+    height: 37px;
+    cursor: pointer;
+    position: absolute;
+    transition: transform 0.1s ease-in-out;
+    background: #CDCDCD;
+    border-radius: 20px;
+    z-index: 0;
+    transform: translateX(156px);
+    top: 147.5px;
+    left: 229.5px;
+}
+
+.toggle-slider-untoggled2 {
+    display: block;
+    width: 150px;
+    height: 37px;
+    cursor: pointer;
+    position: absolute;
+    transition: transform 0.1s ease-in-out;
+    background: #CDCDCD;
+    border-radius: 20px;
+    z-index: 0;
+    top: 147.5px;
+    left: 576.5px;
+
+}
+
+.toggle-slider-toggled2 {
+    width: 150px;
+    height: 37px;
+    cursor: pointer;
+    position: absolute;
+    transition: transform 0.1s ease-in-out;
+    background: #CDCDCD;
+    border-radius: 20px;
+    z-index: 0;
+    transform: translateX(156px);
+    top: 147.5px;
+    left: 576.5px;
+
 }
 
 .toggle-inner-active {
@@ -501,9 +573,25 @@ header {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-
-    background: #CDCDCD;
+    
     border-radius: 20px;
+}
+@keyframes smooth-expanding {
+    from {
+        width: 0;
+    }
+    to {
+        width: 20px;
+    }
+}
+@keyframes smooth-shrinking {
+    from
+    {
+        width: 20px;
+    }
+    to {
+        width: 0;
+    }
 }
 
 .toggle-inner-inactive {
@@ -513,7 +601,6 @@ header {
     height: 37px;
     align-items: center;
     justify-content: center;
-
     border-radius: 20px;
 }
 

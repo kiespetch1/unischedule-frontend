@@ -1,70 +1,76 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import "../index.css";
 import {ReactComponent as FirstSG} from "../assets/1sg.svg";
 import {ReactComponent as SecondSG} from "../assets/2sg.svg"
+import Context from "../Context";
 
 
 const SubgroupToggle = () => {
+    const {setWeekType} = useContext(Context);
+    const [toggled, setToggled] = useState(false);
+    const iconStyle = {
+        animationName: "smooth-expanding",
+        animationDuration: "0.1s"
+    }
+    const iconDecayStyle = {
+        animationName: "smooth-shrinking",
+        animationDuration: "0.1s"
+    }
 
-    const clickHandler = (event) => {
+    const activateClickHandler = (event) => {
+        const className = event.target.className;
+        if (
+            className.includes("toggle-inner-inactive") ||
+            className.includes("toggle-text-inactive")
+        ) {
+            setToggled(!toggled);
+            setWeekType({weekType: 1});
+        }
+    };
+
+    const deactivateClickHandler = (event) => {
         const className = event.target.className;
 
-        if (className.includes('toggle-inner-inactive') ||
-            className.includes('toggle-text-inactive')) {
+        if (
+            className.includes("toggle-inner-inactive") ||
+            className.includes("toggle-text-inactive")
+        ) {
             setToggled(!toggled);
+            setWeekType({weekType: 2});
         }
-
-    }
-    const [toggled, setToggled] = useState(false)
+    };
     return (
         <div>
             <div className="filter-text">
                 Подгруппа
             </div>
             <div className="toggle-outer">
+                <div className={toggled ? "toggle-slider-toggled2" : "toggle-slider-untoggled2"}></div>
                 <div className={toggled ? "toggle-inner-inactive" : "toggle-inner-active"}
-                     onClick={clickHandler}>
-                    {!toggled ? (
-                            <div style={{display: "flex"}}>
-                                <FirstSG/>
-                                <div className={toggled ? "toggle-text-inactive" : "toggle-text-active"}
-                                     onClick={clickHandler}>
-                                    Первая
-                                </div>
-                            </div>
-                        ) :
-                        (
-                            <div style={{display: "flex"}}>
-                                <div className={toggled ? "toggle-text-inactive" : "toggle-text-active"}
-                                     onClick={clickHandler}>
-                                    Первая
-                                </div>
-                            </div>
-                        )}
+                     onClick={deactivateClickHandler}>
+                    <div style={{display: "flex"}}>
+                        {!toggled ?
+                            <FirstSG style={iconStyle}/> : <div style={iconDecayStyle}></div>}
+                        <div className={toggled ? "toggle-text-inactive" : "toggle-text-active"}
+                             onClick={deactivateClickHandler}>
+                            Первая
+                        </div>
+                    </div>
                 </div>
 
                 <div className={!toggled ? "toggle-inner-inactive" : "toggle-inner-active"}
-                     onClick={clickHandler}>
-                    {toggled ? (
-                            <div style={{display: "flex"}}>
-                                <SecondSG/>
-                                <div className={!toggled ? "toggle-text-inactive" : "toggle-text-active"}
-                                     onClick={clickHandler}>
-                                    Вторая
-                                </div>
-                            </div>
-                        ) :
-                        (
-                            <div style={{display: "flex"}}>
-                                <div className={!toggled ? "toggle-text-inactive" : "toggle-text-active"}
-                                     onClick={clickHandler}>
-                                    Вторая
-                                </div>
-                            </div>
-                        )}
+                     onClick={activateClickHandler}>
+                    <div style={{display: "flex"}}>
+                        {toggled ? <SecondSG style={iconStyle}/> : <div style={iconDecayStyle}></div>}
+                        <div className={!toggled ? "toggle-text-inactive" : "toggle-text-active"}
+                             onClick={activateClickHandler}>
+                            Вторая
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 export default SubgroupToggle;
+

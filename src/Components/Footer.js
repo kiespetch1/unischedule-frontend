@@ -4,8 +4,8 @@ import {ReactComponent as DotDivider} from "../assets/grayDot.svg";
 
 const Footer = () => {
     return (
-        <div className="footerContainer">
-            <div className="footerDivider"></div>
+        <div className="footer-container">
+            <div className="footer-divider"></div>
             <div className="footer-texts-container">
                 <div className="footer-text-container">
                     <div className="footer-text">2024</div>
