@@ -44,7 +44,9 @@ const WeekToggle = () => {
                 Неделя
             </div>
             <div className="toggle-outer">
-                <div className={toggled ? "toggle-slider-toggled" : "toggle-slider-untoggled"}></div>
+                <div className="toggle-slider-container">
+                    <div className={toggled ? "toggle-slider-toggled2" : "toggle-slider-untoggled2"}></div>
+                </div>
                 <div className={toggled ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={deactivateClickHandler}>
                     <div style={{display: "flex"}}>
