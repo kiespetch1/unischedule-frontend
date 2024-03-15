@@ -13,8 +13,8 @@ const Footer = () => {
                     <div className="footer-text">UniSchedule - неофициальное расписание занятий</div>
                 </div>
                 <div className="footer-text-container">
-                    <a href="https://yoomoney.ru/to/410017122242919" target="_blank" rel="noreferrer" className="footer-text">Поддержать проект</a>
-                    <a href="https://t.me/kiespetchq" target="_blank" rel="noreferrer" className="footer-text">Контакты</a>
+                    <a href="https://yoomoney.ru/to/410017122242919" target="_blank" rel="noreferrer" className="footer-clickable-text">Поддержать проект</a>
+                    <a href="https://t.me/kiespetchq" target="_blank" rel="noreferrer" className="footer-clickable-text">Контакты</a>
                 </div>
             </div>
         </div>

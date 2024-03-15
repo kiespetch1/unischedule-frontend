@@ -59,7 +59,6 @@ header {
     /* Сейчас четная неделя - С 19.02.2024 по 24.02.2024 - 3 неделя (верхняя/нечетная) */
     position: relative;
     margin-bottom: 7px;
-
     font-family: "Raleway", serif;
     font-style: normal;
     font-weight: 650;
@@ -72,7 +71,6 @@ header {
 .next-week-text {
     /* Следующая неделя нечетная - С 26.02.2024 по 02.03.2024 - 4 неделя (нижняя/четная) */
     position: relative;
-
     font-family: "Raleway", serif;
     font-style: normal;
     font-weight: 450;
@@ -106,9 +104,7 @@ header {
 }
 
 .day-header-text {
-    /* Понедельник */
-
-    font-family: "Inter", serif;
+     font-family: "Inter", serif;
     font-style: normal;
     font-weight: 700;
     font-size: 27px;
@@ -117,11 +113,6 @@ header {
     padding-left: 20px;
 
     color: #ffffff;
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
 .classes-text {
@@ -365,7 +356,7 @@ header {
     flex: 1;
 }
 
-.footer-text {
+.footer-clickable-text, .footer-text {
     /* 2024 */
     position: relative;
 
@@ -382,12 +373,10 @@ header {
     text-decoration: none;
 
     color: #767676;
+}
 
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+.footer-clickable-text:hover {
+    text-decoration: underline;
 }
 
 .header-text{
@@ -499,7 +488,7 @@ header {
 
     width: 315px;
     height: 47px;
-    background: #F7F7F7;
+    background: #F1F1F1;
     border: 2px solid #0966BB;
     border-radius: 40px;
     z-index: -1;
