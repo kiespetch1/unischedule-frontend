@@ -533,33 +533,8 @@ header {
     background: #CDCDCD;
     border-radius: 20px;
     z-index: 0;
-    transform: translateX(156px);
+    transform: translateX(155px);
 }
-
-.toggle-slider-untoggled2 {
-    display: flex;
-    width: 150px;
-    height: 37px;
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.1s ease-in-out;
-    background: #CDCDCD;
-    border-radius: 20px;
-    z-index: 0;
-}
-
-.toggle-slider-toggled2 {
-    width: 150px;
-    height: 37px;
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.1s ease-in-out;
-    background: #CDCDCD;
-    border-radius: 20px;
-    z-index: 0;
-    transform: translateX(156px);
-}
-
 
 .toggle-inner-active {
     position: relative;
@@ -569,7 +544,7 @@ header {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    
+
     border-radius: 20px;
 }
 @keyframes smooth-expanding {

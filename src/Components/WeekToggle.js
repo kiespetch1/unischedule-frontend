@@ -17,27 +17,31 @@ const WeekToggle = () => {
     }
 
     const activateClickHandler = (event) => {
-        const className = event.target.className;
-        if (
-            className.includes("toggle-inner-inactive") ||
-            className.includes("toggle-text-inactive")
-        ) {
-            setToggled(!toggled);
-            setWeekType({weekType: 1});
+        const target = event.target;
+        if (target.tagName.toLowerCase() === 'div') {
+            if (
+                target.className.includes("toggle-inner-inactive") ||
+                target.className.includes("toggle-text-inactive")
+            ) {
+                setToggled(!toggled);
+                setWeekType({weekType: "even"});
+            }
         }
     };
 
     const deactivateClickHandler = (event) => {
-        const className = event.target.className;
-
-        if (
-            className.includes("toggle-inner-inactive") ||
-            className.includes("toggle-text-inactive")
-        ) {
-            setToggled(!toggled);
-            setWeekType({weekType: 2});
+        const target = event.target;
+        if (target.tagName.toLowerCase() === 'div') {
+            if (
+                target.className.includes("toggle-inner-inactive") ||
+                target.className.includes("toggle-text-inactive")
+            ) {
+                setToggled(!toggled);
+                setWeekType({weekType: "odd"});
+            }
         }
     };
+
     return (
         <div>
             <div className="filter-text">
@@ -45,7 +49,7 @@ const WeekToggle = () => {
             </div>
             <div className="toggle-outer">
                 <div className="toggle-slider-container">
-                    <div className={toggled ? "toggle-slider-toggled2" : "toggle-slider-untoggled2"}></div>
+                    <div className={toggled ? "toggle-slider-toggled" : "toggle-slider-untoggled"}></div>
                 </div>
                 <div className={toggled ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={deactivateClickHandler}>

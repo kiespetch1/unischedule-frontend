@@ -6,7 +6,7 @@ import Context from "../Context";
 
 
 const SubgroupToggle = () => {
-    const {setWeekType} = useContext(Context);
+    const {setSubgroup} = useContext(Context);
     const [toggled, setToggled] = useState(false);
     const iconStyle = {
         animationName: "smooth-expanding",
@@ -18,27 +18,31 @@ const SubgroupToggle = () => {
     }
 
     const activateClickHandler = (event) => {
-        const className = event.target.className;
-        if (
-            className.includes("toggle-inner-inactive") ||
-            className.includes("toggle-text-inactive")
-        ) {
-            setToggled(!toggled);
-            setWeekType({weekType: 1});
+        const target = event.target;
+        if (target.tagName.toLowerCase() === 'div'){
+            if (
+                target.className.includes("toggle-inner-inactive") ||
+                target.className.includes("toggle-text-inactive")
+            ) {
+                setToggled(!toggled);
+                setSubgroup(1);
+            }
         }
     };
 
     const deactivateClickHandler = (event) => {
-        const className = event.target.className;
-
-        if (
-            className.includes("toggle-inner-inactive") ||
-            className.includes("toggle-text-inactive")
-        ) {
-            setToggled(!toggled);
-            setWeekType({weekType: 2});
+        const target = event.target;
+        if (target.tagName.toLowerCase() === 'div'){
+            if (
+                target.className.includes("toggle-inner-inactive") ||
+                target.className.includes("toggle-text-inactive")
+            ) {
+                setToggled(!toggled);
+                setSubgroup(2);
+            }
         }
     };
+
     return (
         <div>
             <div className="filter-text">
@@ -46,7 +50,7 @@ const SubgroupToggle = () => {
             </div>
             <div className="toggle-outer">
                 <div className="toggle-slider-container">
-                    <div className={toggled ? "toggle-slider-toggled2" : "toggle-slider-untoggled2"}></div>
+                    <div className={toggled ? "toggle-slider-toggled" : "toggle-slider-untoggled"}></div>
                 </div>
                 <div className={toggled ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={deactivateClickHandler}>
