@@ -3,9 +3,8 @@ import "../index.css";
 import {ReactComponent as IateLogo} from "../assets/iateLogo.svg";
 import {ReactComponent as SettingsIcon} from "../assets/settings.svg";
 import {ReactComponent as AuthIcon} from "../assets/auth.svg";
-import {ReactComponent as ChangeIcon} from "../assets/change.svg";
-import WeekToggle from "./WeekToggle";
-import SubgroupToggle from "./SubgroupToggle";
+import Filters from "./Filters";
+
 
 const Header = () => {
     return (
@@ -23,28 +22,7 @@ const Header = () => {
                     <AuthIcon/>
                 </div>
             </header>
-            <div className="filters-container">
-                <div className="group-container">
-                    <div className="group-filter-text">
-                        Группа
-                    </div>
-                    <div className="group-name">
-                        <div className="bold-group-text">
-                            ИВТ1-Б21
-                        </div>
-                        <a href="/blank" style={{width: "29px", height: "29px"}}>
-                            <ChangeIcon/>
-                        </a>
-                    </div>
-                </div>
-                <div className="week-type-container">
-                    <WeekToggle />
-                </div>
-
-                <div className="subgroup-container">
-                    <SubgroupToggle />
-                </div>
-            </div>
+            <Filters/>
         </div>
     );
 

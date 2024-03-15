@@ -3,8 +3,8 @@ import React, { useState, createContext } from "react";
 const Context = createContext({
     weekType: "even",
     subgroup: 1,
-    setWeekType: () => {},
     setSubgroup: () => {},
+    setWeekType: () => {},
 });
 
 export const ContextProvider = ({ children }) => {

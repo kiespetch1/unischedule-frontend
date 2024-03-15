@@ -543,7 +543,7 @@ header {
     height: 37px;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    cursor: default;
 
     border-radius: 20px;
 }
@@ -573,6 +573,7 @@ header {
     align-items: center;
     justify-content: center;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .toggle-text-active {
@@ -583,7 +584,7 @@ header {
     font-weight: 450;
     font-size: 18px;
     margin-left: 12px;
-    cursor: pointer;
+    cursor: default;
 
     color: #000000;
 }
