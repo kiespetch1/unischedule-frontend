@@ -75,7 +75,7 @@ const SubgroupToggle = () => {
     return (
         <div>
             <div className="filter-text">
-                Неделя
+                Подгруппа
             </div>
             <div className="toggle-outer">
                 <div className="toggle-slider-container">
@@ -88,7 +88,7 @@ const SubgroupToggle = () => {
                             <FirstSG style={iconStyle}/> : <div style={iconDecayStyle}></div>}
                         <div className={subgroup === 2? "toggle-text-inactive" : "toggle-text-active"}
                              onClick={deactivateClickHandler}>
-                            Четная
+                            Первая
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ const SubgroupToggle = () => {
                         {subgroup === 2 ? <SecondSG style={iconStyle}/> : <div style={iconDecayStyle}></div>}
                         <div className={subgroup === 1 ? "toggle-text-inactive" : "toggle-text-active"}
                              onClick={activateClickHandler}>
-                            Нечетная
+                            Вторая
                         </div>
                     </div>
                 </div>
