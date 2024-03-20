@@ -5,7 +5,7 @@ import {ReactComponent as OddWeekIcon} from "../assets/oddWeek.svg";
 import {ReactComponent as DotDivider} from "../assets/blackDot.svg";
 import {ReactComponent as FirstSG} from "../assets/1sg.svg";
 import {ReactComponent as SecondSG} from "../assets/2sg.svg"
-import subgroupToggle from "./SubgroupToggle";
+
 
 
 const Class = ({classType, weekType, subgroup, name, startTime, endTime, teacherId, locationId}) => {

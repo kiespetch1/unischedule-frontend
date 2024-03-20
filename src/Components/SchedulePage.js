@@ -5,7 +5,6 @@ import Day from "./Day";
 import Footer from "./Footer";
 import GetCurrentWeekText from "./CurrentWeekText";
 import GetNextWeekText from "./NextWeekText";
-import monday from "./Day";
 
 const SchedulePage = () => {
         const [weekInfo, setWeekInfo] = useState(null);

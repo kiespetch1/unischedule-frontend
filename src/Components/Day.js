@@ -25,7 +25,7 @@ const Day = ({dayId}) => {
             .catch(error => {
                 console.log("Ошибка при загрузке данных: " + error);
             });
-    }, [requestOptions]);
+    }, [dayId, requestOptions]);
 
     const classesCount = dayInfoData?.classes?.length || 0;
 
