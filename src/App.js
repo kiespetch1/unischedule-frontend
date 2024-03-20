@@ -9,7 +9,7 @@ function App() {
         <ContextProvider>
             <BrowserRouter>
                 <Routes>
-                    <Route path = "" element={<SchedulePage/>} />
+                    <Route path = "/group=1" element={<SchedulePage/>} />
                 </Routes>
             </BrowserRouter>
         </ContextProvider>

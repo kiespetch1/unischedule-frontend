@@ -1,12 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "../index.css";
 import Header from "./Header";
-import Monday from "./Monday";
+import Day from "./Day";
 import Footer from "./Footer";
 import GetCurrentWeekText from "./CurrentWeekText";
 import GetNextWeekText from "./NextWeekText";
+import monday from "./Day";
 
 const SchedulePage = () => {
+        const [weekInfo, setWeekInfo] = useState(null);
+
+    useEffect(() => {
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        fetch("https://localhost:7184/api/weeks?weekType=1&group=0&subgroup=1", requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                setWeekInfo(data);
+            })
+            .catch(error => {
+                console.log("Ошибка при загрузке данных: " + error);
+            });
+    }, []);
+
+
+
     return (
         <div className="App">
             <header>
@@ -23,12 +45,12 @@ const SchedulePage = () => {
                     </div>
                 </div>
                 <div className="days-container">
-                    <Monday/>
-                    <Monday/>
-                    <Monday/>
-                    <Monday/>
-                    <Monday/>
-                    <Monday/>
+                    {weekInfo && <Day dayId={weekInfo.mondayId}/>}
+                    {weekInfo && <Day dayId={weekInfo.tuesdayId}/>}
+                    {weekInfo && <Day dayId={weekInfo.wednesdayId}/>}
+                    {weekInfo && <Day dayId={weekInfo.thursdayId}/>}
+                    {weekInfo && <Day dayId={weekInfo.fridayId}/>}
+                    {weekInfo && <Day dayId={weekInfo.saturdayId}/>}
                 </div>
             </div>
             <Footer/>

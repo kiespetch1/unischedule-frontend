@@ -13,11 +13,11 @@ const SubgroupToggle = () => {
     const [initialized, setInitialized] = useState(false);
     const iconStyle = {
         animationName: "smooth-expanding",
-        animationDuration: "0.1s"
+        animationDuration: "0.1s",
     }
     const iconDecayStyle = {
         animationName: "smooth-shrinking",
-        animationDuration: "0.1s"
+        animationDuration: "0.1s",
     }
 
     const setSubgroupOne = useCallback(() => {

@@ -14,7 +14,7 @@ const Filters = () => {
             <div className="bold-group-text">
                 ИВТ1-Б21
             </div>
-            <a href="/blank" style={{width: "29px", height: "29px"}}>
+            <a href="/blank" className="switch-icon" >
                 <ChangeIcon/>
             </a>
         </div>
