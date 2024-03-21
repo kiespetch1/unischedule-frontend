@@ -44,12 +44,12 @@ const SchedulePage = () => {
                     </div>
                 </div>
                 <div className="days-container">
-                    {weekInfo && <Day dayId={weekInfo.mondayId}/>}
-                    {weekInfo && <Day dayId={weekInfo.tuesdayId}/>}
-                    {weekInfo && <Day dayId={weekInfo.wednesdayId}/>}
-                    {weekInfo && <Day dayId={weekInfo.thursdayId}/>}
-                    {weekInfo && <Day dayId={weekInfo.fridayId}/>}
-                    {weekInfo && <Day dayId={weekInfo.saturdayId}/>}
+                    {weekInfo && <Day dayId={weekInfo.mondayId} dayName="Понедельник"/>}
+                    {weekInfo && <Day dayId={weekInfo.tuesdayId} dayName="Вторник"/>}
+                    {weekInfo && <Day dayId={weekInfo.wednesdayId} dayName="Среда"/>}
+                    {weekInfo && <Day dayId={weekInfo.thursdayId} dayName="Четверг"/>}
+                    {weekInfo && <Day dayId={weekInfo.fridayId} dayName="Пятница"/>}
+                    {weekInfo && <Day dayId={weekInfo.saturdayId} dayName="Суббота"/>}
                 </div>
             </div>
             <Footer/>
