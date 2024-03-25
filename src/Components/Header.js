@@ -12,7 +12,7 @@ const Header = () => {
             <header className="header-container">
                 <div className="logo-container">
                     <IateLogo/>
-                    <div className="header-text">
+                    <div className="schedule-header-text">
                         Расписание занятий
                     </div>
                 </div>

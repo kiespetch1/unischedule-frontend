@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState} from "react";
 import "../index.css";
 import HeaderDay from "./DayHeader";
 import TopClass from "./TopClass";
@@ -15,7 +15,6 @@ const Day = ({dayId, dayName}) => {
     }), []);
 
     const [dayInfoData, setDayInfoData] = useState(null);
-
 
     useEffect(() => {
         fetch("https://localhost:7184/api/days/byId?id=" + dayId, requestOptions)
@@ -111,6 +110,7 @@ const Day = ({dayId, dayName}) => {
             {classesCount >= 4 && dayInfoData.classes && dayInfoData.classes.length > 0 && dayInfoData.classes[3].isWindow ? (
                 <Window />
             ) : null}
+            <div className="day-end-block"></div>
         </div>
     );
 };

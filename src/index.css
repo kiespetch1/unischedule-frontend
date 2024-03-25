@@ -93,7 +93,8 @@ header {
     align-items: center;
     justify-content: left;
 }
-.width{
+
+.width {
     width: 100%;
     max-width: 1920px;
 }
@@ -105,7 +106,7 @@ header {
 }
 
 .day-header-text {
-     font-family: "Inter", serif;
+    font-family: "Inter", serif;
     font-style: normal;
     font-weight: 700;
     font-size: 27px;
@@ -165,13 +166,24 @@ header {
     /* общий контейнер дня */
     position: relative;
     width: 600px;
-    height: 590px;
-    margin: 10px 6px 15px;
+    height: auto;
+    margin: 10px 6px 12px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+}
+
+.day-end-block {
+    /* верх дня */
+    position: relative;
+    width: 600px;
+    height: 9px;
+
+    background: #e7e7e7;
+    border-radius: 5px 5px 5px 5px;
+    margin-top: 6px;
 }
 
 .main-content {
@@ -293,7 +305,7 @@ header {
 .distant-location {
     font-family: "Raleway", serif;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 20px;
     /* or 16px */
     display: flex;
@@ -358,7 +370,7 @@ header {
     padding: 0 26px;
 }
 
-.footer-texts-container{
+.footer-texts-container {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -382,6 +394,7 @@ header {
     align-items: center;
     text-align: center;
     text-decoration: none;
+    font-feature-settings: 'pnum' on, 'lnum' on;
 
     color: #767676;
 }
@@ -390,7 +403,7 @@ header {
     text-decoration: underline;
 }
 
-.header-text{
+.schedule-header-text {
     /* Расписание занятий */
 
     position: relative;
@@ -423,7 +436,7 @@ header {
     margin-right: 32px;
 }
 
-.bold-group-text{
+.bold-group-text {
     /* ИВТ1-Б21 */
     width: 122px;
     height: 23px;
@@ -439,6 +452,7 @@ header {
 
     color: #000000;
 }
+
 .switch-icon {
     width: 29px;
     height: 29px;
@@ -454,7 +468,7 @@ header {
 
     display: flex;
     align-items: center;
-    justify-content:  flex-start;
+    justify-content: flex-start;
 
     color: #3D3D3D;
 }
@@ -469,7 +483,7 @@ header {
 
     display: flex;
     align-items: center;
-    justify-content:  flex-start;
+    justify-content: flex-start;
 
     color: #3D3D3D;
 }
@@ -552,6 +566,7 @@ header {
 
     border-radius: 20px;
 }
+
 @keyframes smooth-expanding {
     from {
         width: 0;
@@ -560,9 +575,9 @@ header {
         width: 20px;
     }
 }
+
 @keyframes smooth-shrinking {
-    from
-    {
+    from {
         width: 20px;
     }
     to {
@@ -640,5 +655,6 @@ header {
 
     color: #232323;
 
+}
 
 }

@@ -1,13 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "../index.css";
 import Header from "./Header";
 import Day from "./Day";
 import Footer from "./Footer";
 import GetCurrentWeekText from "./CurrentWeekText";
 import GetNextWeekText from "./NextWeekText";
+import Context from "../Context";
 
-const SchedulePage = () => {
-        const [weekInfo, setWeekInfo] = useState(null);
+const SchedulePage = ({group}) => {
+    const [weekInfo, setWeekInfo] = useState(null);
+    const {subgroup, weekType} = useContext(Context);
+    const currentGroup = group - 1;
 
     useEffect(() => {
         const requestOptions = {
@@ -16,16 +19,17 @@ const SchedulePage = () => {
                 'Content-Type': 'application/json'
             }
         }
-        fetch("https://localhost:7184/api/weeks?weekType=1&group=0&subgroup=1", requestOptions)
+        fetch("https://localhost:7184/api/weeks?weekType= " + (weekType === "even" ? 1 : 2) +
+            "&group=" + currentGroup + "&subgroup=" + subgroup, requestOptions)
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 setWeekInfo(data);
             })
             .catch(error => {
                 console.log("Ошибка при загрузке данных: " + error);
             });
-    }, []);
-
+    }, [subgroup, weekType]);
 
 
     return (
