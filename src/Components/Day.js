@@ -17,14 +17,16 @@ const Day = ({dayId, dayName}) => {
     const [dayInfoData, setDayInfoData] = useState(null);
 
     useEffect(() => {
-        fetch("https://localhost:7184/api/days/byId?id=" + dayId, requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                setDayInfoData(data);
-            })
-            .catch(error => {
-                console.log("Ошибка при загрузке данных: " + error);
-            });
+        if(dayId != null) {
+            fetch("https://localhost:7184/api/days/byId?id=" + dayId, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    setDayInfoData(data);
+                })
+                .catch(error => {
+                    console.log("Ошибка при загрузке данных: " + error);
+                });
+        }
     }, [dayId, requestOptions]);
 
     const classesCount = dayInfoData?.classes?.length || 0;
@@ -34,7 +36,7 @@ const Day = ({dayId, dayName}) => {
         <div className="day-full">
             <HeaderDay name={dayName} classCount={classesCount}/>
             {classesCount === 0 ? (
-                <div className="day-empty-block-top">
+                <div className="day-empty-block-top"> {/*TODO зачем отдельный класс?*/}
                     <div className="empty-text">Выходной день</div>
                 </div>
             ) : null}

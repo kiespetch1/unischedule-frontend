@@ -19,7 +19,9 @@ const SchedulePage = ({group}) => {
                 'Content-Type': 'application/json'
             }
         }
-        fetch("https://localhost:7184/api/weeks?weekType= " + (weekType === "even" ? 1 : 2) +
+        console.log("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
+            "&group=" + currentGroup + "&subgroup=" + subgroup);
+        fetch("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
             "&group=" + currentGroup + "&subgroup=" + subgroup, requestOptions)
             .then(response => response.json())
             .then(data => {
@@ -29,7 +31,7 @@ const SchedulePage = ({group}) => {
             .catch(error => {
                 console.log("Ошибка при загрузке данных: " + error);
             });
-    }, [subgroup, weekType]);
+    }, [currentGroup, subgroup, weekType]);
 
 
     return (

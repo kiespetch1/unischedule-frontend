@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import "../index.css";
 import { ReactComponent as DotDivider } from "../assets/dot.svg";
 
@@ -7,6 +7,27 @@ const HeaderDay = ({ name, classCount}) => {
         paddingLeft: "15px",
         paddingRight: "15px"
     };
+
+    const dotSmallStyle = {
+        height: "2.5px",
+        width: "2.5px",
+        paddingLeft: "9px",
+        paddingRight: "9px",
+    };
+
+    const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(document.documentElement.clientWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     function num_word(value, words){
         value = Math.abs(value) % 100;
@@ -22,7 +43,7 @@ const HeaderDay = ({ name, classCount}) => {
     return (
         <div className="day-header">
             <div className="day-header-text">{name}</div>
-            <DotDivider style={dotStyle}/>
+            <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>
             <div className="classes-text">{classCount === 0 ? "выходной" : classCount + " " + classesText}</div>
         </div>
     );

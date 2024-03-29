@@ -1,7 +1,9 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import "../index.css";
 import {ReactComponent as EvenWeekIcon} from "../assets/evenWeek.svg";
+import {ReactComponent as EvenWeekIconSmall} from "../assets/evenWeekSmall.svg";
 import {ReactComponent as OddWeekIcon} from "../assets/oddWeek.svg";
+import {ReactComponent as OddWeekIconSmall} from "../assets/oddWeekSmall.svg";
 import Context from "../Context";
 import {useNavigate, useLocation} from 'react-router-dom';
 
@@ -10,25 +12,48 @@ const WeekToggle = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [initialized, setInitialized] = useState(false);
-    const iconStyle = {
-        animationName: "smooth-expanding",
+    const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
+
+    const iconAnimation = {
+        animationName: "smooth-expanding-20px",
         animationDuration: "0.1s"
     }
-    const iconDecayStyle = {
-        animationName: "smooth-shrinking",
+    const iconDecayAnimation = {
+        animationName: "smooth-shrinking-20px",
         animationDuration: "0.1s"
     }
 
+    const iconSmallAnimation = {
+        animationName: "smooth-expanding-9px",
+        animationDuration: "0.1s"
+    }
+    const iconDecaySmallAnimation = {
+        animationName: "smooth-shrinking-9px",
+        animationDuration: "0.1s"
+    }
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(document.documentElement.clientWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const setWeekOdd = useCallback(() => {
         const searchParams = new URLSearchParams(location.search);
-        searchParams.set('week', 'odd'); // Устанавливаем параметр 'week' равным 'odd'
+        searchParams.set('week', 'odd');
         navigate(`?${searchParams.toString()}`);
         setWeekType("odd");
     }, [setWeekType, navigate, location.search]);
 
     const setWeekEven = useCallback(() => {
         const searchParams = new URLSearchParams(location.search);
-        searchParams.set('week', 'even'); // Устанавливаем параметр 'week' равным 'odd'
+        searchParams.set('week', 'even');
         navigate(`?${searchParams.toString()}`);
         setWeekType("even");
     }, [setWeekType, navigate, location.search]);
@@ -83,9 +108,12 @@ const WeekToggle = () => {
                      onClick={deactivateClickHandler}>
                     <div style={{display: "flex"}}>
                         {weekType === "even" ?
-                            <EvenWeekIcon style={iconStyle}/> : <div style={iconDecayStyle}></div>}
-                        <div className={weekType === "odd"? "toggle-text-inactive" : "toggle-text-active"}
-                             onClick={deactivateClickHandler}>
+                            (windowWidth <= 930 ? <EvenWeekIconSmall style={iconSmallAnimation}/> :
+                                <EvenWeekIcon style={iconAnimation}/>) : (windowWidth <= 930 ?
+                                <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)} {/*TODO переделать чтобы размеры иконок менялись только через стили*/}
+                        <div className={weekType === "odd" ? "toggle-text-inactive" : "toggle-text-active"}
+                             onClick={deactivateClickHandler}
+                             style={{display: "flex", alignItems: "center"}}>
                             Четная
                         </div>
                     </div>
@@ -94,9 +122,13 @@ const WeekToggle = () => {
                 <div className={weekType === "even" ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={activateClickHandler}>
                     <div style={{display: "flex"}}>
-                        {weekType === "odd" ? <OddWeekIcon style={iconStyle}/> : <div style={iconDecayStyle}></div>}
+                        {weekType === "odd" ?
+                            (windowWidth <= 930 ? <OddWeekIconSmall style={iconSmallAnimation}/> :
+                            <OddWeekIcon style={iconAnimation}/>) : (windowWidth <= 930 ?
+                            <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)}
                         <div className={weekType === "even" ? "toggle-text-inactive" : "toggle-text-active"}
-                             onClick={activateClickHandler}>
+                             onClick={activateClickHandler}
+                             style={{display: "flex", alignItems: "center"}}>
                             Нечетная
                         </div>
                     </div>

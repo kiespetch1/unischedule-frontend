@@ -57,11 +57,11 @@ header {
 }
 
 .current-week-text {
-    /* Сейчас четная неделя - С 19.02.2024 по 24.02.2024 - 3 неделя (верхняя/нечетная) */
     position: relative;
     margin-bottom: 7px;
     font-family: "Raleway", serif;
     font-style: normal;
+    line-height: 125%;
     font-weight: 600;
     font-size: 18px;
     font-feature-settings: 'pnum' on, 'lnum' on;
@@ -74,6 +74,7 @@ header {
     position: relative;
     font-family: "Raleway", serif;
     font-style: normal;
+    line-height: 125%;
     font-weight: 400;
     font-size: 18px;
     font-feature-settings: 'pnum' on, 'lnum' on;
@@ -274,6 +275,8 @@ header {
     justify-content: space-evenly;
 
     height: 64px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .location-type {
@@ -302,6 +305,17 @@ header {
     color: #000000;
 }
 
+.irl-letters-location {
+    font-family: "Raleway", serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    /* or 16px */
+    display: flex;
+
+    color: #000000;
+}
+
 .distant-location {
     font-family: "Raleway", serif;
     font-style: normal;
@@ -315,11 +329,12 @@ header {
 
 .days-container {
     position: relative;
-    width: calc(100% - 54px);
+    width: calc(100% - 56px);
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
     align-items: flex-start;
+    align-self: center;
     margin: -10px 28px 0;
 }
 
@@ -366,17 +381,16 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     padding: 0 26px;
 }
 
 .footer-texts-container {
     position: relative;
+    width: 80%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 80%;
-    flex: 1;
 }
 
 .footer-clickable-text, .footer-text {
@@ -437,10 +451,6 @@ header {
 }
 
 .bold-group-text {
-    /* ИВТ1-Б21 */
-    width: 122px;
-    height: 23px;
-
     font-family: 'Raleway', serif;
     font-style: normal;
     font-weight: 600;
@@ -505,6 +515,7 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: auto;
 }
 
 .toggle-outer {
@@ -567,7 +578,7 @@ header {
     border-radius: 20px;
 }
 
-@keyframes smooth-expanding {
+@keyframes smooth-expanding-20px {
     from {
         width: 0;
     }
@@ -576,7 +587,25 @@ header {
     }
 }
 
-@keyframes smooth-shrinking {
+@keyframes smooth-shrinking-20px {
+    from {
+        width: 9px;
+    }
+    to {
+        width: 0;
+    }
+}
+
+@keyframes smooth-expanding-9px {
+    from {
+        width: 0;
+    }
+    to {
+        width: 9px;
+    }
+}
+
+@keyframes smooth-shrinking-9px {
     from {
         width: 20px;
     }
@@ -656,5 +685,164 @@ header {
     color: #232323;
 
 }
+
+/*930 px cтили*/
+
+@media screen and (max-width: 930px) {
+    .schedule-header-text {
+        padding-left: 11px;
+        font-size: 14px;
+    }
+
+    .header-container {
+        padding: 0 7px 0 7px;
+        height: 44px;
+        border-bottom: 1px solid #BABABA;
+    }
+
+    .group-filter-text, .filter-text {
+        font-size: 8px;
+        margin-bottom: 10px;
+    }
+
+    .bold-group-text {
+        font-size: 14px;
+    }
+
+    .switch-icon {
+        width: 15px;
+        height: 15px;
+    }
+
+    .filters-container {
+        padding: 0 18px;
+        margin-top: 12px;
+    }
+
+    .toggle-outer {
+        border: 1px solid #0966BB;
+        width: 120px;
+        height: 20px;
+        padding: 0 1px;
+    }
+
+    .toggle-slider-toggled, .toggle-slider-untoggled, .toggle-inner-inactive, .toggle-inner-active {
+        width: 56px;
+        height: 16px;
+    }
+
+    .toggle-slider-toggled {
+        transform: translateX(60px);
+    }
+
+
+    .toggle-text-inactive, .toggle-text-active {
+        font-size: 7px;
+    }
+
+    .toggle-text-active {
+        margin-left: 4px;
+    }
+
+    .current-week-text, .next-week-text {
+        font-size: 8px;
+    }
+
+    .current-week-text {
+        margin-bottom: 2px;
+    }
+
+    .week-container {
+        padding: 12px 16px;
+        align-self: flex-start;
+    }
+
+    .day-full {
+        width: 339px;
+        margin-top: 6px;
+        margin-bottom: 8px;
+    }
+
+    .day-header {
+        width: 339px;
+        height: 28px;
+    }
+
+    .day-header-text, .classes-text {
+        font-size: 15px;
+    }
+
+    .day-header-text {
+        padding-left: 12px;
+    }
+
+    .day-block-top, .day-block, .day-empty-block-top {
+        width: 339px;
+        height: 70px;
+    }
+
+    .class-time {
+        font-size: 14px;
+    }
+
+    .info-row {
+        padding-left: 16px;
+    }
+
+    .class-type, .class-name {
+        font-size: 10px;
+    }
+
+    .class-teacher {
+        font-size: 8px;
+    }
+
+    .location-info {
+        width: 90px;
+        height: 45px;
+    }
+
+    .location-type, .irl-letters-location, .irl-location, .distant-location {
+        font-size: 12px;
+    }
+
+    .day-end-block {
+        width: 339px;
+        height: 6px;
+        margin-top: 1.2%;
+    }
+
+    .days-container {
+        margin: 0 0 0 0;
+        width: calc(100% - 1px);
+    }
+
+    .group-container, .week-type-container {
+        margin-right: 12px;
+        white-space: nowrap;
+    }
+
+    .empty-text {
+        font-size: 20px;
+    }
+    .footer-container {
+        top: 12px;
+    }
+
+    .footer-divider {
+        border-top: 1px solid #E1E1E1;
+        border-bottom: 0;
+    }
+
+    .footer-text, .footer-clickable-text {
+        font-size: 8px;
+        padding: 16px 9px;
+    }
+
+    .footer-text-container {
+        height: auto;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 
 }

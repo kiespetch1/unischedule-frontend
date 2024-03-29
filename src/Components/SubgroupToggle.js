@@ -3,7 +3,9 @@ import "../index.css";
 import Context from "../Context";
 import {useNavigate, useLocation} from 'react-router-dom';
 import {ReactComponent as FirstSG} from "../assets/1sg.svg";
+import {ReactComponent as FirstSGSmall} from "../assets/1sgSmall.svg";
 import {ReactComponent as SecondSG} from "../assets/2sg.svg"
+import {ReactComponent as SecondSGSmall} from "../assets/2sgSmall.svg"
 
 
 const SubgroupToggle = () => {
@@ -11,14 +13,37 @@ const SubgroupToggle = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [initialized, setInitialized] = useState(false);
-    const iconStyle = {
-        animationName: "smooth-expanding",
-        animationDuration: "0.1s",
+    const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
+
+    const iconAnimation = {
+        animationName: "smooth-expanding-20px",
+        animationDuration: "0.1s"
     }
-    const iconDecayStyle = {
-        animationName: "smooth-shrinking",
-        animationDuration: "0.1s",
+    const iconDecayAnimation = {
+        animationName: "smooth-shrinking-20px",
+        animationDuration: "0.1s"
     }
+
+    const iconSmallAnimation = {
+        animationName: "smooth-expanding-9px",
+        animationDuration: "0.1s"
+    }
+    const iconDecaySmallAnimation = {
+        animationName: "smooth-shrinking-9px",
+        animationDuration: "0.1s"
+    }
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(document.documentElement.clientWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const setSubgroupOne = useCallback(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -85,9 +110,12 @@ const SubgroupToggle = () => {
                      onClick={deactivateClickHandler}>
                     <div style={{display: "flex"}}>
                         {subgroup === 1 ?
-                            <FirstSG style={iconStyle}/> : <div style={iconDecayStyle}></div>}
+                            (windowWidth <= 930 ? <FirstSGSmall style={iconSmallAnimation}/> :
+                                <FirstSG style={iconAnimation}/>) : (windowWidth <= 930 ?
+                                <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)}
                         <div className={subgroup === 2? "toggle-text-inactive" : "toggle-text-active"}
-                             onClick={deactivateClickHandler}>
+                             onClick={deactivateClickHandler}
+                             style={{display: "flex", alignItems: "center"}}>
                             Первая
                         </div>
                     </div>
@@ -96,9 +124,13 @@ const SubgroupToggle = () => {
                 <div className={subgroup === 1 ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={activateClickHandler}>
                     <div style={{display: "flex"}}>
-                        {subgroup === 2 ? <SecondSG style={iconStyle}/> : <div style={iconDecayStyle}></div>}
+                        {subgroup === 2 ?
+                            (windowWidth <= 930 ? <SecondSGSmall style={iconSmallAnimation}/> :
+                                <SecondSG style={iconAnimation}/>) : (windowWidth <= 930 ?
+                                <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)}
                         <div className={subgroup === 1 ? "toggle-text-inactive" : "toggle-text-active"}
-                             onClick={activateClickHandler}>
+                             onClick={activateClickHandler}
+                             style={{display: "flex", alignItems: "center"}}>
                             Вторая
                         </div>
                     </div>

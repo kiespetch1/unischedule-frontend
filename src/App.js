@@ -1,4 +1,3 @@
-import "./App.css";
 import SchedulePage from "./Components/SchedulePage";
 import {ContextProvider} from "./Context";
 import {BrowserRouter, Route, Routes} from "react-router-dom";

@@ -1,6 +1,21 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 function GetCurrentWeekText({ date }) {
+
+    const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(document.documentElement.clientWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const getWeekNumber = () => {
         const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
         const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
@@ -35,13 +50,13 @@ function GetCurrentWeekText({ date }) {
     if (currentStudyWeek % 2 === 0) {
         return (
             <div>
-                Сейчас четная неделя - с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (нижняя/четная)
+                Сейчас четная неделя {windowWidth <= 930 ? <br/> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (нижняя/четная)
             </div>
         );
     } else {
         return (
             <div>
-                Сейчас нечетная неделя - с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (верхняя/нечетная)
+                Сейчас нечетная неделя {windowWidth <= 930 ? <br/> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (верхняя/нечетная)
             </div>
         );
     }
