@@ -8,8 +8,8 @@ const Context = createContext({
 });
 
 export const ContextProvider = ({ children }) => {
-    const [weekType, setWeekType] = useState("even");
-    const [subgroup, setSubgroup] = useState(1);
+    const [weekType, setWeekType] = useState(null);
+    const [subgroup, setSubgroup] = useState(null);
 
     const updateWeekType = (newWeekType) => {
         setWeekType(newWeekType);

@@ -6,11 +6,36 @@ import Footer from "./Footer";
 import GetCurrentWeekText from "./CurrentWeekText";
 import GetNextWeekText from "./NextWeekText";
 import Context from "../Context";
+import {ReactComponent as AlertIcon} from "../assets/alert.svg";
 
 const SchedulePage = ({group}) => {
     const [weekInfo, setWeekInfo] = useState(null);
     const {subgroup, weekType} = useContext(Context);
     const currentGroup = group - 1;
+    const [downloadFailure, setDownloadFailureStatus] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
+
+    const alertStyle = {
+        width: "24px",
+        height: "24px",
+    };
+
+    const alertSmallStyle = {
+        width: "12px",
+        height: "12px",
+    }
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(document.documentElement.clientWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         const requestOptions = {
@@ -19,20 +44,24 @@ const SchedulePage = ({group}) => {
                 'Content-Type': 'application/json'
             }
         }
-        console.log("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
-            "&group=" + currentGroup + "&subgroup=" + subgroup);
-        fetch("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
-            "&group=" + currentGroup + "&subgroup=" + subgroup, requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                setWeekInfo(data);
-            })
-            .catch(error => {
-                console.log("Ошибка при загрузке данных: " + error);
-            });
-    }, [currentGroup, subgroup, weekType]);
 
+        if (currentGroup != null && subgroup != null && weekType != null && weekType !== "null") {
+            console.log("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
+                "&group=" + currentGroup + "&subgroup=" + subgroup);
+            fetch("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
+                "&group=" + currentGroup + "&subgroup=" + subgroup, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    setDownloadFailureStatus(false);
+                    setWeekInfo(data);
+                })
+                .catch(error => {
+                    console.log("Ошибка при загрузке данных: " + error);
+                    setDownloadFailureStatus(true);
+                });
+        }
+
+    }, [currentGroup, subgroup, weekType]);
 
     return (
         <div className="App">
@@ -49,13 +78,19 @@ const SchedulePage = ({group}) => {
                             date={new Date(new Date().setDate(new Date().getDate() + 7 - new Date().getDay()))}/>
                     </div>
                 </div>
+                {downloadFailure ? <div className="alert-container">
+                    <AlertIcon style={windowWidth <= 930 ? alertSmallStyle : alertStyle} />
+                    <div className="alertText">Ошибка загрузки расписания, заполнена не вся неделя.</div>
+                </div> : null}
+
                 <div className="days-container">
-                    {weekInfo && <Day dayId={weekInfo.mondayId} dayName="Понедельник"/>}
-                    {weekInfo && <Day dayId={weekInfo.tuesdayId} dayName="Вторник"/>}
-                    {weekInfo && <Day dayId={weekInfo.wednesdayId} dayName="Среда"/>}
-                    {weekInfo && <Day dayId={weekInfo.thursdayId} dayName="Четверг"/>}
-                    {weekInfo && <Day dayId={weekInfo.fridayId} dayName="Пятница"/>}
-                    {weekInfo && <Day dayId={weekInfo.saturdayId} dayName="Суббота"/>}
+                    {<Day dayData={weekInfo && weekInfo.monday} dayName="Понедельник"
+                          downloadFailure={downloadFailure}/>}
+                    {<Day dayData={weekInfo && weekInfo.tuesday} dayName="Вторник" downloadFailure={downloadFailure}/>}
+                    {<Day dayData={weekInfo && weekInfo.wednesday} dayName="Среда" downloadFailure={downloadFailure}/>}
+                    {<Day dayData={weekInfo && weekInfo.thursday} dayName="Четверг" downloadFailure={downloadFailure}/>}
+                    {<Day dayData={weekInfo && weekInfo.friday} dayName="Пятница" downloadFailure={downloadFailure}/>}
+                    {<Day dayData={weekInfo && weekInfo.saturday} dayName="Суббота" downloadFailure={downloadFailure}/>}
                 </div>
             </div>
             <Footer/>

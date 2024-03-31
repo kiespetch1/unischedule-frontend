@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useState} from "react";
 import "../index.css";
 import {ReactComponent as EvenWeekIcon} from "../assets/evenWeek.svg";
 import {ReactComponent as EvenWeekIconSmall} from "../assets/evenWeekSmall.svg";
@@ -11,7 +11,7 @@ import {ReactComponent as SecondSG} from "../assets/2sg.svg"
 import {ReactComponent as SecondSGSmall} from "../assets/2sgSmall.svg"
 
 
-const Class = ({classType, weekType, subgroup, name, startTime, endTime, teacherId, locationId}) => {
+const Class = ({isTop, order, dayData}) => {
 
     const dotStyle = {
         flexGrow: "1",
@@ -54,19 +54,10 @@ const Class = ({classType, weekType, subgroup, name, startTime, endTime, teacher
         height: "14px",
     };
 
-    const requestOptions = useMemo(() => ({
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }), []);
-
     function containsLetters(str) {
         return /[a-zA-Zа-яА-Я]/.test(str);
     }
 
-    const [teacherInfo, setTeacherInfo] = useState(null);
-    const [locationInfo, setLocationInfo] = useState(null);
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
 
     useEffect(() => {
@@ -81,81 +72,60 @@ const Class = ({classType, weekType, subgroup, name, startTime, endTime, teacher
         };
     }, []);
 
-    useEffect(() => {
-        fetch("https://localhost:7184/api/teachers?id=" + teacherId, requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                setTeacherInfo(data);
-            })
-            .catch(error => {
-                console.log("Ошибка при загрузке данных: " + error);
-            });
-    }, [requestOptions, teacherId]);
-
-    useEffect(() => {
-        fetch("https://localhost:7184/api/locations?id=" + locationId, requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                setLocationInfo(data);
-            })
-            .catch(error => {
-                console.log("Ошибка при загрузке данных: " + error);
-            });
-    }, [locationId, requestOptions]);
 
     return (
-        <section className="day-block">
+        <section className={isTop ? "day-block-top" : "day-block"}>
             <div className="main-content">
                 <div className="info-row">
-                    <div className="class-time">{startTime} - {endTime}</div>
+                    <div className="class-time">{dayData.classes[order - 1].startTime.slice(0, 5)} - {dayData.classes[order - 1].endTime.slice(0, 5)}</div>
                     <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>
 
                     <div className="class-type">{(
-                        classType === 0 ? "Лекция" :
-                            classType === 1 ? "Практика" :
-                                classType === 2 ? "Лаб. работа" : "Ошибка")}
+                        dayData.classes[order - 1].type === 0 ? "Лекция" :
+                            dayData.classes[order - 1].type === 1 ? "Практика" :
+                                dayData.classes[order - 1].type === 2 ? "Лаб. работа" : "Ошибка")}
                     </div>
-                    {(weekType === 0 && subgroup === 0 ? null :
+                    {(dayData.classes[order - 1].weekType === 0 && dayData.classes[order - 1].subgroup === 0 ? null :
                         <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>)}
-                    {(weekType === 0 ? null
-                        : weekType === 1 ? (windowWidth <= 930 ? <OddWeekIconSmall style={signSmallStyle}/> :
+                    {(dayData.classes[order - 1].weekType === 0 ? null
+                        : dayData.classes[order - 1].weekType === 1 ? (windowWidth <= 930 ? <OddWeekIconSmall style={signSmallStyle}/> :
                                 <OddWeekIcon style={signStyle}/>)
-                            : weekType === 2 ? (windowWidth <= 930 ? <EvenWeekIconSmall style={signSmallStyle}/> :
+                            : dayData.classes[order - 1].weekType === 2 ? (windowWidth <= 930 ? <EvenWeekIconSmall style={signSmallStyle}/> :
                                     <EvenWeekIcon style={signStyle}/>) :
                                 null)}
-                    {(subgroup === 0 ? null
-                        : subgroup === 1 ? (windowWidth <= 930 ? <FirstSGSmall style={lastSignSmallStyle}/> :
+                    {(dayData.classes[order - 1].subgroup === 0 ? null
+                        : dayData.classes[order - 1].subgroup === 1 ? (windowWidth <= 930 ? <FirstSGSmall style={lastSignSmallStyle}/> :
                                 <FirstSG style={lastSignStyle}/>)
-                            : subgroup === 2 ? (windowWidth <= 930 ? <SecondSGSmall style={lastSignSmallStyle}/> :
+                            : dayData.classes[order - 1].subgroup === 2 ? (windowWidth <= 930 ? <SecondSGSmall style={lastSignSmallStyle}/> :
                                     <SecondSG style={lastSignStyle}/>) :
                                 null)}
                 </div>
                 <div className="info-row">
                     <div className="class-name">
-                        {name}
+                        {dayData.classes[order - 1].name}
                     </div>
                 </div>
                 <div className="info-row">
-                    <div className="class-teacher">{teacherInfo && teacherInfo.fullName}</div>
+                    <div className="class-teacher">{dayData.teachers[order - 1]}</div>
                 </div>
             </div>
             <aside className="location-info">
                 <div
-                    className="location-type">{locationInfo && (locationInfo.locationType === 0 ? "Очно" : "Дистант")}
+                    className="location-type">{(dayData.locations[order - 1].locationType === 0 ? "Очно" : "Дистант")}
                 </div>
                 <div>
-                    {(locationInfo && locationInfo.locationType === 0 && containsLetters(locationInfo.classroom)) &&
+                    {(dayData.locations[order - 1].locationType === 0 && containsLetters(dayData.locations[order - 1].classroom)) &&
                         <div className="irl-letters-location">
-                            {locationInfo.classroom}
+                            {dayData.locations[order - 1].classroom}
                         </div>
                     }
-                    {(locationInfo && !containsLetters(locationInfo.classroom) && locationInfo.locationType === 0) &&
+                    {(!containsLetters(dayData.locations[order - 1].classroom) && dayData.locations[order - 1].locationType === 0) &&
                         <div className="irl-location">
-                            {locationInfo.classroom}
+                            {dayData.locations[order - 1].classroom}
                         </div>
                     }
-                    {(locationInfo && locationInfo.locationType === 1) &&
-                        <a href={locationInfo.link} target="_blank" rel="noreferrer" className="distant-location">
+                    {(dayData.locations[order - 1].locationType === 1) &&
+                        <a href={dayData.locations[order - 1].link} target="_blank" rel="noreferrer" className="distant-location">
                             Ссылка
                         </a>
                     }
