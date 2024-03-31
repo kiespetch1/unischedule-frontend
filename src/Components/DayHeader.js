@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import "../index.css";
 import { ReactComponent as DotDivider } from "../assets/dot.svg";
 
-const HeaderDay = ({ name, classCount}) => {
+const HeaderDay = ({ name, classCount, current}) => {
     const dotStyle = {
         paddingLeft: "15px",
         paddingRight: "15px"
@@ -42,7 +42,7 @@ const HeaderDay = ({ name, classCount}) => {
 
     return (
         <div className="day-header">
-            <div className="day-header-text">{name}</div>
+            <div className="day-header-text" style={current ? {textDecoration: "underline"} : null}>{name}</div>
             <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>
             <div className="classes-text">{classCount === 0 ? "выходной" : classCount + " " + classesText}</div>
         </div>

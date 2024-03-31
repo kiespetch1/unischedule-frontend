@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-function GetNextWeekText({ date }) {
+function GetNextWeekText({date}) {
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
 
     useEffect(() => {
@@ -15,20 +15,37 @@ function GetNextWeekText({ date }) {
         };
     }, []);
 
-    const getWeekNumber = () => {
-        const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-        const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
-        return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
-    };
+    function getWeekNumber(date) {
+        let academicYearStart = new Date(date.getFullYear(), 1, 5);
+
+        let diffDays = Math.floor((date - academicYearStart) / (1000 * 60 * 60 * 24));
+
+        if (diffDays < 0) {
+            academicYearStart = new Date(date.getFullYear() - 1, 1, 5);
+            diffDays = Math.floor((date - academicYearStart) / (1000 * 60 * 60 * 24));
+        }
+
+        // Вычисляем номер недели, делим разницу в днях на 7 и прибавляем 1
+        return Math.ceil((diffDays + 1) / 7);
+    }
 
     function getStartAndEndOfWeek(date) {
-        const dayOfWeek = date.getDay();
-        const currentDay = date.getDate();
-        const startOfWeek = new Date(date);
-        const endOfWeek = new Date(date);
+        let currentDay = date.getDay();
 
-        startOfWeek.setDate(currentDay - dayOfWeek + (dayOfWeek === 0 ? -6 : 1));
-        endOfWeek.setDate(currentDay + (7 - dayOfWeek) % 7);
+        let daysUntilNextMonday = 1 - currentDay;
+        if (daysUntilNextMonday > 0) {
+            daysUntilNextMonday -= 7;
+        }
+
+
+        let daysUntilNextSaturday = 6 - currentDay;
+        if (daysUntilNextSaturday < 0) {
+        }
+
+        let startOfWeek = new Date(date);
+        startOfWeek.setDate(date.getDate() + daysUntilNextMonday);
+        let endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 5);
 
         const formatDate = (date) => {
             let day = date.getDate().toString().padStart(2, "0");
@@ -38,26 +55,26 @@ function GetNextWeekText({ date }) {
         };
 
         return {
-            startOfWeek: formatDate(new Date(startOfWeek.setDate(startOfWeek.getDate() + 7))),
-            endOfWeek: formatDate(new Date(endOfWeek.setDate(endOfWeek.getDate() + 6))),
-            //супер костыль потому что брались первые и последние дни недели от нынешней даты, а не от той которая передана
-            // т.к. у нас всегда грубо говоря разрыв в неделю это решение пойдет, но желательно переписать позже
+            startOfWeek: formatDate(startOfWeek),
+            endOfWeek: formatDate(endOfWeek),
         };
     }
 
-    let currentStudyWeek = getWeekNumber(date) - 5;
-    const { startOfWeek, endOfWeek } = getStartAndEndOfWeek(date);
+    let currentStudyWeek = getWeekNumber(date);
+    const {startOfWeek, endOfWeek} = getStartAndEndOfWeek(date);
 
     if (currentStudyWeek % 2 === 0) {
         return (
             <div>
-                Следующая неделя четная {windowWidth <= 930 ? <br/> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (нижняя/четная)
+                Следующая неделя четная {windowWidth <= 445 ?
+                <br/> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (нижняя/четная)
             </div>
         );
     } else {
         return (
             <div>
-                Следующая неделя нечетная {windowWidth <= 930 ? <br/> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (верхняя/нечетная)
+                Следующая неделя нечетная {windowWidth <= 445 ?
+                <br/> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (верхняя/нечетная)
             </div>
         );
     }

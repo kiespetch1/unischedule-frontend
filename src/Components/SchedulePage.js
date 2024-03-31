@@ -3,10 +3,9 @@ import "../index.css";
 import Header from "./Header";
 import Day from "./Day";
 import Footer from "./Footer";
-import GetCurrentWeekText from "./CurrentWeekText";
-import GetNextWeekText from "./NextWeekText";
 import Context from "../Context";
 import {ReactComponent as AlertIcon} from "../assets/alert.svg";
+import WeeksText from "./WeeksText";
 
 const SchedulePage = ({group}) => {
     const [weekInfo, setWeekInfo] = useState(null);
@@ -23,6 +22,12 @@ const SchedulePage = ({group}) => {
     const alertSmallStyle = {
         width: "12px",
         height: "12px",
+    }
+
+    function getTodayName() {
+        const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+        const today = new Date().getDay();
+        return days[today];
     }
 
     useEffect(() => {
@@ -69,28 +74,20 @@ const SchedulePage = ({group}) => {
                 <Header/>
             </header>
             <div className="app-container">
-                <div className="week-container">
-                    <strong className="current-week-text">
-                        <GetCurrentWeekText date={new Date()}/>
-                    </strong>
-                    <div className="next-week-text">
-                        <GetNextWeekText
-                            date={new Date(new Date().setDate(new Date().getDate() + 7 - new Date().getDay()))}/>
-                    </div>
-                </div>
+                <WeeksText currentWeekType={weekType}/>
+
                 {downloadFailure ? <div className="alert-container">
-                    <AlertIcon style={windowWidth <= 930 ? alertSmallStyle : alertStyle} />
+                    <AlertIcon style={windowWidth <= 930 ? alertSmallStyle : alertStyle}/>
                     <div className="alertText">Ошибка загрузки расписания, заполнена не вся неделя.</div>
                 </div> : null}
 
                 <div className="days-container">
-                    {<Day dayData={weekInfo && weekInfo.monday} dayName="Понедельник"
-                          downloadFailure={downloadFailure}/>}
-                    {<Day dayData={weekInfo && weekInfo.tuesday} dayName="Вторник" downloadFailure={downloadFailure}/>}
-                    {<Day dayData={weekInfo && weekInfo.wednesday} dayName="Среда" downloadFailure={downloadFailure}/>}
-                    {<Day dayData={weekInfo && weekInfo.thursday} dayName="Четверг" downloadFailure={downloadFailure}/>}
-                    {<Day dayData={weekInfo && weekInfo.friday} dayName="Пятница" downloadFailure={downloadFailure}/>}
-                    {<Day dayData={weekInfo && weekInfo.saturday} dayName="Суббота" downloadFailure={downloadFailure}/>}
+                    {<Day dayData={weekInfo && weekInfo.monday} dayName="Понедельник" downloadFailure={downloadFailure} current={getTodayName() === "monday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.tuesday} dayName="Вторник" downloadFailure={downloadFailure} current={getTodayName() === "tuesday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.wednesday} dayName="Среда" downloadFailure={downloadFailure} current={getTodayName() === "wednesday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.thursday} dayName="Четверг" downloadFailure={downloadFailure} current={getTodayName() === "thursday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.friday} dayName="Пятница" downloadFailure={downloadFailure} current={getTodayName() === "friday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.saturday} dayName="Суббота" downloadFailure={downloadFailure} current={getTodayName() === "saturday"}/>}
                 </div>
             </div>
             <Footer/>
