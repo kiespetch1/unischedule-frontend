@@ -9,7 +9,7 @@ import WeeksText from "./WeeksText";
 
 const SchedulePage = ({group}) => {
     const [weekInfo, setWeekInfo] = useState(null);
-    const {subgroup, weekType} = useContext(Context);
+    const {subgroup, setSubgroup, weekType, setWeekType} = useContext(Context);
     const currentGroup = group - 1;
     const [downloadFailure, setDownloadFailureStatus] = useState(false);
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
@@ -50,6 +50,12 @@ const SchedulePage = ({group}) => {
             }
         }
 
+        if (weekType === null)
+            setWeekType("even")
+
+        if(subgroup === null)
+            setSubgroup(1)
+
         if (currentGroup != null && subgroup != null && weekType != null && weekType !== "null") {
             console.log("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
                 "&group=" + currentGroup + "&subgroup=" + subgroup);
@@ -66,7 +72,7 @@ const SchedulePage = ({group}) => {
                 });
         }
 
-    }, [currentGroup, subgroup, weekType]);
+    }, [currentGroup, setSubgroup, setWeekType, subgroup, weekType]);
 
     return (
         <div className="App">
