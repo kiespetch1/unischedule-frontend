@@ -27,16 +27,9 @@ const WeeksText = ({currentWeekType }) => {
         const today = new Date();
         const academicYearStart = new Date(today.getFullYear(), 1, 5); // Начало учебного года
 
-        // Вычисляем разницу в миллисекундах между сегодняшней датой и началом учебного года
         const diffMilliseconds = today - academicYearStart;
-
-        // Количество миллисекунд в одной неделе
         const oneWeekMilliseconds = 1000 * 60 * 60 * 24 * 7;
-
-        // Вычисляем номер учебной недели от начала учебного года
         const academicWeekNumber = Math.floor(diffMilliseconds / oneWeekMilliseconds);
-
-        // Проверяем четность номера учебной недели
         return academicWeekNumber % 2 === 0;
     }
 

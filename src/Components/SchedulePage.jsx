@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import Context from "../Context";
 import {ReactComponent as AlertIcon} from "../assets/alert.svg";
 import WeeksText from "./WeeksText";
+import Filters from "./Filters";
 
 const SchedulePage = ({group}) => {
     const [weekInfo, setWeekInfo] = useState(null);
@@ -57,9 +58,8 @@ const SchedulePage = ({group}) => {
         if (!weekParam && weekType === null)
             setWeekType("even")
 
-        if(!subgroupParam && subgroup === null)
+        if (!subgroupParam && subgroup === null)
             setSubgroup(1)
-
 
         if (currentGroup != null && subgroup != null && weekType != null && weekType !== "null") {
             console.log("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
@@ -80,11 +80,11 @@ const SchedulePage = ({group}) => {
     }, [currentGroup, setSubgroup, setWeekType, subgroup, weekType]);
 
     return (
-        <div className="App">
-            <header>
-                <Header/>
-            </header>
+        <div className="schedule-page">
+
             <div className="app-container">
+                <Header/>
+                <Filters/>
                 <WeeksText currentWeekType={weekType}/>
 
                 {downloadFailure ? <div className="alert-container">
@@ -93,12 +93,18 @@ const SchedulePage = ({group}) => {
                 </div> : null}
 
                 <div className="days-container">
-                    {<Day dayData={weekInfo && weekInfo.monday} dayName="Понедельник" downloadFailure={downloadFailure} current={getTodayName() === "monday"}/>}
-                    {<Day dayData={weekInfo && weekInfo.tuesday} dayName="Вторник" downloadFailure={downloadFailure} current={getTodayName() === "tuesday"}/>}
-                    {<Day dayData={weekInfo && weekInfo.wednesday} dayName="Среда" downloadFailure={downloadFailure} current={getTodayName() === "wednesday"}/>}
-                    {<Day dayData={weekInfo && weekInfo.thursday} dayName="Четверг" downloadFailure={downloadFailure} current={getTodayName() === "thursday"}/>}
-                    {<Day dayData={weekInfo && weekInfo.friday} dayName="Пятница" downloadFailure={downloadFailure} current={getTodayName() === "friday"}/>}
-                    {<Day dayData={weekInfo && weekInfo.saturday} dayName="Суббота" downloadFailure={downloadFailure} current={getTodayName() === "saturday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.monday} dayName="Понедельник" downloadFailure={downloadFailure}
+                          current={getTodayName() === "monday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.tuesday} dayName="Вторник" downloadFailure={downloadFailure}
+                          current={getTodayName() === "tuesday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.wednesday} dayName="Среда" downloadFailure={downloadFailure}
+                          current={getTodayName() === "wednesday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.thursday} dayName="Четверг" downloadFailure={downloadFailure}
+                          current={getTodayName() === "thursday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.friday} dayName="Пятница" downloadFailure={downloadFailure}
+                          current={getTodayName() === "friday"}/>}
+                    {<Day dayData={weekInfo && weekInfo.saturday} dayName="Суббота" downloadFailure={downloadFailure}
+                          current={getTodayName() === "saturday"}/>}
                 </div>
             </div>
             <Footer/>

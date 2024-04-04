@@ -28,8 +28,8 @@ const Footer = () => {
             <div className="footer-texts-container">
                 <div className="footer-text-container">
                     <div className="footer-text">2024</div>
-                    <DotDivider style={windowWidth <= 930 ? dotSmallStyle : null}/>
-                    <div className="footer-text">UniSchedule {windowWidth <= 930 ? null : "- неофициальное расписание занятий" } </div>
+                    <DotDivider style={windowWidth <= 1200 ? dotSmallStyle : null}/>
+                    <div className="footer-text">UniSchedule {windowWidth <= 1200 ? null : "- неофициальное расписание занятий" } </div>
                 </div>
                 <div className="footer-text-container">
                     <a href="https://yoomoney.ru/to/410017122242919" target="_blank" rel="noreferrer" className="footer-clickable-text">Поддержать проект</a>

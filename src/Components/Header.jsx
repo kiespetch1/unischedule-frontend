@@ -6,7 +6,6 @@ import {ReactComponent as SettingsIcon} from "../assets/settings.svg";
 import {ReactComponent as SettingsIconSmall} from "../assets/settingsSmall.svg";
 import {ReactComponent as AuthIcon} from "../assets/auth.svg";
 import {ReactComponent as AuthIconSmall} from "../assets/authSmall.svg";
-import Filters from "./Filters";
 
 
 const Header = () => {
@@ -25,24 +24,21 @@ const Header = () => {
     }, []);
 
     return (
-        <div className="width">
-            <header className="header-container">
-                <div className="logo-container">
-                    {windowWidth <= 930 ? <IateLogoSmall/> : <IateLogo/> }
+        <header className="header-container">
+            <div className="logo-container">
+                {windowWidth <= 930 ? <IateLogoSmall/> : <IateLogo/>}
 
-                    <div className="schedule-header-text">
-                        Расписание занятий
-                    </div>
+                <div className="schedule-header-text">
+                    Расписание занятий
                 </div>
+            </div>
 
-                <div style={{display: "flex", height: "auto"}}>
-                    {windowWidth <= 930 ? <SettingsIconSmall style={{paddingRight: "14px"}}/> : <SettingsIcon style={{paddingRight: "40px"}}/>}
-                    {windowWidth <= 930 ? <AuthIconSmall/> : <AuthIcon/>}
-                </div>
-            </header>
-            <Filters/>
-        </div>
+            <div style={{display: "flex", height: "auto"}}>
+                {windowWidth <= 930 ? <SettingsIconSmall style={{paddingRight: "14px"}}/> :
+                    <SettingsIcon style={{paddingRight: "40px"}}/>}
+                {windowWidth <= 930 ? <AuthIconSmall/> : <AuthIcon/>}
+            </div>
+        </header>
     );
-
 }
 export default Header;

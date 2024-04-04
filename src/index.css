@@ -316,6 +316,7 @@ header {
 .days-container {
     position: relative;
     width: calc(100% - 56px);
+    min-height: calc(100vh - 90px - 71px - 100px - 148px);
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
@@ -343,7 +344,6 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    top: 36px;
     max-width: 1920px;
 }
 
@@ -421,9 +421,11 @@ header {
 }
 
 .filters-container {
+    width: calc(100% - 84px);
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: flex-start;
     padding: 0 42px;
     margin-top: 24px;
 }
@@ -574,10 +576,19 @@ header {
 
 @keyframes smooth-shrinking-20px {
     from {
-        width: 9px;
+        width: 20px;
     }
     to {
         width: 0;
+    }
+}
+
+@keyframes smooth-expanding-14px {
+    from {
+        width: 0;
+    }
+    to {
+        width: 14px;
     }
 }
 
@@ -592,7 +603,7 @@ header {
 
 @keyframes smooth-shrinking-9px {
     from {
-        width: 20px;
+        width: 9px;
     }
     to {
         width: 0;
@@ -691,6 +702,141 @@ header {
     color: #CB2121;
 }
 
+.groups-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin: 0 auto 0 auto;
+    height: auto;
+    width: calc(100vw - 80px);
+    min-height: calc(100vh - 90px - 71px);
+}
+
+.groups-choose-text {
+    display: flex;
+    position: relative;
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+
+    align-items: center;
+
+    padding: 24px 24px 0 0;
+
+    color: #000000;
+}
+
+.search-bar {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    width: 490px;
+    height: 41px;
+    background: #F3F3F3;
+    border: 2px solid #646464;
+    border-radius: 20px;
+    margin: 24px 24px 0 0;
+}
+
+.search-bar-input {
+    all: unset;
+    width: 400px;
+    line-height: 14px;
+    overflow-x: hidden;
+    border: 0;
+    background: #F3F3F3;
+    font-family: "Raleway", serif;
+    margin-right: 12px;
+}
+
+.search-bar-input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.grade-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding-top: 24px;
+    align-items: center;
+}
+
+.grade-text {
+    position: relative;
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    padding-right: 18px;
+
+    color: #000000;
+}
+
+.grade-divider {
+    position: relative;
+    display: flex;
+    width: 450px;
+    height: 1px;
+
+    background: #C8C8C8;
+}
+
+.group-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 122px;
+    height: 36px;
+    text-decoration: none;
+    background: #E4E4E4;
+    border: 2px solid #0966BB;
+    border-radius: 20px;
+    margin-right: 16px;
+}
+
+.group-button-text {
+    position: relative;
+    width: 87px;
+    height: 16px;
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+
+    color: #000000;
+}
+
+.group-buttons-container {
+    position: relative;
+    display: flex;
+    padding-top: 16px;
+}
+
+.group-add-text {
+    position: relative;
+    font-family: 'Raleway', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16px;
+    align-items: center;
+    text-align: center;
+    margin-top: 16px;
+    color: #767676;
+    margin-bottom: 16px;
+}
+
 /*930 px cтили*/
 
 @media screen and (max-width: 930px) {
@@ -725,6 +871,7 @@ header {
     }
 
     .filters-container {
+        width: calc(100% - 24px);
         padding: 0 18px;
         margin-top: 12px;
     }
@@ -754,7 +901,7 @@ header {
         margin-left: 4px;
     }
 
-    .week-text, .next-week-text {
+    .week-text {
         font-size: 8px;
     }
 
@@ -835,6 +982,7 @@ header {
     .empty-text {
         font-size: 20px;
     }
+
     .footer-container {
         top: 12px;
     }
