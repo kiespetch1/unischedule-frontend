@@ -50,11 +50,16 @@ const SchedulePage = ({group}) => {
             }
         }
 
-        if (weekType === null)
+        const urlParams = new URLSearchParams(window.location.search);
+        const weekParam = urlParams.get('week');
+        const subgroupParam = urlParams.get('subgroup');
+
+        if (!weekParam && weekType === null)
             setWeekType("even")
 
-        if(subgroup === null)
+        if(!subgroupParam && subgroup === null)
             setSubgroup(1)
+
 
         if (currentGroup != null && subgroup != null && weekType != null && weekType !== "null") {
             console.log("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
@@ -84,7 +89,7 @@ const SchedulePage = ({group}) => {
 
                 {downloadFailure ? <div className="alert-container">
                     <AlertIcon style={windowWidth <= 930 ? alertSmallStyle : alertStyle}/>
-                    <div className="alertText">Ошибка загрузки расписания, заполнена не вся неделя.</div>
+                    <div className="alert-text">Ошибка загрузки расписания, заполнена не вся неделя.</div>
                 </div> : null}
 
                 <div className="days-container">

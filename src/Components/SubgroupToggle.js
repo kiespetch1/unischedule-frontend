@@ -71,8 +71,6 @@ const SubgroupToggle = () => {
         }
     }, [initialized, location, setSubgroupTwo, setSubgroupOne]);
 
-
-
     const activateClickHandler = (event) => {
         const target = event.target;
         if (target.tagName.toLowerCase() === 'div') {
