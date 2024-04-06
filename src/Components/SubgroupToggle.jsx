@@ -106,33 +106,37 @@ const SubgroupToggle = () => {
                 </div>
                 <div className={subgroup === 2 ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={deactivateClickHandler}>
-                    <div style={{display: "flex"}}>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                         {subgroup === 1 ?
                             (windowWidth <= 930 ? <FirstSGSmall style={iconSmallAnimation}/> :
                                 <FirstSG style={iconAnimation}/>) : (windowWidth <= 930 ?
-                                <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)}
-                        <div className={subgroup === 2? "toggle-text-inactive" : "toggle-text-active"}
-                             onClick={deactivateClickHandler}
-                             style={{display: "flex", alignItems: "center"}}>
+                                <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)
+                        }
+                        <div className={subgroup === 2 ? "toggle-text-inactive" : "toggle-text-active"}
+                             onClick={deactivateClickHandler} style={{display: "flex", alignItems: "center"}}>
                             Первая
                         </div>
                     </div>
                 </div>
 
+                {windowWidth <= 930 ? <div style={{width: "4px"}}></div> : null}
+
+
                 <div className={subgroup === 1 ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={activateClickHandler}>
-                    <div style={{display: "flex"}}>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                         {subgroup === 2 ?
                             (windowWidth <= 930 ? <SecondSGSmall style={iconSmallAnimation}/> :
                                 <SecondSG style={iconAnimation}/>) : (windowWidth <= 930 ?
-                                <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)}
+                                <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)
+                        }
                         <div className={subgroup === 1 ? "toggle-text-inactive" : "toggle-text-active"}
-                             onClick={activateClickHandler}
-                             style={{display: "flex", alignItems: "center"}}>
+                             onClick={activateClickHandler} style={{display: "flex", alignItems: "center"}}>
                             Вторая
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     );

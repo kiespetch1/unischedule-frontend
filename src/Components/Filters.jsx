@@ -5,7 +5,7 @@ import {ReactComponent as ChangeIcon} from "../assets/change.svg";
 import {ReactComponent as ChangeIconSmall} from "../assets/changeSmall.svg";
 
 
-const Filters = () => {
+const Filters = ({groupName}) => {
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
 
     useEffect(() => {
@@ -26,11 +26,14 @@ const Filters = () => {
                 Группа
             </div>
             <div className="group-name">
-                <div className="bold-group-text">
-                    ИВТ1-Б21
-                </div>
+                {groupName === null ?
+                    <div className="group-placeholder"></div> : <div className="bold-group-text">{groupName}</div>}
                 <a href="/groups" className="switch-icon">
-                    {windowWidth <= 930 ? <ChangeIconSmall/> : <ChangeIcon/>}
+                    {windowWidth <= 930 ?
+                        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                            <ChangeIconSmall/></div> :
+                        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                            <ChangeIcon/></div>}
                 </a>
 
             </div>

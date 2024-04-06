@@ -78,7 +78,7 @@ const WeekToggle = () => {
                 target.className.includes("toggle-inner-inactive") ||
                 target.className.includes("toggle-text-inactive")
             ) {
-                setWeekOdd();
+                setWeekEven();
             }
         }
     };
@@ -90,7 +90,7 @@ const WeekToggle = () => {
                 target.className.includes("toggle-inner-inactive") ||
                 target.className.includes("toggle-text-inactive")
             ) {
-                setWeekEven()
+                setWeekOdd()
             }
         }
     };
@@ -102,37 +102,41 @@ const WeekToggle = () => {
             </div>
             <div className="toggle-outer">
                 <div className="toggle-slider-container">
-                    <div className={weekType === "odd" ? "toggle-slider-toggled" : "toggle-slider-untoggled"}></div>
+                    <div className={weekType === "odd" ? "toggle-slider-untoggled" : "toggle-slider-toggled"}></div>
                 </div>
-                <div className={weekType === "odd" ? "toggle-inner-inactive" : "toggle-inner-active"}
+
+                <div className={weekType === "even" ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={deactivateClickHandler}>
-                    <div style={{display: "flex"}}>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                        {weekType === "odd" ?
+                            (windowWidth <= 930 ? <OddWeekIconSmall style={iconSmallAnimation}/> :
+                                <OddWeekIcon style={iconAnimation}/>) : (windowWidth <= 930 ?
+                                <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)
+                        } {/*TODO переделать чтобы размеры иконок менялись только через стили*/}
+                        <div className={weekType === "even" ? "toggle-text-inactive" : "toggle-text-active"}
+                             onClick={deactivateClickHandler} style={{display: "flex", alignItems: "center"}}>
+                            Нечетная
+                        </div>
+                    </div>
+                </div>
+
+                {windowWidth <= 930 ? <div style={{width: "4px"}}></div> : null}
+
+                <div className={weekType === "odd" ? "toggle-inner-inactive" : "toggle-inner-active"}
+                     onClick={activateClickHandler}>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                         {weekType === "even" ?
                             (windowWidth <= 930 ? <EvenWeekIconSmall style={iconSmallAnimation}/> :
                                 <EvenWeekIcon style={iconAnimation}/>) : (windowWidth <= 930 ?
-                                <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)} {/*TODO переделать чтобы размеры иконок менялись только через стили*/}
+                                <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)
+                        }
                         <div className={weekType === "odd" ? "toggle-text-inactive" : "toggle-text-active"}
-                             onClick={deactivateClickHandler}
-                             style={{display: "flex", alignItems: "center"}}>
+                             onClick={activateClickHandler} style={{display: "flex", alignItems: "center"}}>
                             Четная
                         </div>
                     </div>
                 </div>
 
-                <div className={weekType === "even" ? "toggle-inner-inactive" : "toggle-inner-active"}
-                     onClick={activateClickHandler}>
-                    <div style={{display: "flex"}}>
-                        {weekType === "odd" ?
-                            (windowWidth <= 930 ? <OddWeekIconSmall style={iconSmallAnimation}/> :
-                            <OddWeekIcon style={iconAnimation}/>) : (windowWidth <= 930 ?
-                            <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)}
-                        <div className={weekType === "even" ? "toggle-text-inactive" : "toggle-text-active"}
-                             onClick={activateClickHandler}
-                             style={{display: "flex", alignItems: "center"}}>
-                            Нечетная
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     );

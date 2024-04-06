@@ -11,7 +11,6 @@ import Filters from "./Filters";
 const SchedulePage = ({group}) => {
     const [weekInfo, setWeekInfo] = useState(null);
     const {subgroup, setSubgroup, weekType, setWeekType} = useContext(Context);
-    const currentGroup = group - 1;
     const [downloadFailure, setDownloadFailureStatus] = useState(false);
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
 
@@ -56,16 +55,16 @@ const SchedulePage = ({group}) => {
         const subgroupParam = urlParams.get('subgroup');
 
         if (!weekParam && weekType === null)
-            setWeekType("even")
+            setWeekType("odd")
 
         if (!subgroupParam && subgroup === null)
             setSubgroup(1)
 
-        if (currentGroup != null && subgroup != null && weekType != null && weekType !== "null") {
+        if (group != null && subgroup != null && weekType != null && weekType !== "null") {
             console.log("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
-                "&group=" + currentGroup + "&subgroup=" + subgroup);
+                "&groupId=" + group + "&subgroup=" + subgroup);
             fetch("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
-                "&group=" + currentGroup + "&subgroup=" + subgroup, requestOptions)
+                "&groupId=" + group + "&subgroup=" + subgroup, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                     setDownloadFailureStatus(false);
@@ -77,14 +76,14 @@ const SchedulePage = ({group}) => {
                 });
         }
 
-    }, [currentGroup, setSubgroup, setWeekType, subgroup, weekType]);
+    }, [group, setSubgroup, setWeekType, subgroup, weekType]);
 
     return (
         <div className="schedule-page">
 
             <div className="app-container">
                 <Header/>
-                <Filters/>
+                <Filters groupName={weekInfo && weekInfo.group.name}/>
                 <WeeksText currentWeekType={weekType}/>
 
                 {downloadFailure ? <div className="alert-container">

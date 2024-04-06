@@ -260,7 +260,7 @@ header {
     flex-direction: column;
     justify-content: space-evenly;
 
-    height: 64px;
+    height: 74px;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
@@ -294,7 +294,7 @@ header {
 .irl-letters-location {
     font-family: "Raleway", serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 660;
     font-size: 20px;
     /* or 16px */
     display: flex;
@@ -328,7 +328,7 @@ header {
 .app-container {
     display: flex;
     flex-flow: column wrap;
-    align-items: center;
+
     max-width: 1920px;
 }
 
@@ -461,7 +461,7 @@ header {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
 
     display: flex;
     align-items: center;
@@ -502,7 +502,7 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: auto;
+    height: 47px;
 }
 
 .toggle-outer {
@@ -561,6 +561,7 @@ header {
     align-items: center;
     justify-content: center;
     cursor: default;
+    margin-left: -1.9%;
 
     border-radius: 20px;
 }
@@ -804,7 +805,6 @@ header {
 
 .group-button-text {
     position: relative;
-    width: 87px;
     height: 16px;
 
     font-family: 'Raleway', serif;
@@ -837,6 +837,15 @@ header {
     margin-bottom: 16px;
 }
 
+.group-placeholder {
+    position: relative;
+    width: 124px;
+    height: 25px;
+
+    background: #E7E7E7;
+    border-radius: 5px;
+}
+
 /*930 px cтили*/
 
 @media screen and (max-width: 930px) {
@@ -846,6 +855,7 @@ header {
     }
 
     .header-container {
+        width: 100vw;
         padding: 0 7px 0 7px;
         height: 44px;
         border-bottom: 1px solid #BABABA;
@@ -862,12 +872,14 @@ header {
     }
 
     .bold-group-text {
-        font-size: 14px;
+        font-size: 12px;
+
     }
 
     .switch-icon {
-        width: 15px;
-        height: 15px;
+        width: 7px;
+        height: 8px;
+        padding: 4px 0 4px 4px;
     }
 
     .filters-container {
@@ -886,6 +898,8 @@ header {
     .toggle-slider-toggled, .toggle-slider-untoggled, .toggle-inner-inactive, .toggle-inner-active {
         width: 56px;
         height: 16px;
+        margin-right: 1.2%;
+        margin-left: 1.2%;
     }
 
     .toggle-slider-toggled {
@@ -894,6 +908,7 @@ header {
 
 
     .toggle-text-inactive, .toggle-text-active {
+        margin-top: 4%;
         font-size: 7px;
     }
 
@@ -1014,6 +1029,10 @@ header {
     .alert-text {
         font-size: 8px;
         margin-left: 6px;
+    }
+
+    .group-name {
+        height: 20px;
     }
 
 }

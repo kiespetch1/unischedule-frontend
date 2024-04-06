@@ -1,13 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import {ReactComponent as SearchIcon} from "../assets/search.svg";
 import {ReactComponent as CrossIcon} from "../assets/cross.svg";
-import GroupButton from "./GroupButton";
+import CourseGroups from "./CourseGroups";
 
 
 const GroupsListPage = () => {
     const [inputValue, setInputValue] = useState('');
+    const [groupsInfo, setGroupsInfo] = useState("");
 
     const iconStyle = {
         cursor: "pointer",
@@ -18,6 +19,24 @@ const GroupsListPage = () => {
     function clearInput() {
         setInputValue('');
     }
+
+    useEffect(() => {
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        fetch("https://localhost:7184/api/groups", requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                setGroupsInfo(data);
+            })
+            .catch(error => {
+                console.log("Ошибка при загрузке данных: " + error);
+            });
+    }, []);
 
     return (
         <div>
@@ -35,67 +54,17 @@ const GroupsListPage = () => {
                     {inputValue && inputValue.length > 0 ?
                         <CrossIcon style={iconStyle} onClick={clearInput}/> : null}
                 </div>
-                <div className="grade-container">
-                    <div className="grade-text">1 курс</div>
-                    <div className="grade-divider"></div>
-                </div>
-                <div style={{display: "flex", flexDirection: "row"}}>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                </div>
 
-                <div className="grade-container">
-                    <div className="grade-text">2 курс</div>
-                    <div className="grade-divider"></div>
-                </div>
-                <div style={{display: "flex", flexDirection: "row"}}>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                </div>
+                <CourseGroups grade="1" groups={groupsInfo} />
+                <CourseGroups grade="2" groups={groupsInfo} />
+                <CourseGroups grade="3" groups={groupsInfo} />
+                <CourseGroups grade="4" groups={groupsInfo} />
 
-                <div className="grade-container">
-                    <div className="grade-text">3 курс</div>
-                    <div className="grade-divider"></div>
+                <div className="group-add-text">Вашей группы нет в списке? Напишите <a
+                    style={{ whiteSpace: 'nowrap', color: "#767676"}}
+                    href="https://t.me/kiespetchq"
+                    target="_blank" rel="noreferrer"> мне</a>.
                 </div>
-                <div style={{display: "flex", flexDirection: "row"}}>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                </div>
-
-                <div className="grade-container">
-                    <div className="grade-text">4 курс</div>
-                    <div className="grade-divider"></div>
-                </div>
-                <div style={{display: "flex", flexDirection: "row"}}>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                </div>
-
-                <div className="grade-container">
-                    <div className="grade-text">5 курс</div>
-                    <div className="grade-divider"></div>
-                </div>
-                <div style={{display: "flex", flexDirection: "row"}}>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                </div>
-
-                <div className="grade-container">
-                    <div className="grade-text">6 курс</div>
-                    <div className="grade-divider"></div>
-                </div>
-                <div style={{display: "flex", flexDirection: "row"}}>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                    <GroupButton group="ИВТ1-Б21" link="/group=1"/>
-                </div>
-
-                <div className="group-add-text">Вашей группы нет в списке? Напишите <a style={{ whiteSpace: 'nowrap' }} href="https://t.me/kiespetchq"> мне</a>.</div>
             </div>
             <Footer/>
         </div>)
