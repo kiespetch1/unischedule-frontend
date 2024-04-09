@@ -1,13 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import "../index.css";
-import HeaderDay from "./DayHeader";
+import DayHeader from "./DayHeader";
 import Class from "./Class";
 import Window from "./Window";
 
 const Day = ({dayData, dayName, downloadFailure, current}) => {
-
+    const [isEditing, setIsEditing] = useState(false);
     let classesCount = dayData?.classes?.length || 0;
     let hasWindow = false;
+
+    const handleDayEditToggle = () => {
+        setIsEditing(!isEditing);
+    };
 
     // eslint-disable-next-line default-case
     switch (classesCount) {
@@ -26,7 +30,7 @@ const Day = ({dayData, dayName, downloadFailure, current}) => {
 
     return (
         <div className="day-full">
-            <HeaderDay name={dayName} classCount={classesCount} current={current}/>
+            <DayHeader name={dayName} classCount={classesCount} current={current} editing={handleDayEditToggle}/>
             {classesCount === 0 || downloadFailure ? (
                 <div className="day-empty-block-top">
                     <div className="empty-text">Выходной день</div>

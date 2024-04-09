@@ -9,16 +9,53 @@ import CourseGroups from "./CourseGroups";
 const GroupsListPage = () => {
     const [inputValue, setInputValue] = useState('');
     const [groupsInfo, setGroupsInfo] = useState("");
+    const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
 
-    const iconStyle = {
+    const crossIconStyle = {
+        height: "14px",
+        width: "14px",
         cursor: "pointer",
         animationName: "smooth-expanding-14px",
         animationDuration: "0.1s"
     }
 
+    const crossIconSmallStyle = {
+        height: "7px",
+        width: "7px",
+        cursor: "pointer",
+        animationName: "smooth-expanding-7px",
+        animationDuration: "0.1s"
+    }
+
+    const searchIconStyle = {
+        height: "18px",
+        width: "18px",
+        margin: "0 16px 0 12px",
+        transform: "scaleX(-1)"
+    }
+
+    const searchIconSmallStyle = {
+        height: "9px",
+        width: "9px",
+        margin: "0 8px 0 6px",
+        transform: "scaleX(-1)"
+    }
+
     function clearInput() {
         setInputValue('');
     }
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(document.documentElement.clientWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         const requestOptions = {
@@ -44,24 +81,23 @@ const GroupsListPage = () => {
             <div className="groups-container">
                 <div className="groups-choose-text">Группы</div>
                 <div className="search-bar">
-                    <SearchIcon style={{
-                        height: "18px", width: "18px", margin: "0 16px 0 12px", transform: "scaleX(-1)"
-                    }}/>
+                    <SearchIcon style={windowWidth <= 930 ? searchIconSmallStyle : searchIconStyle}/>
                     <input className="search-bar-input" type="search" placeholder="Введите название группы"
                            value={inputValue}
                            onChange={(e) => setInputValue(e.target.value)}
                            id="group-search"/>
                     {inputValue && inputValue.length > 0 ?
-                        <CrossIcon style={iconStyle} onClick={clearInput}/> : null}
+                        <CrossIcon style={windowWidth <= 930 ? crossIconSmallStyle : crossIconStyle}
+                                   onClick={clearInput}/> : null}
                 </div>
 
-                <CourseGroups grade="1" groups={groupsInfo} />
-                <CourseGroups grade="2" groups={groupsInfo} />
-                <CourseGroups grade="3" groups={groupsInfo} />
-                <CourseGroups grade="4" groups={groupsInfo} />
+                <CourseGroups grade="1" groups={groupsInfo}/>
+                <CourseGroups grade="2" groups={groupsInfo}/>
+                <CourseGroups grade="3" groups={groupsInfo}/>
+                <CourseGroups grade="4" groups={groupsInfo}/>
 
                 <div className="group-add-text">Вашей группы нет в списке? Напишите <a
-                    style={{ whiteSpace: 'nowrap', color: "#767676"}}
+                    style={{whiteSpace: 'nowrap', color: "#767676"}}
                     href="https://t.me/kiespetchq"
                     target="_blank" rel="noreferrer"> мне</a>.
                 </div>

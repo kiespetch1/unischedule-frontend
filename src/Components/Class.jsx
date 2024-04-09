@@ -15,7 +15,8 @@ const Class = ({isTop, order, dayData}) => {
 
     const dotStyle = {
         flexGrow: "1",
-        height: "100%",
+        height: "5px",
+        width: "5px",
         paddingLeft: "15px",
         paddingRight: "15px",
     };
