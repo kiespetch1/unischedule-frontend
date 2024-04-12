@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import "../index.css";
 import {ReactComponent as DotDivider} from "../assets/dot.svg";
 import {ReactComponent as EditIcon} from "../assets/edit.svg";
+import {ReactComponent as ExitIcon} from "../assets/stopEdit.svg";
 
 const DayHeader = ({name, classCount, current, editing}) => {
     const dotStyle = {
@@ -19,6 +20,7 @@ const DayHeader = ({name, classCount, current, editing}) => {
     };
 
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
+    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -31,6 +33,21 @@ const DayHeader = ({name, classCount, current, editing}) => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    const handleEditing = () => {
+        if (!isEditing) {
+            setTimeout(() => {
+                const icon = document.querySelector('.add-icon');
+                icon?.classList.add('appear');
+            }, 200);
+        } else {
+            const icon = document.querySelector('.add-icon');
+            icon?.classList.remove('appear');
+        }
+
+        setIsEditing(!isEditing);
+        editing(!isEditing);
+    };
 
     function num_word(value, words) {
         value = Math.abs(value) % 100;
@@ -48,7 +65,9 @@ const DayHeader = ({name, classCount, current, editing}) => {
             <div className="day-header-text" style={current ? {textDecoration: "underline"} : null}>{name}</div>
             <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>
             <div className="classes-text">{classCount === 0 ? "выходной" : classCount + " " + classesText}</div>
-            {windowWidth <= 930 ? null : <div onClick={editing} className="edit-icon-wrapper"><EditIcon className="edit-icon"/></div>}
+            {windowWidth <= 930 ? null :
+                <div onClick={handleEditing} className="edit-icon-wrapper">{isEditing ? <ExitIcon/> : <EditIcon
+                    className="edit-icon"/>}</div>}
         </div>
     );
 };

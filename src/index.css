@@ -163,8 +163,12 @@ header {
     justify-content: flex-start;
 }
 
+.day-full.editing * {
+    z-index: 2;
+}
+
 .day-end-block {
-    /* верх дня */
+    display: flex;
     position: relative;
     width: 600px;
     height: 9px;
@@ -172,6 +176,32 @@ header {
     background: #e7e7e7;
     border-radius: 5px 5px 5px 5px;
     margin-top: 6px;
+}
+
+.day-end-block.animated {
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 34px;
+    animation: day-end-to-plus 0.2s ease-in-out;
+}
+
+@keyframes day-end-to-plus {
+    from {
+        height: 9px;
+    }
+    to {
+        height: 34px;
+    }
+}
+
+.add-icon {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.add-icon.appear {
+    opacity: 1;
 }
 
 .main-content {
@@ -327,11 +357,20 @@ header {
 }
 
 .app-container {
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-flow: column wrap;
 
     max-width: 1920px;
 }
+
+.schedule-page
+{
+    position: relative;
+    overflow: hidden;
+}
+
 
 @media screen and (min-width: 1920px) {
     .app-container {
@@ -578,13 +617,13 @@ header {
     cursor: pointer;
 }
 
-@keyframes smooth-expanding-20px {
-    from {
-        width: 0;
-    }
-    to {
-        width: 20px;
-    }
+@keyframes smooth-shrinking-9px {
+     from {
+         width: 9px;
+     }
+     to {
+         width: 0;
+     }
 }
 
 @keyframes smooth-shrinking-20px {
@@ -593,15 +632,6 @@ header {
     }
     to {
         width: 0;
-    }
-}
-
-@keyframes smooth-expanding-14px {
-    from {
-        width: 0;
-    }
-    to {
-        width: 14px;
     }
 }
 
@@ -622,13 +652,22 @@ header {
         width: 9px;
     }
 }
+@keyframes smooth-expanding-14px {
+     from {
+         width: 0;
+     }
+     to {
+         width: 14px;
+     }
+ }
 
-@keyframes smooth-shrinking-9px {
+
+@keyframes smooth-expanding-20px {
     from {
-        width: 9px;
+        width: 0;
     }
     to {
-        width: 0;
+        width: 20px;
     }
 }
 
@@ -857,12 +896,29 @@ header {
 }
 
 .blur-element {
+    position: absolute;
     width: 100vw;
-    height: calc(100vw - 90px - 76px - 24px);
+    height: 150vh;
+    z-index: 1;
 
-    background: linear-gradient(180deg, rgba(241, 241, 241, 0) 0%, rgba(244, 244, 244, 0.6375) 2.84%);
+    background: linear-gradient(180deg,
+    rgba(241, 241, 241, 0) 0%,
+    rgba(244, 244, 244, 0.6375) 2.84%,
+    rgba(247, 247, 247, 0.75) 96.5%);
+
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    animation: fadeIn 0.2s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .edit-icon-wrapper {
@@ -871,6 +927,7 @@ header {
     order: 7;
     padding-right: 20px;
     margin-left: auto;
+    cursor: pointer;
 }
 
 .day-header:hover .edit-icon-wrapper {
@@ -880,6 +937,21 @@ header {
 .edit-icon {
     width: 26px;
     height: 26px;
+}
+
+.day-edit-text {
+    position: absolute;
+    width: 200px;
+    height: 24px;
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 90%;
+    z-index: 1;
+
+    color: #000000;
 }
 
 /* <= 930 px cтили */
@@ -1117,13 +1189,14 @@ header {
         margin-right: 8px;
     }
 
-    .group-button-text{
+    .group-button-text {
         font-size: 9px;
     }
 
     .group-buttons-container {
         padding-top: 8px;
     }
+
     .group-add-text {
         font-size: 8px;
         margin: 10px 0 10px 0;

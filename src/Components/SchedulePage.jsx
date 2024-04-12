@@ -13,6 +13,7 @@ const SchedulePage = ({group}) => {
     const {subgroup, setSubgroup, weekType, setWeekType} = useContext(Context);
     const [downloadFailure, setDownloadFailureStatus] = useState(false);
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
+    const [isEditing, setIsEditing] = useState(false);
 
     const alertStyle = {
         width: "24px",
@@ -80,12 +81,11 @@ const SchedulePage = ({group}) => {
 
     return (
         <div className="schedule-page">
-
+            <Header/>
+            <Filters groupName={weekInfo && weekInfo.group.name}/>
             <div className="app-container">
-                <Header/>
-                <Filters groupName={weekInfo && weekInfo.group.name}/>
+                <div className={isEditing ? "blur-element" : null}></div>
                 <WeeksText currentWeekType={weekType}/>
-
                 {downloadFailure ? <div className="alert-container">
                     <AlertIcon style={windowWidth <= 930 ? alertSmallStyle : alertStyle}/>
                     <div className="alert-text">Ошибка загрузки расписания, заполнена не вся неделя.</div>
@@ -93,17 +93,17 @@ const SchedulePage = ({group}) => {
 
                 <div className="days-container">
                     {<Day dayData={weekInfo && weekInfo.monday} dayName="Понедельник" downloadFailure={downloadFailure}
-                          current={getTodayName() === "monday"}/>}
+                          current={getTodayName() === "monday"} onEditToggle={setIsEditing}/>}
                     {<Day dayData={weekInfo && weekInfo.tuesday} dayName="Вторник" downloadFailure={downloadFailure}
-                          current={getTodayName() === "tuesday"}/>}
+                          current={getTodayName() === "tuesday"} onEditToggle={setIsEditing}/>}
                     {<Day dayData={weekInfo && weekInfo.wednesday} dayName="Среда" downloadFailure={downloadFailure}
-                          current={getTodayName() === "wednesday"}/>}
+                          current={getTodayName() === "wednesday"} onEditToggle={setIsEditing}/>}
                     {<Day dayData={weekInfo && weekInfo.thursday} dayName="Четверг" downloadFailure={downloadFailure}
-                          current={getTodayName() === "thursday"}/>}
+                          current={getTodayName() === "thursday"} onEditToggle={setIsEditing}/>}
                     {<Day dayData={weekInfo && weekInfo.friday} dayName="Пятница" downloadFailure={downloadFailure}
-                          current={getTodayName() === "friday"}/>}
+                          current={getTodayName() === "friday"} onEditToggle={setIsEditing}/>}
                     {<Day dayData={weekInfo && weekInfo.saturday} dayName="Суббота" downloadFailure={downloadFailure}
-                          current={getTodayName() === "saturday"}/>}
+                          current={getTodayName() === "saturday"} onEditToggle={setIsEditing}/>}
                 </div>
             </div>
             <Footer/>

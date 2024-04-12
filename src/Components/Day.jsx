@@ -3,15 +3,12 @@ import "../index.css";
 import DayHeader from "./DayHeader";
 import Class from "./Class";
 import Window from "./Window";
+import {ReactComponent as AddIcon} from "../assets/addIcon.svg";
 
-const Day = ({dayData, dayName, downloadFailure, current}) => {
+const Day = ({dayData, dayName, downloadFailure, current, onEditToggle}) => {
     const [isEditing, setIsEditing] = useState(false);
+    const [editTextPosition, setEditTextPosition] = useState({top: 0, left: 0});
     let classesCount = dayData?.classes?.length || 0;
-    let hasWindow = false;
-
-    const handleDayEditToggle = () => {
-        setIsEditing(!isEditing);
-    };
 
     // eslint-disable-next-line default-case
     switch (classesCount) {
@@ -19,7 +16,6 @@ const Day = ({dayData, dayName, downloadFailure, current}) => {
         case 4:
             if (dayData.classes[1].isWindow || dayData.classes[2].isWindow) {
                 classesCount = classesCount - 1
-                hasWindow = true;
             }
 
             break;
@@ -27,68 +23,55 @@ const Day = ({dayData, dayName, downloadFailure, current}) => {
     if (downloadFailure)
         classesCount = 0;
 
+    const handleDayEditToggle = () => {
+        setIsEditing(!isEditing);
+        onEditToggle(!isEditing);
+    };
+
+    const handleMouseEnter = () => {
+        const relativeElement = document.getElementById("day-full");
+        const rect = relativeElement.getBoundingClientRect();
+        const parentRect = relativeElement.parentElement.getBoundingClientRect();
+        setEditTextPosition({
+            top: rect.top - parentRect.top - 48, // Вычитаем верхний край родительского элемента
+            left: rect.left - parentRect.left + 13, // Вычитаем левый край родительского элемента
+        });
+        console.log(rect.top - parentRect.top - 48, rect.left - parentRect.left + 13);
+    };
+
+    const editText = isEditing ? (
+        <div
+            className="day-edit-text"
+            style={{top: editTextPosition.top + "px", left: editTextPosition.left + "px"}}>
+            Редактирование
+        </div>
+    ) : null;
 
     return (
-        <div className="day-full">
+        <div
+            className={isEditing ? "day-full editing" : "day-full"}
+            id="day-full"
+            onMouseEnter={handleMouseEnter}
+        >
             <DayHeader name={dayName} classCount={classesCount} current={current} editing={handleDayEditToggle}/>
-            {classesCount === 0 || downloadFailure ? (
+            {downloadFailure || classesCount === 0 ? (
                 <div className="day-empty-block-top">
                     <div className="empty-text">Выходной день</div>
                 </div>
-            ) : null}
-
-            {/*это рендер первого блока*/}
-            {classesCount >= 1 && !dayData.classes[0].isWindow && !downloadFailure ? (
-                <Class
-                    isTop={true}
-                    order="1"
-                    dayData={dayData}
-                />
-            ) : null}
-
-            {classesCount >= 1 && dayData.classes[0].isWindow && !downloadFailure ? (
-                <Window/>
-            ) : null}
-
-            {/*это рендер второго блока*/}
-
-            {classesCount >= 2 && !dayData.classes[1].isWindow && !downloadFailure ? (
-                <Class
-                    order="2"
-                    dayData={dayData}
-                />
-            ) : null}
-
-            {classesCount >= 2 && dayData.classes[1].isWindow && !downloadFailure ? (
-                <Window/>
-            ) : null}
-
-            {/*это рендер третьего блока*/}
-
-            {(classesCount >= 3 || (classesCount >= 2 && hasWindow)) && !dayData.classes[2].isWindow && !downloadFailure ? (
-                <Class
-                    order="3"
-                    dayData={dayData}
-                />
-            ) : null}
-
-            {classesCount >= 3 && dayData.classes[2].isWindow && !downloadFailure ? (
-                <Window/>
-            ) : null}
-
-            {/*это рендер четверого блока*/}
-
-            {(classesCount >= 4 || (classesCount >= 3 && hasWindow)) && !dayData.classes[3].isWindow && !downloadFailure ? (
-                <Class
-                    order="4"
-                    dayData={dayData}
-                />
-            ) : null}
-
-            {classesCount >= 4 && dayData.classes[3].isWindow ? (
-                <Window/>
-            ) : null}
-            <div className="day-end-block"></div>
+            ) : (
+                dayData?.classes?.map((classData, index) => (
+                    <React.Fragment key={index}>
+                        {classData.isWindow ? <Window/> : <Class order={(index + 1).toString()} dayData={dayData}/>}
+                    </React.Fragment>
+                ))
+            )}
+            {editText}
+            {isEditing ?
+                <div className="day-end-block animated">
+                    <div className="add-icon"><AddIcon/></div>
+                </div> :
+                <div className="day-end-block"></div>
+            }
         </div>
     );
 };
