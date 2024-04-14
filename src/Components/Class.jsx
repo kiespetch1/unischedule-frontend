@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import "../index.css";
 import {ReactComponent as EvenWeekIcon} from "../assets/evenWeek.svg";
 import {ReactComponent as EvenWeekIconSmall} from "../assets/evenWeekSmall.svg";
@@ -11,7 +11,7 @@ import {ReactComponent as SecondSG} from "../assets/2sg.svg"
 import {ReactComponent as SecondSGSmall} from "../assets/2sgSmall.svg"
 
 
-const Class = ({isTop, order, dayData}) => {
+const Class = ({order, dayData}) => {
 
     const dotStyle = {
         flexGrow: "1",
@@ -73,12 +73,12 @@ const Class = ({isTop, order, dayData}) => {
         };
     }, []);
 
-
     return (
-        <section className={isTop ? "day-block-top" : "day-block"}>
+        <section className={order === "1" ? "day-block-top" : "day-block"}>
             <div className="main-content">
                 <div className="info-row">
-                    <div className="class-time">{dayData.classes[order - 1].startTime.slice(0, 5)} - {dayData.classes[order - 1].endTime.slice(0, 5)}</div>
+                    <div
+                        className="class-time">{dayData.classes[order - 1].startTime.slice(0, 5)} - {dayData.classes[order - 1].endTime.slice(0, 5)}</div>
                     <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>
 
                     <div className="class-type">{(
@@ -89,15 +89,19 @@ const Class = ({isTop, order, dayData}) => {
                     {(dayData.classes[order - 1].weekType === 0 && dayData.classes[order - 1].subgroup === 0 ? null :
                         <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>)}
                     {(dayData.classes[order - 1].weekType === 0 ? null
-                        : dayData.classes[order - 1].weekType === 1 ? (windowWidth <= 930 ? <OddWeekIconSmall style={signSmallStyle}/> :
+                        : dayData.classes[order - 1].weekType === 1 ? (windowWidth <= 930 ?
+                                <OddWeekIconSmall style={signSmallStyle}/> :
                                 <OddWeekIcon style={signStyle}/>)
-                            : dayData.classes[order - 1].weekType === 2 ? (windowWidth <= 930 ? <EvenWeekIconSmall style={signSmallStyle}/> :
+                            : dayData.classes[order - 1].weekType === 2 ? (windowWidth <= 930 ?
+                                    <EvenWeekIconSmall style={signSmallStyle}/> :
                                     <EvenWeekIcon style={signStyle}/>) :
                                 null)}
                     {(dayData.classes[order - 1].subgroup === 0 ? null
-                        : dayData.classes[order - 1].subgroup === 1 ? (windowWidth <= 930 ? <FirstSGSmall style={lastSignSmallStyle}/> :
+                        : dayData.classes[order - 1].subgroup === 1 ? (windowWidth <= 930 ?
+                                <FirstSGSmall style={lastSignSmallStyle}/> :
                                 <FirstSG style={lastSignStyle}/>)
-                            : dayData.classes[order - 1].subgroup === 2 ? (windowWidth <= 930 ? <SecondSGSmall style={lastSignSmallStyle}/> :
+                            : dayData.classes[order - 1].subgroup === 2 ? (windowWidth <= 930 ?
+                                    <SecondSGSmall style={lastSignSmallStyle}/> :
                                     <SecondSG style={lastSignStyle}/>) :
                                 null)}
                 </div>
@@ -126,7 +130,8 @@ const Class = ({isTop, order, dayData}) => {
                         </div>
                     }
                     {(dayData.locations[order - 1].locationType === 1) &&
-                        <a href={dayData.locations[order - 1].link} target="_blank" rel="noreferrer" className="distant-location">
+                        <a href={dayData.locations[order - 1].link} target="_blank" rel="noreferrer"
+                           className="distant-location">
                             Ссылка
                         </a>
                     }
