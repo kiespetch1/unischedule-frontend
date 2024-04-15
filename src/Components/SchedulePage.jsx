@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import "../index.css";
 import Header from "./Header";
 import Day from "./Day";
 import Footer from "./Footer";
 import Context from "../Context";
-import { ReactComponent as AlertIcon } from "../assets/alert.svg";
+import {ReactComponent as AlertIcon} from "../assets/alert.svg";
 import WeeksText from "./WeeksText";
 import Filters from "./Filters";
 
-const SchedulePage = ({ group }) => {
+const SchedulePage = ({group}) => {
     const [weekInfo, setWeekInfo] = useState(null);
-    const { subgroup, setSubgroup, weekType, setWeekType } = useContext(Context);
+    const {subgroup, setSubgroup, weekType, setWeekType} = useContext(Context);
     const [downloadFailure, setDownloadFailureStatus] = useState(false);
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
     const [isEditing, setIsEditing] = useState(false);
@@ -27,10 +27,12 @@ const SchedulePage = ({ group }) => {
         height: "12px",
     }
 
-    useEffect(() => {
-        console.log("aaaaaaaaaaa");
-        setPlaceholderHeight(placeholderHeight);
-    }, [placeholderHeight]);
+    const togglePlaceholder = (placeholderState) => {
+        if (placeholderState)
+            setPlaceholderHeight(51);
+        else
+            setPlaceholderHeight(0);
+    }
 
     function getRussianDayName(day) {
         const daysRu = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
@@ -110,12 +112,13 @@ const SchedulePage = ({ group }) => {
                             downloadFailure={downloadFailure}
                             current={getTodayName() === dayName}
                             onEditToggle={setIsEditing}
-                            placeholderHeight={placeholderHeight}
+                            togglePlaceholder={togglePlaceholder}
                         />
                     ))}
                 </div>
+                <div style={{height: placeholderHeight + "px", width: "auto"}}></div>
             </div>
-            <div style={{height: placeholderHeight + "px", width: "auto"}}></div>
+
             <Footer/>
         </div>
     );

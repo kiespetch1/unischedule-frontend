@@ -4,7 +4,7 @@ import {ReactComponent as DotDivider} from "../assets/dot.svg";
 import {ReactComponent as EditIcon} from "../assets/edit.svg";
 import {ReactComponent as ExitIcon} from "../assets/stopEdit.svg";
 
-const DayHeader = ({name, classCount, current, editing}) => {
+const DayHeader = ({name, classCount, current, editing, placeholder}) => {
     const dotStyle = {
         height: "5px",
         width: "5px",
@@ -43,6 +43,7 @@ const DayHeader = ({name, classCount, current, editing}) => {
         } else {
             const icon = document.querySelector('.add-icon');
             icon?.classList.remove('appear');
+            placeholder(false);
         }
 
         setIsEditing(!isEditing);

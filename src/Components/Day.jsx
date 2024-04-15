@@ -5,7 +5,7 @@ import Class from "./Class";
 import Window from "./Window";
 import {ReactComponent as AddIcon} from "../assets/addIcon.svg";
 
-const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, placeholderHeight}) => {
+const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePlaceholder}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [saveButtonPosition, setSaveButtonPosition] = useState({top: 0, left: 0});
     let classesCount = dayData?.classes?.length || 0;
@@ -14,7 +14,6 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, placehol
         const getElementDistanceFromTop = function (elementId) {
             const element = document.getElementById(elementId);
             const elementRect = element.getBoundingClientRect();
-
 
             return elementRect.bottom + window.scrollY;
         }
@@ -42,7 +41,6 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, placehol
         onEditToggle(!isEditing);
     };
 
-
     useEffect(() => {
         const relativeElement = document.getElementById("day-full editing");
         if (relativeElement) {
@@ -53,12 +51,11 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, placehol
                 left: rect.width - 172,
             });
 
-            console.log(calculateDistanceBetweenElements("day-full editing", "footer"));
             if (calculateDistanceBetweenElements("day-full editing", "footer") - 71 < 70) {
-                console.log("мало места, передал выше");
+                togglePlaceholder(true);
             }
         }
-    }, [isEditing]);
+    }, [isEditing, togglePlaceholder]);
 
     const editText = isEditing ? (
         <div className="day-edit-text" style={{top: "-34px", left: "20px"}}>
@@ -69,6 +66,7 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, placehol
     function handleDaySave() {
         setIsEditing(!isEditing);
         onEditToggle(!isEditing);
+        togglePlaceholder(false);
     }
 
     const saveButton = isEditing ?
@@ -79,7 +77,7 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, placehol
 
     return (
         <div className={isEditing ? "day-full editing" : "day-full"} id={isEditing ? "day-full editing" : "day-full"}>
-            <DayHeader name={dayName} classCount={classesCount} current={current} editing={handleDayEditToggle}/>
+            <DayHeader name={dayName} classCount={classesCount} current={current} editing={handleDayEditToggle} placeholder={togglePlaceholder}/>
             {downloadFailure || classesCount === 0 ? (
                 <div className="day-empty-block-top">
                     <div className="empty-text">Выходной день</div>
