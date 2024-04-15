@@ -369,8 +369,7 @@ header {
     max-width: 1920px;
 }
 
-.schedule-page
-{
+.schedule-page {
     position: relative;
     overflow: hidden;
 }
@@ -494,9 +493,19 @@ header {
     color: #000000;
 }
 
-.switch-icon {
+.switch-icon-wrapper {
     width: 29px;
     height: 29px;
+    transition: transform 0.3s ease;
+}
+.switch-icon-wrapper:hover{
+    transform: rotateZ(180deg);
+}
+
+.switch-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .group-filter-text {
@@ -622,12 +631,12 @@ header {
 }
 
 @keyframes smooth-shrinking-9px {
-     from {
-         width: 9px;
-     }
-     to {
-         width: 0;
-     }
+    from {
+        width: 9px;
+    }
+    to {
+        width: 0;
+    }
 }
 
 @keyframes smooth-shrinking-20px {
@@ -656,14 +665,15 @@ header {
         width: 9px;
     }
 }
+
 @keyframes smooth-expanding-14px {
-     from {
-         width: 0;
-     }
-     to {
-         width: 14px;
-     }
- }
+    from {
+        width: 0;
+    }
+    to {
+        width: 14px;
+    }
+}
 
 
 @keyframes smooth-expanding-20px {
@@ -1009,7 +1019,7 @@ header {
         font-size: 12px;
     }
 
-    .switch-icon {
+    .switch-icon-wrapper {
         width: 7px;
         height: 8px;
         padding: 4px 0 4px 4px;

@@ -28,11 +28,11 @@ const Filters = ({groupName}) => {
             <div className="group-name">
                 {groupName === null ?
                     <div className="group-placeholder"></div> : <div className="bold-group-text">{groupName}</div>}
-                <a href="/groups" className="switch-icon">
+                <a href="/groups" className="switch-icon-wrapper">
                     {windowWidth <= 930 ?
-                        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <div className="switch-icon">
                             <ChangeIconSmall/></div> :
-                        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <div className="switch-icon">
                             <ChangeIcon/></div>}
                 </a>
 
