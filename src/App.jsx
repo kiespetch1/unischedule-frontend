@@ -9,7 +9,7 @@ function App() {
         <ContextProvider>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Navigate  to="/groups" replace />}/>
+                    <Route path="/" element={<Navigate to="/groups" replace/>}/>
                     <Route path="/group=1" element={<SchedulePage group="1"/>}/>
                     <Route path="/groups" element={<GroupsListPage/>}/>
                 </Routes>

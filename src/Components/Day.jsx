@@ -4,11 +4,21 @@ import DayHeader from "./DayHeader";
 import Class from "./Class";
 import Window from "./Window";
 import {ReactComponent as AddIcon} from "../assets/addIcon.svg";
+import SaveButton from "./SaveButton";
 
 const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePlaceholder}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [saveButtonPosition, setSaveButtonPosition] = useState({top: 0, left: 0});
+    const [activeClassIndex, setActiveClassIndex] = useState(null);
     let classesCount = dayData?.classes?.length || 0;
+
+    const handleClassClick = index => {
+        if (activeClassIndex === index) {
+            setActiveClassIndex(null);
+        } else {
+            setActiveClassIndex(index);
+        }
+    };
 
     function calculateDistanceBetweenElements(elementId1, elementId2) {
         const getElementDistanceFromTop = function (elementId) {
@@ -39,7 +49,38 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
     const handleDayEditToggle = () => {
         setIsEditing(!isEditing);
         onEditToggle(!isEditing);
+        if (isEditing)
+            setActiveClassIndex(null);
     };
+
+    function handleDaySave() {
+        setIsEditing(!isEditing);
+        onEditToggle(!isEditing);
+        togglePlaceholder(false);
+    }
+
+    useEffect(() => {
+        const targetElement = document.getElementById("day-full editing");
+
+        if (targetElement) {
+            const resizeObserver = new ResizeObserver(entries => {
+                for (let entry of entries) {
+                    const { width, height } = entry.contentRect;
+
+                    setSaveButtonPosition({
+                        top: height + 12,
+                        left: width - 172,
+                    });
+                }
+            });
+
+            resizeObserver.observe(targetElement);
+
+            return () => {
+                resizeObserver.unobserve(targetElement);
+            };
+        }
+    }, [saveButtonPosition]);
 
     useEffect(() => {
         const relativeElement = document.getElementById("day-full editing");
@@ -57,27 +98,18 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
         }
     }, [isEditing, togglePlaceholder]);
 
+
     const editText = isEditing ? (
         <div className="day-edit-text" style={{top: "-34px", left: "20px"}}>
             Редактирование
         </div>
     ) : null;
 
-    function handleDaySave() {
-        setIsEditing(!isEditing);
-        onEditToggle(!isEditing);
-        togglePlaceholder(false);
-    }
-
-    const saveButton = isEditing ?
-        (<div className="day-save-button"
-              style={{top: saveButtonPosition.top + "px", left: saveButtonPosition.left + "px"}}
-              onClick={handleDaySave}>Сохранить</div>)
-        : null;
-
     return (
         <div className={isEditing ? "day-full editing" : "day-full"} id={isEditing ? "day-full editing" : "day-full"}>
-            <DayHeader name={dayName} classCount={classesCount} current={current} editing={handleDayEditToggle} placeholder={togglePlaceholder}/>
+            <DayHeader name={dayName} classCount={classesCount} current={current}
+                       editing={handleDayEditToggle}
+                       placeholder={togglePlaceholder}/>
             {downloadFailure || classesCount === 0 ? (
                 <div className="day-empty-block-top">
                     <div className="empty-text">Выходной день</div>
@@ -85,7 +117,11 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
             ) : (
                 dayData?.classes?.map((classData, index) => (
                     <React.Fragment key={index}>
-                        {classData.isWindow ? <Window/> : <Class order={(index + 1).toString()} dayData={dayData}/>}
+                        {classData.isWindow ? <Window/> : <Class order={(index + 1).toString()}
+                                                                 dayData={dayData}
+                                                                 isActive={isEditing && activeClassIndex === index}
+                                                                 onClick={() => handleClassClick(index)}
+                                                                 isClickable={isEditing} />}
                     </React.Fragment>
                 ))
             )}
@@ -99,7 +135,8 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
             ) : (
                 <div className="day-end-block"></div>
             )}
-            {saveButton}
+
+            <SaveButton isEditing={isEditing} saveButtonPosition={saveButtonPosition} onSave={handleDaySave}/>
         </div>
     );
 };

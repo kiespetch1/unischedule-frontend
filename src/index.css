@@ -990,6 +990,144 @@ header {
     animation: fadeIn 0.2s ease-in-out;
 }
 
+.class-edit-panel-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 12px;
+    padding-bottom: 6px;
+    max-width: 600px;
+    overflow: hidden;
+    align-items: flex-start;
+
+}
+
+.class-edit-teacher-main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.class-edit-teacher-container.first{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 24px;
+    max-width: 600px;
+}
+
+.class-edit-teacher-container.second{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 36px;
+    max-width: 600px;
+}
+
+.class-edit-panel-add-teacher-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 600px;
+    padding-top: 12px;
+    padding-bottom: 3px;
+}
+
+.class-edit-panel-location-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 24px;
+    padding-top: 9px;
+}
+
+.class-edit-main-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 550;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-right: 14px;
+
+    color: #3D3D3D;
+}
+
+.class-edit-secondary-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-right: 20px;
+
+    color: #3D3D3D;
+}
+
+.class-edit-new-option {
+    display: inline-block;
+    padding: 5px 8px;
+    margin-right: 14px;
+
+    align-items: center;
+    text-align: center;
+    background: #EFEFEF;
+    border: 2px solid #0966BB;
+    border-radius: 10px;
+}
+
+.class-edit-option {
+    display: inline-block;
+    padding: 5px 12px;
+    margin-right: 14px;
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+    white-space: nowrap;
+
+    background: #EFEFEF;
+    border: 2px solid #0966BB;
+    border-radius: 10px;
+}
+
+.class-edit-input {
+    box-sizing: border-box;
+    width: 229px;
+    height: 32px;
+    background: #F5F5F5;
+    border: 2px solid #ADADAD;
+    border-radius: 6px;
+    margin-right: 20px;
+}
+
+.edit-panel-save-button {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Raleway', serif;
+    width: 113px;
+    height: 32px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #F7F7F7;
+
+    background: #0966BB;
+    border: 2px solid #075093;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
 /* <= 930 px cтили */
 
 @media screen and (max-width: 930px) {
