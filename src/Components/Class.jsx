@@ -18,6 +18,7 @@ const Class = ({order, dayData, isClickable, isActive, onClick}) => {
     const [locations, setLocations] = useState([]);
     const [isAddingTeachers, setIsAddingTeachers] = useState(false);
     const [isAddingLocation, setIsAddingLocation] = useState(false);
+    const [locationType, setLocationType] = useState('irl');
 
     const dotStyle = {
         flexGrow: "1",
@@ -64,16 +65,31 @@ const Class = ({order, dayData, isClickable, isActive, onClick}) => {
     function containsLetters(str) {
         return /[a-zA-Zа-яА-Я]/.test(str);
     }
+
     const handleTeacherAdd = () => {
-        setIsAddingTeachers(true);
+        setIsAddingTeachers(!isAddingTeachers);
     }
 
     const handleTeacherSave = () => {
         setIsAddingTeachers(false);
     };
+
+    const handleLocationAdd = () => {
+        setIsAddingLocation(!isAddingLocation);
+    }
+
+    const handleLocationSave = () => {
+        setIsAddingLocation(false);
+    }
+
+    const handleOptionChange = (event) => {
+        setLocationType(event.target.value);
+    };
+
+
     const teacherEditPanel =
-        <div className="class-edit-teacher-main-container">
-            <div className="class-edit-teacher-container first">
+        <div className="class-edit-main-container teacher">
+            <div className="class-edit-inner-container first">
                 <div className="class-edit-main-text">Преподаватель:</div>
                 <div className="class-edit-new-option" onClick={handleTeacherAdd}><AddIcon/></div>
                 {teachers.map((item, index) => (
@@ -84,10 +100,10 @@ const Class = ({order, dayData, isClickable, isActive, onClick}) => {
             </div>
 
             {isAddingTeachers ?
-                <div className="class-edit-teacher-container second">
-                    <div className="class-edit-panel-add-teacher-container">
+                <div className="class-edit-inner-container second">
+                    <div className="class-edit-panel-new-container">
                         <div className="class-edit-secondary-text">ФИО преподавателя:</div>
-                        <div className="class-edit-input"></div>
+                        <input className="class-edit-input" id="teacher-edit-input"></input>
                         <div className="edit-panel-save-button" onClick={handleTeacherSave}>Добавить</div>
                     </div>
                 </div>
@@ -96,14 +112,37 @@ const Class = ({order, dayData, isClickable, isActive, onClick}) => {
     ;
 
     const locationEditPanel =
-        <div className="class-edit-panel-location-container">
-            <div className="class-edit-main-text">Локация:</div>
-            <div className="class-edit-new-option"><AddIcon/></div>
-            {locations.map((item, index) => (
-                <div key={index} className="class-edit-option">
-                    {item.locationType === 0 ? item.classroom : item.link}
+        <div className="class-edit-main-container location">
+            <div className="class-edit-inner-container first">
+                <div className="class-edit-main-text">Локация:</div>
+                <div className="class-edit-new-option" onClick={handleLocationAdd}><AddIcon/></div>
+                {locations.map((item, index) => (
+                    <div key={index} className="class-edit-option">
+                        {item.locationType === 0 ? item.classroom : item.link}
+                    </div>
+                ))}
+            </div>
+
+            {isAddingLocation ?
+                <div className="class-edit-secondary-container">
+                    <div className="class-edit-inner-container second">
+                        <div className="class-edit-secondary-text">Тип локации:</div>
+                        <select className="location-dropdown" value={locationType} onChange={handleOptionChange}>
+                            <option value="irl">Очно</option>
+                            <option value="distant">Дистант</option>
+                        </select>
+                    </div>
+
+                    <div className="class-edit-inner-container second">
+                        <div className="class-edit-panel-new-container">
+                            <div className="class-edit-secondary-text">Локация:</div>
+                            <input className="class-edit-input" id="location-edit-input"></input>
+                            <div className="edit-panel-save-button" onClick={handleLocationSave}>Добавить</div>
+                        </div>
+                    </div>
                 </div>
-            ))}
+                : null}
+
         </div>;
 
 
