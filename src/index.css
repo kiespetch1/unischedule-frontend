@@ -224,20 +224,35 @@ header {
     padding-left: 32px;
 }
 
+.info-row.editing {
+    padding-left: 28px;
+}
+
 .class-time {
     /* 9:00 - 10:30 */
-
     font-family: "Readex Pro", serif;
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
-    line-height: 80%;
-    /* or 19px */
     display: flex;
     align-items: center;
     text-align: center;
 
     color: #232323;
+}
+
+.class-time.editing {
+
+    padding: 4px 6px;
+    width: 64px;
+
+    background: #F5F5F5;
+    border-radius: 6px;
+    border: none;
+}
+
+.class-time.editing:focus {
+    outline: 2px solid #DBDBDB;
 }
 
 .class-name {
@@ -254,14 +269,52 @@ header {
     color: #000000;
 }
 
+.class-name.editing {
+    padding: 4px 6px;
+    width: 385px;
+
+    background: #F5F5F5;
+    border-radius: 6px;
+    border: none;
+}
+
+.class-name.editing:focus {
+    outline: 2px solid #DBDBDB;
+}
+
 .class-teacher {
     /* Пляскин А.В. */
-
     font-family: "Raleway", serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     /* identical to box height, or 13px */
+    display: flex;
+    align-items: center;
+    text-align: start;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+
+    color: #000000;
+}
+.class-teacher.editing {
+    padding: 4px 6px;
+    width: 120px;
+
+    background: #F5F5F5;
+    border-radius: 6px;
+    border: none;
+}
+.class-teacher.editing:focus {
+    outline: 2px solid #DBDBDB;
+}
+
+.class-type {
+    /* Практика */
+    font-family: "Raleway", serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    padding-top: 0.5%;
     display: flex;
     align-items: center;
     text-align: center;
@@ -270,21 +323,32 @@ header {
     color: #000000;
 }
 
-.class-type {
-    /* Практика */
+.class-type.editing {
+    padding: 4px 6px;
+    width: 136px;
 
-    font-family: "Raleway", serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    padding-top: 0.5%;
-    /* or 16px */
+    background: #F5F5F5;
+    border-radius: 6px;
+    border: none;
+}
+
+.class-type.editing:focus {
+    outline: 2px solid #DBDBDB;
+}
+
+.week-type-icon {
     display: flex;
+    justify-content: center;
     align-items: center;
-    text-align: center;
-    font-feature-settings: 'pnum' on, 'lnum' on;
+    padding: 6px 6px;
+    margin-right: 15px;
+    border-radius: 40px;
+    background: #F5F5F5;
+    cursor: pointer;
+}
 
-    color: #000000;
+.week-type-icon.editing {
+    outline: 2px solid #DBDBDB;
 }
 
 .location-info {
@@ -312,9 +376,21 @@ header {
     color: #000000;
 }
 
+.location-type.editing {
+    padding: 4px 4px;
+    width: 110px;
+    text-align: center;
+    background: #F5F5F5;
+    border-radius: 6px;
+    border: none;
+}
+
+.location-type.editing:focus {
+    outline: 2px solid #DBDBDB;
+}
+
 .irl-location {
     /* 2-609 */
-
     font-family: "Readex Pro", serif;
     font-style: normal;
     font-weight: 500;
@@ -325,6 +401,19 @@ header {
     text-align: center;
 
     color: #000000;
+}
+
+.irl-location.editing {
+    padding: 4px 4px;
+    width: 110px;
+    text-align: center;
+    background: #F5F5F5;
+    border-radius: 6px;
+    border: none;
+}
+
+.irl-location.editing:focus {
+    outline: 2px solid #DBDBDB;
 }
 
 .irl-letters-location {
@@ -338,6 +427,20 @@ header {
     color: #000000;
 }
 
+.irl-letters-location.editing {
+    padding: 4px 4px;
+    width: 102px;
+    text-align: center;
+    background: #F5F5F5;
+    border-radius: 6px;
+    border: none;
+}
+
+.irl-letters-location.editing:focus {
+    outline: 2px solid #DBDBDB;
+}
+
+
 .distant-location {
     font-family: "Raleway", serif;
     font-style: normal;
@@ -347,6 +450,20 @@ header {
     display: flex;
 
     color: #093D6D;
+}
+
+.distant-location.editing {
+    padding: 4px 4px;
+    width: 102px;
+    font-size: 16px;
+    text-align: center;
+    background: #F5F5F5;
+    border-radius: 6px;
+    border: none;
+}
+
+.distant-location.editing:focus {
+    outline: 2px solid #DBDBDB;
 }
 
 .days-container {
@@ -1106,6 +1223,7 @@ header {
     display: inline-block;
     padding: 5px 12px;
     margin-right: 14px;
+    height: 18px;
 
     font-family: 'Raleway', serif;
     font-style: normal;

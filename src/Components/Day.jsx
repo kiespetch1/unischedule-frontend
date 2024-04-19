@@ -120,6 +120,7 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
                     <React.Fragment key={index}>
                         {classData.isWindow ? <Window/> : <Class order={(index + 1).toString()}
                                                                  dayData={dayData}
+                                                                 isEditing={isEditing}
                                                                  isActive={isEditing && activeClassIndex === index}
                                                                  onClick={() => handleClassClick(index)}
                                                                  isClickable={isEditing} />}
