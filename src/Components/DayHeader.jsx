@@ -4,7 +4,7 @@ import {ReactComponent as DotDivider} from "../assets/dot.svg";
 import {ReactComponent as EditIcon} from "../assets/edit.svg";
 import {ReactComponent as ExitIcon} from "../assets/stopEdit.svg";
 
-const DayHeader = ({name, classCount, current, editing, placeholder}) => {
+const DayHeader = ({name, classCount, current, editing, isEditing, placeholder}) => {
     const dotStyle = {
         height: "5px",
         width: "5px",
@@ -20,7 +20,6 @@ const DayHeader = ({name, classCount, current, editing, placeholder}) => {
     };
 
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
-    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -46,8 +45,7 @@ const DayHeader = ({name, classCount, current, editing, placeholder}) => {
             placeholder(false);
         }
 
-        setIsEditing(!isEditing);
-        editing(!isEditing);
+        editing(!isEditing)
     };
 
     function num_word(value, words) {
@@ -67,8 +65,9 @@ const DayHeader = ({name, classCount, current, editing, placeholder}) => {
             <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>
             <div className="classes-text">{classCount === 0 ? "выходной" : classCount + " " + classesText}</div>
             {windowWidth <= 930 ? null :
-                <div onClick={handleEditing} className="edit-icon-wrapper">{isEditing ? <ExitIcon/> : <EditIcon
-                    className="edit-icon"/>}</div>}
+                <div onClick={handleEditing} className="edit-icon-wrapper">
+                    {isEditing ? <ExitIcon/> : <EditIcon className="edit-icon"/>}
+                </div>}
         </div>
     );
 };

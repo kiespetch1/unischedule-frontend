@@ -108,6 +108,7 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
     return (
         <div className={isEditing ? "day-full editing" : "day-full"} id={isEditing ? "day-full editing" : "day-full"}>
             <DayHeader name={dayName} classCount={classesCount} current={current}
+                       isEditing={isEditing}
                        editing={handleDayEditToggle}
                        placeholder={togglePlaceholder}/>
             {downloadFailure || classesCount === 0 ? (
