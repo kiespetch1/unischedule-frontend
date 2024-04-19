@@ -20,31 +20,35 @@ const Filters = ({groupName}) => {
         };
     }, []);
 
-    return (<div className="filters-container">
-        <div className="group-container">
-            <div className="group-filter-text">
-                Группа
-            </div>
-            <div className="group-name">
-                {groupName === null ?
-                    <div className="group-placeholder"></div> : <div className="bold-group-text">{groupName}</div>}
-                <a href="/groups" className="switch-icon-wrapper">
-                    {windowWidth <= 930 ?
-                        <div className="switch-icon">
-                            <ChangeIconSmall/></div> :
-                        <div className="switch-icon">
-                            <ChangeIcon/></div>}
-                </a>
+    return (
+        <div className="filters-container">
+            <div className="filters-content-container">
+                <div className="group-container">
+                    <div className="group-filter-text">
+                        Группа
+                    </div>
+                    <div className="group-name">
+                        {groupName === null ?
+                            <div className="group-placeholder"></div> :
+                            <div className="bold-group-text">{groupName}</div>}
+                        <a href="/groups" className="switch-icon-wrapper">
+                            {windowWidth <= 930 ?
+                                <div className="switch-icon">
+                                    <ChangeIconSmall/></div> :
+                                <div className="switch-icon">
+                                    <ChangeIcon/></div>}
+                        </a>
 
-            </div>
-        </div>
-        <div className="week-type-container">
-            <WeekToggle/>
-        </div>
+                    </div>
+                </div>
+                <div className="week-type-container">
+                    <WeekToggle/>
+                </div>
 
-        <div className="subgroup-container">
-            <SubgroupToggle/>
-        </div>
-    </div>);
+                <div className="subgroup-container">
+                    <SubgroupToggle/>
+                </div>
+            </div>
+        </div>);
 };
 export default Filters;

@@ -95,7 +95,7 @@ const SchedulePage = ({group}) => {
         <div className="schedule-page">
             <Header/>
             <Filters groupName={weekInfo && weekInfo.group.name}/>
-            <div className="app-container">
+            <div className="schedule-container">
                 <div className={isEditing ? "blur-element" : null}></div>
                 <WeeksText currentWeekType={weekType}/>
                 {downloadFailure ? <div className="alert-container">

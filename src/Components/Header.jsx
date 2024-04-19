@@ -25,19 +25,22 @@ const Header = () => {
 
     return (
         <header className="header-container">
-            <div className="logo-container">
-                {windowWidth <= 930 ? <IateLogoSmall/> : <IateLogo/>}
+            <div className="header-content-container">
+                <div className="logo-container">
+                    {windowWidth <= 930 ? <IateLogoSmall/> : <IateLogo/>}
 
-                <div className="schedule-header-text">
-                    Расписание занятий
+                    <div className="schedule-header-text">
+                        Расписание занятий
+                    </div>
+                </div>
+
+                <div style={{display: "flex", height: "auto"}}>
+                    {windowWidth <= 930 ? <SettingsIconSmall style={{paddingRight: "14px"}}/> :
+                        <SettingsIcon style={{paddingRight: "40px"}}/>}
+                    {windowWidth <= 930 ? <AuthIconSmall/> : <AuthIcon/>}
                 </div>
             </div>
 
-            <div style={{display: "flex", height: "auto"}}>
-                {windowWidth <= 930 ? <SettingsIconSmall style={{paddingRight: "14px"}}/> :
-                    <SettingsIcon style={{paddingRight: "40px"}}/>}
-                {windowWidth <= 930 ? <AuthIconSmall/> : <AuthIcon/>}
-            </div>
         </header>
     );
 }
