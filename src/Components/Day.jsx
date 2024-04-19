@@ -20,6 +20,15 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
         }
     };
 
+    const handleActiveChange = (index, isActive) => {
+        if (!isActive) {
+            setActiveClassIndex(null);
+        } else {
+            setActiveClassIndex(index);
+        }
+    };
+
+
     function calculateDistanceBetweenElements(elementId1, elementId2) {
         const getElementDistanceFromTop = function (elementId) {
             const element = document.getElementById(elementId);
@@ -118,11 +127,13 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
             ) : (
                 dayData?.classes?.map((classData, index) => (
                     <React.Fragment key={index}>
-                        {classData.isWindow ? <Window/> : <Class order={(index + 1).toString()}
+                        {classData.isWindow ? <Window/> : <Class key={index}
+                                                                 order={(index + 1).toString()}
                                                                  dayData={dayData}
                                                                  isEditing={isEditing}
                                                                  isActive={isEditing && activeClassIndex === index}
                                                                  onClick={() => handleClassClick(index)}
+                                                                 onActiveChange={(isActive) => handleActiveChange(index, isActive)}
                                                                  isClickable={isEditing} />}
                     </React.Fragment>
                 ))

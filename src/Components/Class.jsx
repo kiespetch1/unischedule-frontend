@@ -13,7 +13,7 @@ import {ReactComponent as AddIcon} from "../assets/addInfoIcon.svg"
 import {ReactComponent as EmptyIcon} from "../assets/emptyWeekTypeIcon.svg";
 
 
-const Class = ({order, dayData, isEditing, isClickable, isActive, onClick}) => {
+const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onActiveChange}) => {
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
     const [teachers, setTeachers] = useState([]);
     const [locations, setLocations] = useState([]);
@@ -140,7 +140,7 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick}) => {
         setNewClassType(input);
     };
 
-    const handleWeekTypeEdit = () => {
+    const handleWeekTypeChange = () => {
         setIsWeekTypeEditing(!isWeekTypeEditing);
     }
 
@@ -210,7 +210,10 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick}) => {
                 <div className="class-edit-secondary-container">
                     <div className="class-edit-inner-container second">
                         <div className="class-edit-secondary-text">Тип локации:</div>
-                        <select className="location-dropdown" value={locationType} onChange={handleOptionChange}>
+                        <select className="location-dropdown"
+                                value={locationType}
+                                onChange={handleOptionChange}
+                                id="location-add-dropdown">
                             <option value="irl">Очно</option>
                             <option value="distant">Дистант</option>
                         </select>
@@ -294,6 +297,12 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick}) => {
         setNewTeacher(teacher);
     }, [classEndTime, className, classStartTime, classType, classroom, link, locationTypeSc, teacher, isEditing]);
 
+    useEffect(() => {
+        if (!isEditing) {
+            onActiveChange(false);
+        }
+    }, [isEditing, onActiveChange]);
+
     return (
         <div>
             <section className={order === "1" ? "day-block-top" : "day-block"}
@@ -356,7 +365,7 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick}) => {
                         {/*строка типа недели*/}
                         {isActive ? (
                             <div className={isWeekTypeEditing ? "week-type-icon editing" : "week-type-icon"}
-                                 onClick={handleWeekTypeEdit}>
+                                 onClick={handleWeekTypeChange}>
                                 {(weekType === 0 ? null :
                                     weekType === 1 ? (windowWidth <= 930 ?
                                             <OddWeekIconSmall style={signSmallStyle}/> :
@@ -401,7 +410,7 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick}) => {
                             </>
                         )}
                     </div>
-                    <div className={isActive? "info-row editing" : "info-row"}>
+                    <div className={isActive ? "info-row editing" : "info-row"}>
                         {/*строка названия*/}
                         {isActive ? <input className="class-name editing"
                                            id="class-name-input"
@@ -468,11 +477,14 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick}) => {
                                                onChange={handleLinkChange}>
                                 </input> :
                                 (isEditing ?
-                                    <a href={newLink} target="_blank" rel="noreferrer"
+                                    <a href={newLink}
+                                       target="_blank"
+                                       rel="noreferrer"
                                        className="distant-location">
                                         Ссылка
                                     </a> :
-                                    <a href={link} target="_blank" rel="noreferrer"
+                                    <a href={link} target="_blank"
+                                       rel="noreferrer"
                                        className="distant-location">
                                         Ссылка
                                     </a>))
