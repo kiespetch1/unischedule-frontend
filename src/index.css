@@ -387,6 +387,7 @@ header {
     background: #F5F5F5;
     border-radius: 6px;
     border: none;
+    overflow: hidden;
 }
 
 .location-type.editing:focus {
@@ -414,6 +415,7 @@ header {
     background: #F5F5F5;
     border-radius: 6px;
     border: none;
+    overflow: hidden;
 }
 
 .irl-location.editing:focus {
@@ -438,6 +440,7 @@ header {
     background: #F5F5F5;
     border-radius: 6px;
     border: none;
+    overflow: hidden;
 }
 
 .irl-letters-location.editing:focus {
@@ -1246,6 +1249,7 @@ header {
     background: #EFEFEF;
     border: 2px solid #0966BB;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .class-edit-input {

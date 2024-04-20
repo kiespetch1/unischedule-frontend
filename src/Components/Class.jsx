@@ -19,7 +19,7 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
     const [locations, setLocations] = useState([]);
     const [isAddingTeachers, setIsAddingTeachers] = useState(false);
     const [isAddingLocation, setIsAddingLocation] = useState(false);
-    const [locationType, setLocationType] = useState('irl');
+    const [locationType, setLocationType] = useState(9);
     const [isWeekTypeEditing, setIsWeekTypeEditing] = useState(false);
 
     const [newClassStartTime, setNewClassStartTime] = useState('');
@@ -169,6 +169,17 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
         setNewTeacher(input);
     }
 
+    const handleLocationPick = (locationType, nameOrLink) => {
+        setNewLocationType(locationType);
+        if (locationType === 0)
+            setNewLocation(nameOrLink);
+        else if (locationType === 1)
+            setNewLink(nameOrLink);
+    }
+    const handleTeacherPick = (name) => {
+        setNewTeacher(name);
+    }
+
 
     const teacherEditPanel =
         <div className="class-edit-main-container teacher">
@@ -176,7 +187,7 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
                 <div className="class-edit-main-text">Преподаватель:</div>
                 <div className="class-edit-new-option" onClick={handleTeacherAdd}><AddIcon/></div>
                 {teachers.map((item, index) => (
-                    <div key={index} className="class-edit-option">
+                    <div key={index} onClick={() => handleTeacherPick(item.fullName)} className="class-edit-option">
                         {item.fullName}
                     </div>
                 ))}
@@ -200,7 +211,10 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
                 <div className="class-edit-main-text">Локация:</div>
                 <div className="class-edit-new-option" onClick={handleLocationAdd}><AddIcon/></div>
                 {locations.map((item, index) => (
-                    <div key={index} className="class-edit-option">
+                    <div key={index}
+                         onClick={() => handleLocationPick(item.locationType,
+                             item.locationType === 0 ? item.classroom : item.link)}
+                         className="class-edit-option">
                         {item.locationType === 0 ? item.classroom : item.link}
                     </div>
                 ))}
@@ -451,7 +465,8 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
 
                     {/*строка локации*/}
                     <div>
-                        {(locationTypeSc === 0 && containsLetters(classroom)) &&
+                        {((locationTypeSc === 0 || parseInt(newLocationType) === 0) && containsLetters(classroom))
+                            && parseInt(newLocationType) !== 1 &&
                             (isActive ? <input className="irl-letters-location editing"
                                                id="classroom-input"
                                                value={newLocation}
@@ -460,8 +475,8 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
                                 (isEditing ? <div className="irl-letters-location">{newLocation}</div> :
                                     <div className="irl-letters-location">{classroom}</div>))
                         }
-                        {(!containsLetters(classroom) &&
-                                locationTypeSc === 0) &&
+                        {((locationTypeSc === 0 || parseInt(newLocationType) === 0) && !containsLetters(classroom))
+                            && parseInt(newLocationType) !== 1 &&
                             (isActive ? <input className="irl-location editing"
                                                id="classroom-input"
                                                value={newLocation}
@@ -470,7 +485,8 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
                                 (isEditing ? <div className="irl-location">{newLocation}</div> :
                                     <div className="irl-location">{classroom}</div>))
                         }
-                        {(locationTypeSc === 1) &&
+                        {(locationTypeSc === 1 || parseInt(newLocationType) === 1)
+                            && parseInt(newLocationType) !== 0 &&
                             (isActive ? <input className="distant-location editing"
                                                id="classroom-input"
                                                value={newLink}
@@ -483,7 +499,8 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
                                        className="distant-location">
                                         Ссылка
                                     </a> :
-                                    <a href={link} target="_blank"
+                                    <a href={link}
+                                       target="_blank"
                                        rel="noreferrer"
                                        className="distant-location">
                                         Ссылка
