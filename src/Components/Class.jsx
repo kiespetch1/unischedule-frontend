@@ -10,27 +10,27 @@ import {ReactComponent as FirstSGSmall} from "../assets/1sgSmall.svg";
 import {ReactComponent as SecondSG} from "../assets/2sg.svg"
 import {ReactComponent as SecondSGSmall} from "../assets/2sgSmall.svg"
 import {ReactComponent as EmptyIcon} from "../assets/emptyWeekTypeIcon.svg";
-import ScrollableLocationList from "./ScrollableLocationList";
-import ScrollableTeacherList from "./ScrollableTeachersList";
+import LocationPickPanel from "./LocationPickPanel";
+import TeacherPickPanel from "./TeacherPickPanel";
 
 
 const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onActiveChange}) => {
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
-    const [teachers, setTeachers] = useState([]);
-    const [locations, setLocations] = useState([]);
     const [isAddingTeachers, setIsAddingTeachers] = useState(false);
     const [isAddingLocation, setIsAddingLocation] = useState(false);
-    const [locationType, setLocationType] = useState(9);
     const [isWeekTypeEditing, setIsWeekTypeEditing] = useState(false);
 
     const [newClassStartTime, setNewClassStartTime] = useState('');
     const [newClassEndTime, setNewClassEndTime] = useState('');
     const [newClassType, setNewClassType] = useState('');
     const [newLocationType, setNewLocationType] = useState('');
+    const [newLocationTypeInfo, setNewLocationTypeInfo] = useState('0');
     const [newLocation, setNewLocation] = useState('');
+    const [newLocationInfo, setNewLocationInfo] = useState('');
     const [newLink, setNewLink] = useState('');
     const [newClassName, setNewClassName] = useState('');
     const [newTeacher, setNewTeacher] = useState('');
+    const [newTeacherName, setNewTeacherName] = useState('');
 
 
     const dotStyle = {
@@ -40,6 +40,7 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
         paddingLeft: "15px",
         paddingRight: "15px",
     };
+
     const dotEditStyle = {
         flexGrow: "1",
         height: "5px",
@@ -94,6 +95,13 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
         height: "14px",
     };
 
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
     function containsLetters(str) {
         return /[a-zA-Zа-яА-Я]/.test(str);
     }
@@ -106,21 +114,62 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
         setIsAddingTeachers(!isAddingTeachers);
     }
 
+    const handleTeacherNameChange = (event) => {
+        setNewTeacherName(event.target.value);
+    }
+
     const handleTeacherSave = () => {
+        if (newTeacherName !== '') {
+            let name = newTeacherName.trim();
+            fetch("https://localhost:7184/api/teachers?fullName=" + name, requestOptions)
+                .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok: ' + response.status);
+                        }
+                    }
+                )
+                .catch(error => {
+                    console.log("Ошибка при отправке данных: " + error);
+                });
+        }
         setIsAddingTeachers(false);
     };
+
 
     const handleLocationAdd = () => {
         setIsAddingLocation(!isAddingLocation);
     }
 
     const handleLocationSave = () => {
+        console.log("локтайп " + newLocationTypeInfo);
+        if (newLocationInfo !== '' && newLocationTypeInfo !== '') {
+            let locationInfo = newLocationInfo.trim();
+            let typeQuery;
+            let locationQuery;
+            if (newLocationTypeInfo === '0') {
+                typeQuery = "locationType=0";
+                locationQuery = "&classroom=" + locationInfo;
+            } else if (newLocationTypeInfo === '1') {
+                typeQuery = "locationType=1";
+                locationQuery = "&link=" + locationInfo;
+            }
+            else
+                console.log("Unknown location type: " + newLocationType);
+
+            fetch("https://localhost:7184/api/locations?" + typeQuery + locationQuery, requestOptions)
+                .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok: ' + response.status);
+                        }
+                    }
+                )
+                .catch(error => {
+                    console.log("Ошибка при отправке данных: " + error);
+                });
+        }
+
         setIsAddingLocation(false);
     }
-
-    const handleOptionChange = (event) => {
-        setLocationType(event.target.value);
-    };
 
     const handleClassStartTimeChange = (event) => {
         const input = event.target.value;
@@ -147,12 +196,13 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
 
     const handleLocationTypeChange = (event) => {
         const input = event.target.value;
-        setNewLocationType(input);
+        console.log(input);
+        setNewLocationTypeInfo(input);
     }
 
     const handleLocationChange = (event) => {
         const input = event.target.value;
-        setNewLocation(input);
+        setNewLocationInfo(input);
     }
 
     const handleLinkChange = (event) => {
@@ -181,36 +231,6 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
         setNewTeacher(name);
     }
 
-    useEffect(() => {
-        const requestOptions = {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-
-        const fetchData = async () => {
-            try {
-                const response = await fetch("https://localhost:7184/api/teachers", requestOptions);
-                const data = await response.json();
-                setTeachers(data);
-            } catch (error) {
-                console.error('Ошибка при загрузке данных: ', error);
-                setTeachers([]);
-            }
-
-            try {
-                const response = await fetch("https://localhost:7184/api/locations", requestOptions);
-                const data = await response.json();
-                setLocations(data);
-            } catch (error) {
-                console.error('Ошибка при загрузке данных: ', error);
-                setLocations([]);
-            }
-        };
-
-        fetchData();
-    }, [isActive]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -449,19 +469,26 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
 
             {
                 isActive ? <div className="class-edit-panel-container">
-                    <ScrollableTeacherList
-                        teachers={teachers}
-                        isAddingTeachers={isAddingTeachers}
+                    <TeacherPickPanel
+
                         handleTeacherAdd={handleTeacherAdd}
                         handleTeacherPick={handleTeacherPick}
-                        handleTeacherSave={handleTeacherSave}/>
-                    <ScrollableLocationList
+                        handleTeacherSave={handleTeacherSave}
+                        isAddingTeachers={isAddingTeachers}
+                        handleTeacherNameChange={handleTeacherNameChange}
+                        newTeacherName={newTeacherName}
+                        isActive={isActive}
+                    />
+                    <LocationPickPanel
                         handleLocationAdd={handleLocationAdd}
                         handleLocationPick={handleLocationPick}
-                        locations={locations}
+                        handleLocationSave={handleLocationSave}
                         isAddingLocation={isAddingLocation}
-                        locationType={locationType} handleLocationSave={handleLocationSave}
-                        handleOptionChange={handleOptionChange}/>
+                        newLocationType={newLocationTypeInfo}
+                        newLocation={newLocationInfo}
+                        handleLocationTypeChange={handleLocationTypeChange}
+                        handleLocationChange={handleLocationChange}
+                        isActive={isActive}/>
                 </div> : null
             }
         </div>)
