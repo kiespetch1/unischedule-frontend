@@ -58,7 +58,7 @@ const SchedulePage = ({group}) => {
     }, []);
 
     useEffect(() => {
-        const requestOptions = {
+        const getRequestOptions = {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
@@ -77,7 +77,7 @@ const SchedulePage = ({group}) => {
 
         if (group != null && subgroup != null && weekType != null && weekType !== "null") {
             fetch("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
-                "&groupId=" + group + "&subgroup=" + subgroup, requestOptions)
+                "&groupId=" + group + "&subgroup=" + subgroup, getRequestOptions)
                 .then(response => response.json())
                 .then(data => {
                     setDownloadFailureStatus(false);

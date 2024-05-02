@@ -127,13 +127,20 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
             ) : (
                 dayData?.classes?.map((classData, index) => (
                     <React.Fragment key={index}>
-                        {classData.isWindow ? <Window/> : <Class order={(index + 1).toString()}
-                                                                 dayData={dayData}
-                                                                 isEditing={isEditing}
-                                                                 isActive={isEditing && activeClassIndex === index}
-                                                                 onClick={() => handleClassClick(index)}
-                                                                 onActiveChange={(isActive) => handleActiveChange(index, isActive)}
-                                                                 isClickable={isEditing}/>}
+                        {classData.isWindow ?
+                            <Window order={(index + 1).toString()}
+                                    dayData={dayData}
+                                    isEditing={isEditing}
+                                    isActive={isEditing && activeClassIndex === index}
+                                    onClick={() => handleClassClick(index)}
+                                    onActiveChange={(isActive) => handleActiveChange(index, isActive)}/>
+                            :
+                            <Class order={(index + 1).toString()}
+                                   dayData={dayData}
+                                   isEditing={isEditing}
+                                   isActive={isEditing && activeClassIndex === index}
+                                   onClick={() => handleClassClick(index)}
+                                   onActiveChange={(isActive) => handleActiveChange(index, isActive)}/>}
                     </React.Fragment>
                 ))
             )}

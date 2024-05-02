@@ -58,14 +58,14 @@ const GroupsListPage = () => {
     }, []);
 
     useEffect(() => {
-        const requestOptions = {
+        const getRequestOptions = {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
             }
         };
 
-        fetch("https://localhost:7184/api/groups", requestOptions)
+        fetch("https://localhost:7184/api/groups", getRequestOptions)
             .then(response => response.json())
             .then(data => {
                 setGroupsInfo(data);

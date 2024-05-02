@@ -1330,6 +1330,20 @@ header {
     border: 2px solid #757575;
 }
 
+.delete-button {
+    position: absolute;
+    left: 605px; /* -41 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 36px;
+    height: 133px;
+    background: #E9E9E9;
+    border-radius: 5px;
+
+}
+
 /* <= 930 px cтили */
 
 @media screen and (max-width: 930px) {

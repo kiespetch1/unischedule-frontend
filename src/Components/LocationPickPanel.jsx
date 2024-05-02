@@ -52,7 +52,7 @@ const LocationPickPanel = ({
     };
 
     useEffect(() => {
-        const requestOptions = {
+        const getRequestOptions = {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ const LocationPickPanel = ({
         }
         const fetchData = async () => {
             try {
-                const response = await fetch("https://localhost:7184/api/locations", requestOptions);
+                const response = await fetch("https://localhost:7184/api/locations", getRequestOptions);
                 const data = await response.json();
                 setLocations(data);
             } catch (error) {

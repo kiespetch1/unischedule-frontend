@@ -12,9 +12,10 @@ import {ReactComponent as SecondSGSmall} from "../assets/2sgSmall.svg"
 import {ReactComponent as EmptyIcon} from "../assets/emptyWeekTypeIcon.svg";
 import LocationPickPanel from "./LocationPickPanel";
 import TeacherPickPanel from "./TeacherPickPanel";
+import {ReactComponent as DeleteIcon} from "../assets/delete.svg";
 
 
-const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onActiveChange}) => {
+const Class = ({order, dayData, isEditing, isActive, onClick, onActiveChange}) => {
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
     const [isAddingTeachers, setIsAddingTeachers] = useState(false);
     const [isAddingLocation, setIsAddingLocation] = useState(false);
@@ -95,8 +96,15 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
         height: "14px",
     };
 
-    const requestOptions = {
+    const postRequestOptions = {
         method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    const deleteRequestOptions = {
+        method: "DELETE",
         headers: {
             'Content-Type': 'application/json'
         }
@@ -121,7 +129,7 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
     const handleTeacherSave = () => {
         if (newTeacherName !== '') {
             let name = newTeacherName.trim();
-            fetch("https://localhost:7184/api/teachers?fullName=" + name, requestOptions)
+            fetch("https://localhost:7184/api/teachers?fullName=" + name, postRequestOptions)
                 .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok: ' + response.status);
@@ -141,7 +149,6 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
     }
 
     const handleLocationSave = () => {
-        console.log("локтайп " + newLocationTypeInfo);
         if (newLocationInfo !== '' && newLocationTypeInfo !== '') {
             let locationInfo = newLocationInfo.trim();
             let typeQuery;
@@ -152,11 +159,10 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
             } else if (newLocationTypeInfo === '1') {
                 typeQuery = "locationType=1";
                 locationQuery = "&link=" + locationInfo;
-            }
-            else
+            } else
                 console.log("Unknown location type: " + newLocationType);
 
-            fetch("https://localhost:7184/api/locations?" + typeQuery + locationQuery, requestOptions)
+            fetch("https://localhost:7184/api/locations?" + typeQuery + locationQuery, postRequestOptions)
                 .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok: ' + response.status);
@@ -196,7 +202,6 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
 
     const handleLocationTypeChange = (event) => {
         const input = event.target.value;
-        console.log(input);
         setNewLocationTypeInfo(input);
     }
 
@@ -231,6 +236,19 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
         setNewTeacher(name);
     }
 
+    const handleClassDelete = () => {
+        fetch("https://localhost:7184/api/classes/" + dayId, deleteRequestOptions)
+            .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.status);
+                    }
+                }
+            )
+            .catch(error => {
+                console.log("Ошибка при отправке данных: " + error);
+            });
+    }
+
 
     useEffect(() => {
         const handleResize = () => {
@@ -244,7 +262,8 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
         };
     }, []);
 
-    let classStartTime = dayData.classes[order - 1].startTime.slice(0, 5)
+    let dayId = dayData.classes[order - 1].id;
+    let classStartTime = dayData.classes[order - 1].startTime.slice(0, 5);
     let classEndTime = dayData.classes[order - 1].endTime.slice(0, 5);
     let classType = dayData.classes[order - 1].type;
     let weekType = dayData.classes[order - 1].weekType;
@@ -276,7 +295,7 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
         <div>
             <section className={order === "1" ? "day-block-top" : "day-block"}
                      onClick={!isActive ? onClick : null}
-                     style={isClickable ? isActive ? {backgroundColor: "#E9E9E9"} : {cursor: "pointer"}
+                     style={isEditing ? isActive ? {backgroundColor: "#E9E9E9"} : {cursor: "pointer"}
                          : isActive ? {backgroundColor: "#E9E9E9"} : null}>
                 <div className="main-content">
                     <div className={isActive ? "info-row editing" : "info-row"}>
@@ -465,12 +484,14 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
                         }
                     </div>
                 </aside>
+                {isActive ?
+                    <div className="delete-button" onClick={handleClassDelete}>
+                        <DeleteIcon/>
+                    </div> : null}
             </section>
-
             {
                 isActive ? <div className="class-edit-panel-container">
                     <TeacherPickPanel
-
                         handleTeacherAdd={handleTeacherAdd}
                         handleTeacherPick={handleTeacherPick}
                         handleTeacherSave={handleTeacherSave}
@@ -491,6 +512,7 @@ const Class = ({order, dayData, isEditing, isClickable, isActive, onClick, onAct
                         isActive={isActive}/>
                 </div> : null
             }
+
         </div>)
 }
 

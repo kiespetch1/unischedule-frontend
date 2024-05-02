@@ -53,7 +53,7 @@ const TeacherPickPanel = ({
     };
 
     useEffect(() => {
-        const requestOptions = {
+        const getRequestOptions = {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ const TeacherPickPanel = ({
         }
         const fetchData = async () => {
             try {
-                const response = await fetch("https://localhost:7184/api/teachers", requestOptions);
+                const response = await fetch("https://localhost:7184/api/teachers", getRequestOptions);
                 const data = await response.json();
                 setTeachers(data);
             } catch (error) {
