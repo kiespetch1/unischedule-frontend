@@ -73,7 +73,7 @@ const SubgroupToggle = () => {
 
     const activateClickHandler = (event) => {
         const target = event.target;
-        if (target.tagName.toLowerCase() === 'div') {
+        if (target.tagName.toLowerCase() === 'div' || target.tagName.toLowerCase() === 'button') {
             if (
                 target.className.includes("toggle-inner-inactive") ||
                 target.className.includes("toggle-text-inactive")
@@ -85,7 +85,7 @@ const SubgroupToggle = () => {
 
     const deactivateClickHandler = (event) => {
         const target = event.target;
-        if (target.tagName.toLowerCase() === 'div') {
+        if (target.tagName.toLowerCase() === 'div' || target.tagName.toLowerCase() === 'button') {
             if (
                 target.className.includes("toggle-inner-inactive") ||
                 target.className.includes("toggle-text-inactive")
@@ -104,27 +104,27 @@ const SubgroupToggle = () => {
                 <div className="toggle-slider-container">
                     <div className={subgroup === 2 ? "toggle-slider-toggled" : "toggle-slider-untoggled"}></div>
                 </div>
-                <div className={subgroup === 2 ? "toggle-inner-inactive" : "toggle-inner-active"}
+                <button className={subgroup === 2 ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={deactivateClickHandler}>
-                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", zIndex: "2"}}>
                         {subgroup === 1 ?
                             (windowWidth <= 930 ? <FirstSGSmall style={iconSmallAnimation}/> :
                                 <FirstSG style={iconAnimation}/>) : (windowWidth <= 930 ?
                                 <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)
                         }
                         <div className={subgroup === 2 ? "toggle-text-inactive" : "toggle-text-active"}
-                             onClick={deactivateClickHandler} style={{display: "flex", alignItems: "center"}}>
+                             onClick={deactivateClickHandler} style={{display: "flex", alignItems: "center", zIndex: "2"}}>
                             Первая
                         </div>
                     </div>
-                </div>
+                </button>
 
                 {windowWidth <= 930 ? <div style={{width: "4px"}}></div> : null}
 
 
-                <div className={subgroup === 1 ? "toggle-inner-inactive" : "toggle-inner-active"}
+                <button className={subgroup === 1 ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={activateClickHandler}>
-                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", zIndex: "2"}}>
                         {subgroup === 2 ?
                             (windowWidth <= 930 ? <SecondSGSmall style={iconSmallAnimation}/> :
                                 <SecondSG style={iconAnimation}/>) : (windowWidth <= 930 ?
@@ -135,7 +135,7 @@ const SubgroupToggle = () => {
                             Вторая
                         </div>
                     </div>
-                </div>
+                </button>
 
             </div>
         </div>

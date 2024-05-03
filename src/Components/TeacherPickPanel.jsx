@@ -77,7 +77,7 @@ const TeacherPickPanel = ({
         <div className="class-edit-main-container teacher">
             <div className="class-edit-inner-container first">
                 <div className="class-edit-main-text">Преподаватель:</div>
-                <div className="class-edit-new-option" onClick={handleTeacherAdd}><AddIcon/></div>
+                <button className="class-edit-new-option" onClick={handleTeacherAdd}><AddIcon/></button>
                 <div className="scroll-container"
                      ref={containerRef}
                      id="myContainer"
@@ -94,25 +94,31 @@ const TeacherPickPanel = ({
                                 {item.fullName}
                             </div>
                         ))}
-                        {scrollPosition < maxScrollPosition ? <div onClick={() => handleScroll('left')}
+                        {scrollPosition < maxScrollPosition ? <button onClick={() => handleScroll('left')}
                                                                    style={{
                                                                        position: "absolute",
                                                                        left: "373px",
                                                                        top: "0px",
                                                                        cursor: "pointer",
                                                                        transition: 'transform 0.3s ease',
-                                                                       transform: `translateX(${scrollPosition}px)`
+                                                                       transform: `translateX(${scrollPosition}px)`,
+                                                                       background: "none",
+                                                                       border: "none",
+                                                                       padding: "0px"
                                                                    }}>
                             <MoveRightIcon/>
-                        </div> : null}
-                        {scrollPosition > 0 ? <div onClick={() => handleScroll('right')}
+                        </button> : null}
+                        {scrollPosition > 0 ? <button onClick={() => handleScroll('right')}
                                                    style={{
                                                        position: "absolute", left: "0px", top: "0px",
                                                        cursor: "pointer", transition: 'transform 0.3s ease',
-                                                       transform: `translateX(${scrollPosition}px)`
+                                                       transform: `translateX(${scrollPosition}px)`,
+                                                       background: "none",
+                                                       border: "none",
+                                                       padding: "0px"
                                                    }}>
                             <MoveLeftIcon/>
-                        </div> : null}
+                        </button> : null}
                     </div>
                 </div>
             </div>
@@ -123,7 +129,7 @@ const TeacherPickPanel = ({
                         <div className="class-edit-secondary-text">ФИО преподавателя:</div>
                         <input className="class-edit-input" id="teacher-edit-input" value={newTeacherName}
                                onChange={handleTeacherNameChange}></input>
-                        <div className="edit-panel-save-button" onClick={handleTeacherSave}>Добавить</div>
+                        <button className="edit-panel-save-button" onClick={handleTeacherSave}>Добавить</button>
                     </div>
                 </div>
                 : null}

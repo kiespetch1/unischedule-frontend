@@ -14,6 +14,37 @@ import LocationPickPanel from "./LocationPickPanel";
 import TeacherPickPanel from "./TeacherPickPanel";
 import {ReactComponent as DeleteIcon} from "../assets/delete.svg";
 
+export const EvenWeekIconWithTitle = (props) => (
+    <EvenWeekIcon title="Четная неделя" {...props} />
+);
+
+export const EvenWeekIconSmallWithTitle = (props) => (
+    <EvenWeekIconSmall title="Четная неделя" {...props} />
+);
+
+export const OddWeekIconWithTitle = (props) => (
+    <OddWeekIcon title="Нечетная неделя" {...props} />
+);
+
+export const OddWeekIconSmallWithTitle = (props) => (
+    <OddWeekIconSmall title="Нечетная неделя" {...props} />
+);
+
+export const FirstSGWithTitle = (props) => (
+    <FirstSG title="Первая подгруппа" {...props} />
+);
+
+export const FirstSGSmallWithTitle = (props) => (
+    <FirstSGSmall title="Первая подгруппа" {...props} />
+);
+
+export const SecondSGWithTitle = (props) => (
+    <SecondSG title="Вторая подгруппа" {...props} />
+);
+
+export const SecondSGSmallWithTitle = (props) => (
+    <SecondSGSmall title="Вторая подгруппа" {...props} />
+);
 
 const Class = ({order, dayData, isEditing, isActive, onClick, onActiveChange}) => {
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
@@ -32,7 +63,6 @@ const Class = ({order, dayData, isEditing, isActive, onClick, onActiveChange}) =
     const [newClassName, setNewClassName] = useState('');
     const [newTeacher, setNewTeacher] = useState('');
     const [newTeacherName, setNewTeacherName] = useState('');
-
 
     const dotStyle = {
         flexGrow: "1",
@@ -356,11 +386,11 @@ const Class = ({order, dayData, isEditing, isActive, onClick, onActiveChange}) =
                                  onClick={handleWeekTypeChange}>
                                 {(weekType === 0 ? null :
                                     weekType === 1 ? (windowWidth <= 930 ?
-                                            <OddWeekIconSmall style={signSmallStyle}/> :
-                                            <OddWeekIcon style={signStyleNp}/>
+                                            <OddWeekIconSmallWithTitle style={signSmallStyle}/> :
+                                            <OddWeekIconWithTitle style={signStyleNp}/>
                                     ) : weekType === 2 ? (windowWidth <= 930 ?
-                                            <EvenWeekIconSmall style={signSmallStyle}/> :
-                                            <EvenWeekIcon style={signStyleNp}/>
+                                            <EvenWeekIconSmallWithTitle style={signSmallStyle}/> :
+                                            <EvenWeekIconWithTitle style={signStyleNp}/>
                                     ) : null)}
 
                                 {weekType === 0 && subgroup === 0 ? <EmptyIcon/> : null}
@@ -370,30 +400,30 @@ const Class = ({order, dayData, isEditing, isActive, onClick, onActiveChange}) =
 
                                 {(subgroup === 0 ? null :
                                     subgroup === 1 ? (windowWidth <= 930 ?
-                                            <FirstSGSmall style={lastSignSmallStyle}/> :
-                                            <FirstSG style={lastSignStyleNp}/>
+                                            <FirstSGSmallWithTitle style={lastSignSmallStyle}/> :
+                                            <FirstSGWithTitle style={lastSignStyleNp}/>
                                     ) : subgroup === 2 ? (windowWidth <= 930 ?
-                                            <SecondSGSmall style={lastSignSmallStyle}/> :
-                                            <SecondSG style={lastSignStyleNp}/>
+                                            <SecondSGSmallWithTitle style={lastSignSmallStyle}/> :
+                                            <SecondSGWithTitle style={lastSignStyleNp}/>
                                     ) : null)}
                             </div>
                         ) : (
                             <>
                                 {(weekType === 0 ? null :
                                     weekType === 1 ? (windowWidth <= 930 ?
-                                            <OddWeekIconSmall style={signSmallStyle}/> :
-                                            <OddWeekIcon style={signStyle}/>
+                                            <OddWeekIconSmallWithTitle style={signSmallStyle}/> :
+                                            <OddWeekIconWithTitle style={signStyle}/>
                                     ) : weekType === 2 ? (windowWidth <= 930 ?
-                                            <EvenWeekIconSmall style={signSmallStyle}/> :
-                                            <EvenWeekIcon style={signStyle}/>
+                                            <EvenWeekIconSmallWithTitle style={signSmallStyle}/> :
+                                            <EvenWeekIconWithTitle style={signStyle}/>
                                     ) : null)}
                                 {(subgroup === 0 ? null :
                                     subgroup === 1 ? (windowWidth <= 930 ?
-                                            <FirstSGSmall style={lastSignSmallStyle}/> :
-                                            <FirstSG style={lastSignStyle}/>
+                                            <FirstSGSmallWithTitle style={lastSignSmallStyle}/> :
+                                            <FirstSGWithTitle style={lastSignStyle}/>
                                     ) : subgroup === 2 ? (windowWidth <= 930 ?
-                                            <SecondSGSmall style={lastSignSmallStyle}/> :
-                                            <SecondSG style={lastSignStyle}/>
+                                            <SecondSGSmallWithTitle style={lastSignSmallStyle}/> :
+                                            <SecondSGWithTitle style={lastSignStyle}/>
                                     ) : null)}
                             </>
                         )}
@@ -485,9 +515,9 @@ const Class = ({order, dayData, isEditing, isActive, onClick, onActiveChange}) =
                     </div>
                 </aside>
                 {isActive ?
-                    <div className="delete-button" onClick={handleClassDelete}>
+                    <button className="delete-button" onClick={handleClassDelete}>
                         <DeleteIcon/>
-                    </div> : null}
+                    </button> : null}
             </section>
             {
                 isActive ? <div className="class-edit-panel-container">

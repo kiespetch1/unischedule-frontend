@@ -39,6 +39,7 @@ header {
 
     background: #fafafafa;
 }
+
 .header-container {
     width: 100vw;
     border-bottom: 2px solid #BABABA;
@@ -189,6 +190,8 @@ header {
     height: 34px;
     animation: day-end-to-plus 0.2s ease-in-out;
     cursor: pointer;
+    border: none;
+    padding: 0;
 }
 
 @keyframes day-end-to-plus {
@@ -300,6 +303,7 @@ header {
 
     color: #000000;
 }
+
 .class-teacher.editing {
     padding: 4px 6px;
     width: 120px;
@@ -308,6 +312,7 @@ header {
     border-radius: 6px;
     border: none;
 }
+
 .class-teacher.editing:focus {
     outline: 2px solid #DBDBDB;
 }
@@ -592,6 +597,7 @@ header {
     align-items: center;
     width: 100vw;
 }
+
 .filters-content-container {
     width: 100%;
     max-width: 1836px;
@@ -721,7 +727,7 @@ header {
     transition: transform 0.1s ease-in-out;
     background: #CDCDCD;
     border-radius: 20px;
-    z-index: 0;
+    z-index: 1;
 }
 
 .toggle-slider-toggled {
@@ -733,7 +739,7 @@ header {
     transition: transform 0.1s ease-in-out;
     background: #CDCDCD;
     border-radius: 20px;
-    z-index: 0;
+    z-index: 1;
     transform: translateX(155px);
 }
 
@@ -745,8 +751,8 @@ header {
     align-items: center;
     justify-content: center;
     cursor: default;
-
-
+    border: none;
+    padding: 0;
     border-radius: 20px;
 }
 
@@ -759,6 +765,8 @@ header {
     justify-content: center;
     border-radius: 20px;
     cursor: pointer;
+    border: none;
+    padding: 0;
 }
 
 @keyframes smooth-shrinking-9px {
@@ -1079,6 +1087,8 @@ header {
     padding-right: 20px;
     margin-left: auto;
     cursor: pointer;
+    background: none;
+    border: none;
 }
 
 .day-header:hover .edit-icon-wrapper {
@@ -1341,7 +1351,8 @@ header {
     height: 133px;
     background: #E9E9E9;
     border-radius: 5px;
-
+    border: none;
+    padding: 0;
 }
 
 /* <= 930 px cтили */
@@ -1352,7 +1363,7 @@ header {
         font-size: 14px;
     }
 
-    .header-container{
+    .header-container {
         border-bottom: 1px solid #BABABA;
     }
 

@@ -75,7 +75,7 @@ const LocationPickPanel = ({
         <div className="class-edit-main-container location">
             <div className="class-edit-inner-container first">
                 <div className="class-edit-main-text">Локация:</div>
-                <div className="class-edit-new-option" onClick={handleLocationAdd}><AddIcon/></div>
+                <button className="class-edit-new-option" onClick={handleLocationAdd}><AddIcon/></button>
                 <div className="scroll-container"
                      ref={containerRef}
                      id="myContainer"
@@ -94,25 +94,31 @@ const LocationPickPanel = ({
                                 {item.locationType === 0 ? item.classroom : item.link}
                             </div>
                         ))}
-                        {scrollPosition < maxScrollPosition ? <div onClick={() => handleScroll('left')}
+                        {scrollPosition < maxScrollPosition ? <button onClick={() => handleScroll('left')}
                                                                    style={{
                                                                        position: "absolute",
                                                                        left: "428px",
                                                                        top: "0px",
                                                                        cursor: "pointer",
                                                                        transition: 'transform 0.3s ease',
-                                                                       transform: `translateX(${scrollPosition}px)`
+                                                                       transform: `translateX(${scrollPosition}px)`,
+                                                                       background: "none",
+                                                                       border: "none",
+                                                                       padding: "0px"
                                                                    }}>
                             <MoveRightIcon/>
-                        </div> : null}
-                        {scrollPosition > 0 ? <div onClick={() => handleScroll('right')}
+                        </button> : null}
+                        {scrollPosition > 0 ? <button onClick={() => handleScroll('right')}
                                                    style={{
                                                        position: "absolute", left: "0px", top: "0px",
                                                        cursor: "pointer", transition: 'transform 0.3s ease',
-                                                       transform: `translateX(${scrollPosition}px)`
+                                                       transform: `translateX(${scrollPosition}px)`,
+                                                       background: "none",
+                                                       border: "none",
+                                                       padding: "0px"
                                                    }}>
                             <MoveLeftIcon/>
-                        </div> : null}
+                        </button> : null}
                     </div>
                 </div>
 
@@ -137,7 +143,7 @@ const LocationPickPanel = ({
                             <input className="class-edit-input" id="location-edit-input"
                                    value={newLocation}
                                    onChange={handleLocationChange}></input>
-                            <div className="edit-panel-save-button" onClick={handleLocationSave}>Добавить</div>
+                            <button className="edit-panel-save-button" onClick={handleLocationSave}>Добавить</button>
                         </div>
                     </div>
                 </div>

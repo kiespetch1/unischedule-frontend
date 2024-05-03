@@ -6,14 +6,14 @@ const SaveButton = ({isEditing, saveButtonPosition, onSave}) => {
     }
 
     return (
-        <div className="day-save-button"
+        <button className="day-save-button"
              style={{
                  top: `${saveButtonPosition.top}px`,
                  left: `${saveButtonPosition.left}px`
              }}
              onClick={onSave}>
             Сохранить
-        </div>
+        </button>
     );
 };
 

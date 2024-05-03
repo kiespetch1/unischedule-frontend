@@ -73,7 +73,7 @@ const WeekToggle = () => {
 
     const activateClickHandler = (event) => {
         const target = event.target;
-        if (target.tagName.toLowerCase() === 'div') {
+        if (target.tagName.toLowerCase() === 'div' || target.tagName.toLowerCase() === 'button') {
             if (
                 target.className.includes("toggle-inner-inactive") ||
                 target.className.includes("toggle-text-inactive")
@@ -85,7 +85,7 @@ const WeekToggle = () => {
 
     const deactivateClickHandler = (event) => {
         const target = event.target;
-        if (target.tagName.toLowerCase() === 'div') {
+        if (target.tagName.toLowerCase() === 'div' || target.tagName.toLowerCase() === 'button') {
             if (
                 target.className.includes("toggle-inner-inactive") ||
                 target.className.includes("toggle-text-inactive")
@@ -105,9 +105,9 @@ const WeekToggle = () => {
                     <div className={weekType === "odd" ? "toggle-slider-untoggled" : "toggle-slider-toggled"}></div>
                 </div>
 
-                <div className={weekType === "even" ? "toggle-inner-inactive" : "toggle-inner-active"}
+                <button className={weekType === "even" ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={deactivateClickHandler}>
-                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", zIndex: "2"}}>
                         {weekType === "odd" ?
                             (windowWidth <= 930 ? <OddWeekIconSmall style={iconSmallAnimation}/> :
                                 <OddWeekIcon style={iconAnimation}/>) : (windowWidth <= 930 ?
@@ -118,13 +118,13 @@ const WeekToggle = () => {
                             Нечетная
                         </div>
                     </div>
-                </div>
+                </button>
 
                 {windowWidth <= 930 ? <div style={{width: "4px"}}></div> : null}
 
                 <div className={weekType === "odd" ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={activateClickHandler}>
-                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", zIndex: "2"}}>
                         {weekType === "even" ?
                             (windowWidth <= 930 ? <EvenWeekIconSmall style={iconSmallAnimation}/> :
                                 <EvenWeekIcon style={iconAnimation}/>) : (windowWidth <= 930 ?

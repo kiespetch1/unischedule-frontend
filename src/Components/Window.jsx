@@ -42,9 +42,9 @@ const Window = ({isEditing, isActive, onClick, onActiveChange, dayData, order}) 
         </div>
 
         {isActive ?
-            <div className="delete-button" onClick={handleClassDelete}>
+            <button className="delete-button" onClick={handleClassDelete}>
                 <DeleteIcon/>
-            </div> : null}
+            </button> : null}
 
     </div>)
 }

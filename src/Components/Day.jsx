@@ -146,11 +146,11 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
             )}
             {editText}
             {isEditing ? (
-                <div className="day-end-block animated">
+                <button className="day-end-block animated">
                     <div className="add-icon">
                         <AddIcon/>
                     </div>
-                </div>
+                </button>
             ) : (
                 <div className="day-end-block"></div>
             )}

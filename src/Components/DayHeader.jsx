@@ -65,9 +65,9 @@ const DayHeader = ({name, classCount, current, editing, isEditing, placeholder})
             <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>
             <div className="classes-text">{classCount === 0 ? "выходной" : classCount + " " + classesText}</div>
             {windowWidth <= 930 ? null :
-                <div onClick={handleEditing} className="edit-icon-wrapper">
+                <button onClick={handleEditing} className="edit-icon-wrapper">
                     {isEditing ? <ExitIcon/> : <EditIcon className="edit-icon"/>}
-                </div>}
+                </button>}
         </div>
     );
 };
