@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from "react";
 import "../index.css";
 import {ReactComponent as IateLogo} from "../assets/iateLogo.svg";
-import {ReactComponent as IateLogoSmall} from "../assets/iateLogoSmall.svg";
-import {ReactComponent as SettingsIcon} from "../assets/settings.svg";
-import {ReactComponent as SettingsIconSmall} from "../assets/settingsSmall.svg";
-import {ReactComponent as AuthIcon} from "../assets/auth.svg";
-import {ReactComponent as AuthIconSmall} from "../assets/authSmall.svg";
+import {ReactComponent as AuthIcon} from "../assets/user.svg";
+import {ReactComponent as NotificationsIcon} from "../assets/notification.svg";
 
 
 const Header = () => {
@@ -27,17 +24,18 @@ const Header = () => {
         <header className="header-container">
             <div className="header-content-container">
                 <div className="logo-container">
-                    {windowWidth <= 930 ? <IateLogoSmall/> : <IateLogo/>}
-
+                    <IateLogo style={windowWidth <= 930 ? {width: "30px", height: "30px"} :
+                        {width: "69px", height: "69px"}} />
                     <div className="schedule-header-text">
                         Расписание занятий
                     </div>
                 </div>
 
                 <div style={{display: "flex", height: "auto"}}>
-                    {windowWidth <= 930 ? <SettingsIconSmall style={{paddingRight: "14px"}}/> :
-                        <SettingsIcon style={{paddingRight: "40px"}}/>}
-                    {windowWidth <= 930 ? <AuthIconSmall/> : <AuthIcon/>}
+                    <NotificationsIcon style={windowWidth <= 930 ? {width: "18px", height: "18px", paddingRight: "16px"} :
+                    {width: "35px", height: "35px", paddingRight: "40px"}} />
+                    <AuthIcon style={windowWidth <= 930 ? {width: "18px", height: "18px"} :
+                                                          {width: "35px", height: "35px"}} />
                 </div>
             </div>
 

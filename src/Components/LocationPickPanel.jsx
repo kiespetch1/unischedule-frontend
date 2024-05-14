@@ -43,7 +43,7 @@ const LocationPickPanel = ({
     }, []);
 
     const handleScroll = (direction) => {
-        const step = 150;
+        const step = 300;
         let newPosition = scrollPosition + (direction === 'left' ? step : -step);
 
         newPosition = Math.max(0, Math.min(newPosition, maxScrollPosition));
@@ -89,7 +89,7 @@ const LocationPickPanel = ({
                         {locations.map((item, index) => (
                             <div key={index}
                                  onClick={() => handleLocationPick(item.locationType, item.locationType === 0 ?
-                                     item.classroom : item.link)}
+                                     item.classroom : item.link, item.id)}
                                  className="class-edit-option">
                                 {item.locationType === 0 ? item.classroom : item.link}
                             </div>

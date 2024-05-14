@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "../index.css";
 import DayHeader from "./DayHeader";
 import Class from "./Class";
@@ -10,7 +10,19 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
     const [isEditing, setIsEditing] = useState(false);
     const [saveButtonPosition, setSaveButtonPosition] = useState({top: 0, left: 0});
     const [activeClassIndex, setActiveClassIndex] = useState(null);
-    let classesCount = dayData?.classes?.length || 0;
+    const [newClasses, setNewClasses] = useState([]);
+    const [realIndex, setRealIndex] = useState(null);
+    const classRefs = useRef([]);
+    let classesCount = dayData?.classes?.length + newClasses.length || 0;
+
+    function compareStartTime(a, b) {
+        const timeToSeconds = time => {
+            const [hours, minutes, seconds] = time.split(':').map(Number);
+            return hours * 3600 + minutes * 60 + seconds;
+        };
+
+        return timeToSeconds(a.startTime) - timeToSeconds(b.startTime);
+    }
 
     const handleClassClick = index => {
         if (activeClassIndex === index) {
@@ -26,6 +38,14 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
         } else {
             setActiveClassIndex(index);
         }
+    };
+
+    const handleClassUpdate = (index, field, value) => {
+        setNewClasses(prevClasses => {
+            const updatedClasses = [...prevClasses];
+            updatedClasses[index] = {...updatedClasses[index], [field]: value};
+            return updatedClasses;
+        });
     };
 
 
@@ -48,7 +68,7 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
     switch (classesCount) {
         case 3:
         case 4:
-            if (dayData.classes[1].isWindow || dayData.classes[2].isWindow) {
+            if (dayData?.classes[1]?.isWindow || dayData?.classes[2]?.isWindow) {
                 classesCount = classesCount - 1;
             }
             break;
@@ -62,7 +82,26 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
             setActiveClassIndex(null);
     };
 
+    const handleClassAdd = () => {
+        const newClassData = { id: dayData.dayInfo.id };
+        setNewClasses(prevClasses => [...prevClasses, newClassData]);
+        classRefs.current.push(React.createRef());
+    };
+
+    const handleNewClassDelete = (indexToRemove) => {
+        setNewClasses(prevClasses => prevClasses.filter((_, index) => index !== indexToRemove - realIndex - 1));
+        setActiveClassIndex(null);
+        classRefs.current = classRefs.current.filter((_, index) => index !== indexToRemove - realIndex - 1);
+    };
+
     function handleDaySave() {
+        const ref = classRefs.current[activeClassIndex];
+        if (ref && ref.current) {
+            ref.current.forceSaveClass();
+        } else {
+            console.log(`Ref ${activeClassIndex} is not initialized correctly.`);
+        }
+
         setIsEditing(!isEditing);
         onEditToggle(!isEditing);
         togglePlaceholder(false);
@@ -107,6 +146,12 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
         }
     }, [isEditing, togglePlaceholder]);
 
+    useEffect(() => {
+        const classesLength = dayData?.classes?.length || 0;
+        const newClassesLength = newClasses.length || 0;
+        classRefs.current = new Array(classesLength + newClassesLength).fill().map((_, i) => classRefs.current[i] || React.createRef());
+        setRealIndex(classesLength);
+    }, [dayData?.classes, newClasses.length]);
 
     const editText = isEditing ? (
         <div className="day-edit-text" style={{top: "-34px", left: "20px"}}>
@@ -119,13 +164,13 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
             <DayHeader name={dayName} classCount={classesCount} current={current}
                        isEditing={isEditing}
                        editing={handleDayEditToggle}
-                       placeholder={togglePlaceholder}/>
+                       placeholder={togglePlaceholder} />
             {downloadFailure || classesCount === 0 ? (
                 <div className="day-empty-block-top">
                     <div className="empty-text">Выходной день</div>
                 </div>
             ) : (
-                dayData?.classes?.map((classData, index) => (
+                dayData?.classes?.sort(compareStartTime).map((classData, index) => (
                     <React.Fragment key={index}>
                         {classData.isWindow ?
                             <Window order={(index + 1).toString()}
@@ -133,28 +178,44 @@ const Day = ({dayData, dayName, downloadFailure, current, onEditToggle, togglePl
                                     isEditing={isEditing}
                                     isActive={isEditing && activeClassIndex === index}
                                     onClick={() => handleClassClick(index)}
-                                    onActiveChange={(isActive) => handleActiveChange(index, isActive)}/>
+                                    onActiveChange={(isActive) => handleActiveChange(index, isActive)} />
                             :
-                            <Class order={(index + 1).toString()}
+                            <Class ref={classRefs.current[index]}
+                                   order={(index + 1).toString()}
                                    dayData={dayData}
                                    isEditing={isEditing}
                                    isActive={isEditing && activeClassIndex === index}
                                    onClick={() => handleClassClick(index)}
-                                   onActiveChange={(isActive) => handleActiveChange(index, isActive)}/>}
+                                   onActiveChange={(isActive) => handleActiveChange(index, isActive)}
+                                   isNew={false} />}
                     </React.Fragment>
                 ))
             )}
             {editText}
+            {newClasses.length > 0 ? newClasses.map((classData, index) => (
+                <React.Fragment key={realIndex + index}>
+                    <Class ref={classRefs.current[realIndex + index]}
+                           order={(realIndex + index + 1).toString()}
+                           dayData={classData}
+                           isEditing={isEditing}
+                           isActive={isEditing && activeClassIndex === realIndex + index}
+                           onClick={() => handleClassClick(realIndex + index)}
+                           onActiveChange={(isActive) => handleActiveChange(realIndex + index, isActive)}
+                           onUpdate={(field, value) => handleClassUpdate(realIndex + index, field, value)}
+                           isNew={true}
+                           handleNewClassDelete={handleNewClassDelete} />
+                </React.Fragment>
+            )) : null}
             {isEditing ? (
-                <button className="day-end-block animated">
+                <button className="day-end-block animated" onClick={handleClassAdd}>
                     <div className="add-icon">
-                        <AddIcon/>
+                        <AddIcon />
                     </div>
                 </button>
             ) : (
                 <div className="day-end-block"></div>
             )}
-            <SaveButton isEditing={isEditing} saveButtonPosition={saveButtonPosition} onSave={handleDaySave}/>
+            <SaveButton isEditing={isEditing} saveButtonPosition={saveButtonPosition} onSave={handleDaySave} />
         </div>
     );
 };

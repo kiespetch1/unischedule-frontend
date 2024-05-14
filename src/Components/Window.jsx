@@ -12,7 +12,7 @@ const Window = ({isEditing, isActive, onClick, onActiveChange, dayData, order}) 
         }
     }
 
-    let dayId = dayData.classes[order - 1].id;
+    let dayId = order != null ? dayData.classes[order - 1].id : null; //todo тут наверное неправильно и нужно сделать как в class
 
     useEffect(() => {
         if (!isEditing) {
@@ -21,6 +21,7 @@ const Window = ({isEditing, isActive, onClick, onActiveChange, dayData, order}) 
     }, [isEditing, onActiveChange]);
 
     const handleClassDelete = () => {
+        //todo добавить удаление для не отправленных на сервер пар
         fetch("https://localhost:7184/api/classes/" + dayId, deleteRequestOptions)
             .then(response => {
                     if (!response.ok) {

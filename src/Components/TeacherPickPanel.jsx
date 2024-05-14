@@ -44,7 +44,7 @@ const TeacherPickPanel = ({
     }, []);
 
     const handleScroll = (direction) => {
-        const step = 150;
+        const step = 300;
         let newPosition = scrollPosition + (direction === 'left' ? step : -step);
 
         newPosition = Math.max(0, Math.min(newPosition, maxScrollPosition));
@@ -81,15 +81,16 @@ const TeacherPickPanel = ({
                 <div className="scroll-container"
                      ref={containerRef}
                      id="myContainer"
-                     style={{overflow: 'hidden', position: 'relative'}}>
+                     style={{overflow: 'hidden'}}>
 
                     <div ref={contentRef} style={{
                         transform: `translateX(-${scrollPosition}px)`,
                         transition: 'transform 0.3s ease',
-                        whiteSpace: 'nowrap'
+                        whiteSpace: 'nowrap',
+                        position: "relative",
                     }}>
                         {teachers.map((item) => (
-                            <div key={item.id} onClick={() => handleTeacherPick(item.fullName)}
+                            <div key={item.id} data-id={item.id} onClick={() => handleTeacherPick(item)}
                                  className="class-edit-option">
                                 {item.fullName}
                             </div>

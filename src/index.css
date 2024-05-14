@@ -129,7 +129,7 @@ header {
 }
 
 .day-block-top {
-    /* Rectangle 15 */
+    position: relative;
     width: 600px;
     height: 127px;
 
@@ -142,6 +142,7 @@ header {
 }
 
 .day-block {
+    position: relative;
     width: 600px;
     height: 127px;
     margin-top: 6px;
@@ -168,9 +169,17 @@ header {
     justify-content: flex-start;
 }
 
+/* Устанавливаем z-index: 2 для всех потомков .day-full.editing, кроме .day-properties-container и его потомков */
 .day-full.editing * {
     z-index: 2;
 }
+
+/* Устанавливаем z-index: 4 для .day-properties-container и его потомков */
+.day-full.editing .class-properties-container,
+.day-full.editing .class-properties-container * {
+    z-index: 3;
+}
+
 
 .day-end-block {
     display: flex;
@@ -387,7 +396,7 @@ header {
 
 .location-type.editing {
     padding: 4px 4px;
-    width: 110px;
+    width: 102px;
     text-align: center;
     background: #F5F5F5;
     border-radius: 6px;
@@ -1138,25 +1147,29 @@ header {
 }
 
 .class-edit-panel-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding-top: 12px;
     padding-bottom: 6px;
     max-width: 600px;
-    overflow: hidden;
     align-items: flex-start;
+
 
 }
 
 .class-edit-main-container.teacher {
+    position: relative;
     display: flex;
     flex-direction: column;
+    width: 600px;
 }
 
 .class-edit-main-container.location {
     display: flex;
     flex-direction: column;
     padding-top: 12px;
+    width: 600px;
 }
 
 .class-edit-secondary-container {
@@ -1165,6 +1178,7 @@ header {
 }
 
 .class-edit-inner-container.first {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -1201,6 +1215,7 @@ header {
 }
 
 .class-edit-main-text {
+    position: relative;
     font-family: 'Raleway', serif;
     font-feature-settings: 'pnum' on, 'lnum' on;
     font-style: normal;
@@ -1229,17 +1244,11 @@ header {
 }
 
 .scroll-container {
+    position: relative;
     flex: 1;
     display: flex;
     align-items: center;
     max-width: 600px;
-}
-
-.class-edit-option {
-    padding: 8px;
-    margin-right: 10px;
-    white-space: nowrap;
-    cursor: pointer;
 }
 
 .button-scroll {
@@ -1252,6 +1261,7 @@ header {
 }
 
 .class-edit-new-option {
+    position: relative;
     display: flex;
     padding: 8px;
     margin-right: 14px;
@@ -1265,6 +1275,7 @@ header {
 }
 
 .class-edit-option {
+    position: relative;
     display: inline-block;
     padding: 5px 12px;
     margin-right: 14px;
@@ -1355,6 +1366,52 @@ header {
     padding: 0;
 }
 
+.class-properties-container {
+    position: absolute;
+    width: 235px;
+    height: 105px;
+    top: -80px;
+    left: 290px;
+
+    opacity: 0.99;
+
+
+    background: #F0F0F0;
+    border: 1px solid rgba(205, 205, 205, 0.803922);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 12px;
+}
+
+.class-properties-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 16px;
+}
+
+.class-properties-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 90%;
+    display: flex;
+    color: #000000;
+    padding-right: 8px;
+}
+
+.class-properties-dropdown {
+    width: 104px;
+    height: 30px;
+    background: #F5F5F5;
+    border: 2px solid #ADADAD;
+    border-radius: 6px;
+}
+
 /* <= 930 px cтили */
 
 @media screen and (max-width: 930px) {
@@ -1369,7 +1426,7 @@ header {
 
     .header-content-container {
         width: 100vw;
-        padding: 0 7px 0 7px;
+        padding: 0 8px 0 8px;
         height: 44px;
     }
 
