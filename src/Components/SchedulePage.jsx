@@ -15,6 +15,7 @@ const SchedulePage = ({group}) => {
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
     const [isEditing, setIsEditing] = useState(false);
     const [placeholderHeight, setPlaceholderHeight] = useState(0);
+    const [refreshElement, setRefreshElement] = useState(0);
     const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
     const alertStyle = {
@@ -33,6 +34,10 @@ const SchedulePage = ({group}) => {
         else
             setPlaceholderHeight(0);
     }
+
+    const refreshComponent = () => {
+        setRefreshElement(refreshElement + 1);
+    };
 
     function getRussianDayName(day) {
         const daysRu = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
@@ -89,7 +94,7 @@ const SchedulePage = ({group}) => {
                 });
         }
 
-    }, [group, setSubgroup, setWeekType, subgroup, weekType]);
+    }, [group, setSubgroup, setWeekType, subgroup, weekType, refreshElement]);
 
     return (
         <div className="schedule-page">
@@ -106,6 +111,7 @@ const SchedulePage = ({group}) => {
                 <div className="days-container">
                     {days.map((dayName, index) => (
                         <Day
+                            refreshComponent={refreshComponent}
                             key={dayName}
                             dayData={weekInfo && weekInfo[dayName]}
                             dayName={getRussianDayName(index)}

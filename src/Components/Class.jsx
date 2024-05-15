@@ -55,14 +55,16 @@ const Class = forwardRef(({
                               onClick,
                               onActiveChange,
                               isNew,
-                              handleNewClassDelete
+                              handleNewClassDelete,
+                              decreaseClassesCount
                           }, ref) => {
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
     const [isAddingTeachers, setIsAddingTeachers] = useState(false);
     const [isAddingLocation, setIsAddingLocation] = useState(false);
     const [isWeekTypeEditing, setIsWeekTypeEditing] = useState(false);
     const [isSubmited, setIsSubmited] = useState(false); //флаг для определения отправлена ли новая пара на сервер
-    const [forceSave, setForceSave] = useState(false);
+    const [forceSave, setForceSave] = useState(false); //флаг для сохранения активной пары по нажатия на кнопку сохранения
+    const [isDeleted, setIsDeleted] = useState(false);
 
     const [newClassStartTime, setNewClassStartTime] = useState(''); //новое время начала пары
     const [newClassEndTime, setNewClassEndTime] = useState(''); //новое время окончания пары
@@ -309,6 +311,9 @@ const Class = forwardRef(({
                     console.log("Ошибка при отправке данных: " + error);
                 });
         }
+        console.log(classId + " ща удалится");
+        setIsDeleted(true);
+        decreaseClassesCount();
     };
 
     let dayId = isNew ? dayData.id : dayData.dayInfo?.id;
@@ -329,7 +334,7 @@ const Class = forwardRef(({
 
     if (isNew) {
         classStartTime = "9:00";
-        classEndTime = "10:45";
+        classEndTime = "10:35";
         classType = 0;
         weekType = 0;
         subgroup = 0;
@@ -440,7 +445,7 @@ const Class = forwardRef(({
                     url += (firstParam ? '?' : '&') + paramString;
                 }
 
-                if ((isEditing && !isActive) || (forceSave)) {
+                if ((isEditing && !isActive) || (forceSave && !isDeleted)) {
                     console.log(`Final URL: ${url}`);
                     fetch(url, putRequestOptions)
                         .then(response => {
@@ -501,7 +506,6 @@ const Class = forwardRef(({
         forceSave
     ]);
 
-
     useEffect(() => { //для закрытия окна по клику вне его зоны
         const handleClickOutside = (event) => {
             if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -519,6 +523,9 @@ const Class = forwardRef(({
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [isWeekTypeEditing]);
+
+    if (isDeleted)
+        return null;
 
     return (
         <div>
