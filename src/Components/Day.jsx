@@ -28,10 +28,13 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
     };
 
     function compareStartTime(a, b) {
+
         const timeToSeconds = (time) => {
-            const [hours, minutes, seconds] = time.split(":").map(Number);
-            return hours * 3600 + minutes * 60 + seconds;
-        };
+        if (!time) return 0;
+        const [hours, minutes, seconds] = time.split(":").map(Number);
+        return hours * 3600 + minutes * 60 + seconds;
+    };
+
 
         return timeToSeconds(a.startTime) - timeToSeconds(b.startTime);
     }

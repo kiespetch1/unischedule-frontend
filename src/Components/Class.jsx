@@ -205,10 +205,10 @@ const Class = forwardRef(({
             let locationInfo = newLocationInfo.trim();
             let typeQuery;
             let locationQuery;
-            if (newLocationType === '0') {
+            if (parseInt(newLocationType) === 0) {
                 typeQuery = "locationType=0";
                 locationQuery = "&classroom=" + locationInfo;
-            } else if (newLocationType === '1') {
+            } else if (parseInt(newLocationType) === 1) {
                 typeQuery = "locationType=1";
                 locationQuery = "&link=" + locationInfo;
             } else {

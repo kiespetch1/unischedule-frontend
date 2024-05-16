@@ -11,36 +11,54 @@ const LocationPickPanel = ({
     const [scrollPosition, setScrollPosition] = useState(0);
     const [maxScrollPosition, setMaxScrollPosition] = useState(0);
     const [locations, setLocations] = useState([]);
+    const [refreshElement, setRefreshElement] = useState(0);
     const contentRef = useRef(null);
     const containerRef = useRef(null);
 
     useEffect(() => {
         const observedElement = containerRef.current;
+        const contentElement = contentRef.current;
 
         const updateMaxScroll = () => {
-            if (observedElement) {
+            if (observedElement && contentElement) {
                 const containerWidth = observedElement.offsetWidth;
-                const contentWidth = contentRef.current.offsetWidth;
+                const contentWidth = contentElement.offsetWidth;
                 const maxScroll = Math.max(0, contentWidth - containerWidth);
-                setMaxScrollPosition(maxScroll + 20); //если какие то проблемы со скроллом, мб можно убрать 20
+                setMaxScrollPosition(maxScroll + 20); // если проблемы со скроллом, мб можно убрать 20
+            } else {
+                console.log('Observed element or content element is missing.');
             }
         };
 
-        updateMaxScroll();
-        const resizeObserver = new ResizeObserver(() => {
-            updateMaxScroll();
-        });
+        const resizeObserver = new ResizeObserver(updateMaxScroll);
+        const mutationObserver = new MutationObserver(updateMaxScroll);
 
         if (observedElement) {
             resizeObserver.observe(observedElement);
+            mutationObserver.observe(observedElement, { attributes: true, childList: true, subtree: true });
+            updateMaxScroll();
         }
 
         return () => {
             if (observedElement) {
                 resizeObserver.unobserve(observedElement);
+                mutationObserver.disconnect();
             }
         };
-    }, []);
+    }, [refreshElement]);
+
+
+    const internalHandleLocationSave = () => {
+        handleLocationSave();
+        setTimeout(() => {
+            refreshComponent();
+        }, 200);
+
+    }
+
+    const refreshComponent = () => {
+        setRefreshElement(refreshElement + 1);
+    };
 
     const handleScroll = (direction) => {
         const step = 300;
@@ -69,7 +87,7 @@ const LocationPickPanel = ({
             }
         }
         fetchData();
-    }, [isActive, isAddingLocation])
+    }, [isActive, isAddingLocation, refreshElement])
 
     return (
         <div className="class-edit-main-container location">
@@ -143,7 +161,7 @@ const LocationPickPanel = ({
                             <input className="class-edit-input" id="location-edit-input"
                                    value={newLocation}
                                    onChange={handleLocationChange}></input>
-                            <button className="edit-panel-save-button" onClick={handleLocationSave}>Добавить</button>
+                            <button className="edit-panel-save-button" onClick={internalHandleLocationSave}>Добавить</button>
                         </div>
                     </div>
                 </div>

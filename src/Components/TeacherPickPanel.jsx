@@ -10,38 +10,56 @@ const TeacherPickPanel = ({
                           }) => {
     const [scrollPosition, setScrollPosition] = useState(0);
     const [maxScrollPosition, setMaxScrollPosition] = useState(0);
-    const [teachers, setTeachers] = useState([]);
+    const [teachers, setTeachers] = useState([])
+    const [refreshElement, setRefreshElement] = useState(0);
     const contentRef = useRef(null);
     const containerRef = useRef(null);
+
+    useEffect(() => {
+        console.log("rerendered");
+    }, []);
 
 
     useEffect(() => {
         const observedElement = containerRef.current;
+        const contentElement = contentRef.current;
 
         const updateMaxScroll = () => {
-            if (observedElement) {
+            if (observedElement && contentElement) {
                 const containerWidth = observedElement.offsetWidth;
-                const contentWidth = contentRef.current.offsetWidth;
+                const contentWidth = contentElement.offsetWidth;
                 const maxScroll = Math.max(0, contentWidth - containerWidth);
-                setMaxScrollPosition(maxScroll + 20); //если какие то проблемы со скроллом, мб можно убрать 20
+                setMaxScrollPosition(maxScroll + 20); // если проблемы со скроллом, мб можно убрать 20
+            } else {
+                console.log('Observed element or content element is missing.');
             }
         };
 
-        updateMaxScroll();
-        const resizeObserver = new ResizeObserver(() => {
-            updateMaxScroll();
-        });
+        const resizeObserver = new ResizeObserver(updateMaxScroll);
+        const mutationObserver = new MutationObserver(updateMaxScroll);
 
         if (observedElement) {
             resizeObserver.observe(observedElement);
+            mutationObserver.observe(observedElement, { attributes: true, childList: true, subtree: true });
+            updateMaxScroll();
         }
 
         return () => {
             if (observedElement) {
                 resizeObserver.unobserve(observedElement);
+                mutationObserver.disconnect();
             }
         };
-    }, []);
+    }, [refreshElement]);
+
+
+    const internalHandleTeacherSave = () => {
+        handleTeacherSave();
+        setTimeout(() => {
+            refreshComponent();
+        }, 200);
+
+    }
 
     const handleScroll = (direction) => {
         const step = 300;
@@ -50,6 +68,10 @@ const TeacherPickPanel = ({
         newPosition = Math.max(0, Math.min(newPosition, maxScrollPosition));
 
         setScrollPosition(newPosition);
+    };
+
+    const refreshComponent = () => {
+        setRefreshElement(refreshElement + 1);
     };
 
     useEffect(() => {
@@ -70,7 +92,7 @@ const TeacherPickPanel = ({
             }
         }
         fetchData();
-    },[isActive, isAddingTeachers])
+    }, [isActive, isAddingTeachers, refreshElement])
 
     return (
 
@@ -96,28 +118,28 @@ const TeacherPickPanel = ({
                             </div>
                         ))}
                         {scrollPosition < maxScrollPosition ? <button onClick={() => handleScroll('left')}
-                                                                   style={{
-                                                                       position: "absolute",
-                                                                       left: "373px",
-                                                                       top: "0px",
-                                                                       cursor: "pointer",
-                                                                       transition: 'transform 0.3s ease',
-                                                                       transform: `translateX(${scrollPosition}px)`,
-                                                                       background: "none",
-                                                                       border: "none",
-                                                                       padding: "0px"
-                                                                   }}>
+                                                                      style={{
+                                                                          position: "absolute",
+                                                                          left: "373px",
+                                                                          top: "0px",
+                                                                          cursor: "pointer",
+                                                                          transition: 'transform 0.3s ease',
+                                                                          transform: `translateX(${scrollPosition}px)`,
+                                                                          background: "none",
+                                                                          border: "none",
+                                                                          padding: "0px"
+                                                                      }}>
                             <MoveRightIcon/>
                         </button> : null}
                         {scrollPosition > 0 ? <button onClick={() => handleScroll('right')}
-                                                   style={{
-                                                       position: "absolute", left: "0px", top: "0px",
-                                                       cursor: "pointer", transition: 'transform 0.3s ease',
-                                                       transform: `translateX(${scrollPosition}px)`,
-                                                       background: "none",
-                                                       border: "none",
-                                                       padding: "0px"
-                                                   }}>
+                                                      style={{
+                                                          position: "absolute", left: "0px", top: "0px",
+                                                          cursor: "pointer", transition: 'transform 0.3s ease',
+                                                          transform: `translateX(${scrollPosition}px)`,
+                                                          background: "none",
+                                                          border: "none",
+                                                          padding: "0px"
+                                                      }}>
                             <MoveLeftIcon/>
                         </button> : null}
                     </div>
@@ -130,7 +152,7 @@ const TeacherPickPanel = ({
                         <div className="class-edit-secondary-text">ФИО преподавателя:</div>
                         <input className="class-edit-input" id="teacher-edit-input" value={newTeacherName}
                                onChange={handleTeacherNameChange}></input>
-                        <button className="edit-panel-save-button" onClick={handleTeacherSave}>Добавить</button>
+                        <button className="edit-panel-save-button" onClick={internalHandleTeacherSave}>Добавить</button>
                     </div>
                 </div>
                 : null}
