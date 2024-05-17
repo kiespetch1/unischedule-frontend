@@ -46,6 +46,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 .logo-container {
@@ -53,6 +55,9 @@ header {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
 }
 
 .week-container {
@@ -923,7 +928,7 @@ header {
     margin: 0 auto 0 auto;
     height: auto;
     width: calc(100vw - 80px);
-    min-height: calc(100vh - 90px - 71px);
+    min-height: calc(100vh - 163px);
 }
 
 .groups-choose-text {
@@ -1410,6 +1415,29 @@ header {
     background: #F5F5F5;
     border: 2px solid #ADADAD;
     border-radius: 6px;
+}
+
+.not-found-page {
+    min-height: calc(100vh - 163px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.not-found-header {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    display: block;
+}
+.not-found-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    display: block;
 }
 
 /* <= 930 px cтили */

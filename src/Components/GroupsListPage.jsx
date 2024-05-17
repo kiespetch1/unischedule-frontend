@@ -75,6 +75,10 @@ const GroupsListPage = () => {
             });
     }, []);
 
+    useEffect(() => {
+        console.log(groupsInfo);
+    }, [groupsInfo]);
+
     return (
         <div>
             <Header/>
@@ -91,10 +95,12 @@ const GroupsListPage = () => {
                                    onClick={clearInput}/> : null}
                 </div>
 
-                <CourseGroups grade="1" groups={groupsInfo}/>
-                <CourseGroups grade="2" groups={groupsInfo}/>
-                <CourseGroups grade="3" groups={groupsInfo}/>
-                <CourseGroups grade="4" groups={groupsInfo}/>
+
+
+                <CourseGroups grade="1" groups={groupsInfo} filter={inputValue}/>
+                <CourseGroups grade="2" groups={groupsInfo} filter={inputValue}/>
+                <CourseGroups grade="3" groups={groupsInfo} filter={inputValue}/>
+                <CourseGroups grade="4" groups={groupsInfo} filter={inputValue}/>
 
                 <div className="group-add-text">Вашей группы нет в списке? Напишите <a
                     style={{whiteSpace: 'nowrap', color: "#767676"}}

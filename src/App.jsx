@@ -10,7 +10,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Navigate to="/groups" replace/>}/>
-                    <Route path="/group=1" element={<SchedulePage group="1"/>}/>
+                    <Route path="/group/:groupId" element={<SchedulePage />}/>
                     <Route path="/groups" element={<GroupsListPage/>}/>
                 </Routes>
             </BrowserRouter>
