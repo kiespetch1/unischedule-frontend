@@ -78,6 +78,10 @@ const Class = forwardRef(({
     const [newTeacher, setNewTeacher] = useState(''); //новое имя учителя
     const [newTeacherId, setNewTeacherId] = useState(''); //айди измененного учителя
     const [newTeacherName, setNewTeacherName] = useState(''); //имя для создания учителя
+    const [teacherFilter, setTeacherFilter] = useState(''); //фильтр учителей, он же служит отображаемым именем
+    const [isTeacherFilterActive, setIsTeacherFilterActive] = useState(false); //флаг для понимания, когда мы фильтруем учителей, а когда нет
+    const [locationFilter, setLocationFilter] = useState(''); //фильтр локаций, он же служит отображаемым именем
+    const [isLocationFilterActive, setIsLocationFilterActive] = useState(false); //флаг для понимания, когда мы фильтруем локации, а когда нет
     const [isWindow, setIsWindow] = useState(false);
     const popupRef = useRef(null); //реф всплывающего окна свойств пары для закрытия по клику вне его зоны
 
@@ -180,6 +184,7 @@ const Class = forwardRef(({
         setNewTeacherName(event.target.value);
     };
 
+
     const handleTeacherSave = () => {
         if (newTeacherName !== '') {
             let name = newTeacherName.trim();
@@ -278,15 +283,29 @@ const Class = forwardRef(({
     };
 
     const handleLocationPick = (locationType, nameOrLink, id) => {
+        setIsLocationFilterActive(false)
         setNewLocationType(locationType);
         setNewLocationInfo(nameOrLink);
         setNewLocationId(id);
+        setLocationFilter(nameOrLink)
     };
 
     const handleTeacherPick = (item) => {
+        setIsTeacherFilterActive(false);
         setNewTeacher(item.fullName);
         setNewTeacherId(item.id);
+        setTeacherFilter(item.fullName);
     };
+
+    const handleTeacherFilterChange = (event) => {
+        setTeacherFilter(event.target.value);
+        setIsTeacherFilterActive(true);
+    };
+
+    const handleLocationFilterChange = (event) => {
+        setLocationFilter(event.target.value);
+        setIsLocationFilterActive(true);
+    }
 
     useImperativeHandle(ref, () => ({
         forceSaveClass() {
@@ -383,7 +402,12 @@ const Class = forwardRef(({
         setNewWeekType(weekType);
         setNewSubgroup(subgroup);
         setIsWindow(false);
+        setTeacherFilter(teacher.fullName);
+        setLocationFilter(locationTypeSc === 0 ? classroom : locationTypeSc === 1 ? link : null);
+        setIsLocationFilterActive(false);
+        setIsTeacherFilterActive(false);
     }, [isEditing]); // eslint-disable-line react-hooks/exhaustive-deps
+                            //мб тут все таки надо добавить все в зависимости, но через иф сделать чтобы выполнялось только при изменении isEditing
 
     useEffect(() => {
         if (!isEditing) {
@@ -526,7 +550,6 @@ const Class = forwardRef(({
 
     if (isDeleted)
         return null;
-
     return (
         <div>
             <section className={order === "1" ? "day-block-top" : "day-block"}
@@ -671,9 +694,9 @@ const Class = forwardRef(({
                         {/*строка преподавателя*/}
                         {isActive ? <input className="class-teacher editing"
                                            id="class-teacher-input"
-                                           value={newTeacher}
-                                           readOnly
-                        ></input> : (isEditing ? <div className="class-teacher">{newTeacher}</div> :
+                                           value={teacherFilter}
+                                           onChange={handleTeacherFilterChange}
+                        ></input> : (isEditing ? <div className="class-teacher">{teacherFilter}</div> :
                             <div className="class-teacher">{teacher.fullName}</div>)}
                     </div>
                 </div>
@@ -702,10 +725,10 @@ const Class = forwardRef(({
                             && parseInt(newLocationType) !== 1 &&
                             (isActive ? <input className="irl-letters-location editing"
                                                id="classroom-input"
-                                               value={newLocationInfo}
-                                               readOnly>
+                                               value={locationFilter}
+                                               onChange={handleLocationFilterChange}>
                                 </input> :
-                                (isEditing ? <div className="irl-letters-location">{newLocationInfo}</div> :
+                                (isEditing ? <div className="irl-letters-location">{locationFilter}</div> :
                                     <div className="irl-letters-location">{classroom}</div>))
                         }
                         {((locationTypeSc === 0 || parseInt(newLocationType) === 0) &&
@@ -713,18 +736,18 @@ const Class = forwardRef(({
                             && parseInt(newLocationType) !== 1 &&
                             (isActive ? <input className="irl-location editing"
                                                id="classroom-input"
-                                               value={newLocationInfo}
-                                               readOnly>
+                                               value={locationFilter}
+                                               onChange={handleLocationFilterChange}>
                                 </input> :
-                                (isEditing ? <div className="irl-location">{newLocationInfo}</div> :
+                                (isEditing ? <div className="irl-location">{locationFilter}</div> :
                                     <div className="irl-location">{classroom}</div>))
                         }
                         {(locationTypeSc === 1 || parseInt(newLocationType) === 1)
                             && parseInt(newLocationType) !== 0 &&
                             (isActive ? <input className="distant-location editing"
                                                id="classroom-input"
-                                               value={newLocationInfo}
-                                               readOnly>
+                                               value={locationFilter}
+                                               onChange={handleLocationFilterChange}>
                                 </input> :
                                 (isEditing ?
                                     <a href={newLocationInfo}
@@ -764,6 +787,8 @@ const Class = forwardRef(({
                     handleTeacherNameChange={handleTeacherNameChange}
                     newTeacherName={newTeacherName}
                     isActive={isActive}
+                    isFilterActive={isTeacherFilterActive}
+                    filter={teacherFilter}
                 />
                 <LocationPickPanel
                     handleLocationAdd={handleLocationAdd}
@@ -774,7 +799,9 @@ const Class = forwardRef(({
                     newLocation={newLocationInfo}
                     handleLocationTypeChange={handleLocationTypeChange}
                     handleLocationChange={handleLocationChange}
-                    isActive={isActive}/>
+                    isActive={isActive}
+                    isFilterActive={isLocationFilterActive}
+                    filter={locationFilter}/>
             </div> : null}
 
         </div>

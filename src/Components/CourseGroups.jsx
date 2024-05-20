@@ -19,7 +19,6 @@ const CourseGroups = ({ grade, groups, filter }) => {
         }
 
         setFilteredGroups(filteredGroups);
-        console.log(filteredGroups);
     }, [filter, grade, groups]);
 
 

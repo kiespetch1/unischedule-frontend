@@ -1131,7 +1131,7 @@ header {
 }
 
 .day-save-button {
-    box-sizing: border-box;
+    box-sizing: content-box;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1140,13 +1140,13 @@ header {
     position: absolute;
     width: 150px;
     height: 39px;
-    font-weight: 500;
+    font-weight: 650;
     font-size: 18px;
     color: #F7F7F7;
 
     background: #0966BB;
     border: 3px solid #075093;
-    border-radius: 7px;
+    border-radius: 11px;
     cursor: pointer;
     animation: fadeIn 0.2s ease-in-out;
 }
@@ -1438,6 +1438,59 @@ header {
     font-weight: 400;
     font-size: 18px;
     display: block;
+}
+
+.login-popup-container {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 246px;
+    background: #F0F0F0;
+    border: 2px solid #CDCDCD;
+    box-shadow: 0 4px 13px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 7px;
+}
+
+.login-popup-text {
+    width: 171px;
+    height: 20px;
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+
+    color: #000000;
+}
+
+.login-popup-input {
+    box-sizing: border-box;
+    width: 240px;
+    height: 36px;
+    background: #F5F5F5;
+    border: 2px solid #ADADAD;
+    border-radius: 6px;
+}
+
+.login-popup-button {
+    box-sizing: content-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Raleway', serif;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    position: absolute;
+    width: 135px;
+    height: 32px;
+    font-weight: 650;
+    font-size: 18px;
+    color: #F7F7F7;
+
+    background: #0966BB;
+    border: 3px solid #075093;
+    border-radius: 11px;
+    cursor: pointer;
+    animation: fadeIn 0.2s ease-in-out;
 }
 
 /* <= 930 px cтили */

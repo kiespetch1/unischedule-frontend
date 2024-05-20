@@ -6,7 +6,7 @@ import {ReactComponent as MoveLeftIcon} from "../assets/moveLeftIcon.svg"
 
 const TeacherPickPanel = ({
                               handleTeacherPick, handleTeacherAdd, isAddingTeachers, handleTeacherSave,
-                              handleTeacherNameChange, newTeacherName, isActive
+                              handleTeacherNameChange, newTeacherName, isActive, isFilterActive, filter
                           }) => {
     const [scrollPosition, setScrollPosition] = useState(0);
     const [maxScrollPosition, setMaxScrollPosition] = useState(0);
@@ -14,10 +14,17 @@ const TeacherPickPanel = ({
     const [refreshElement, setRefreshElement] = useState(0);
     const contentRef = useRef(null);
     const containerRef = useRef(null);
+    const [filteredTeachers, setFilteredTeachers] = useState([]);
 
     useEffect(() => {
-        console.log("rerendered");
-    }, []);
+        let filteredTeachers = teachers;
+
+        if (filter && isFilterActive) {
+            filteredTeachers = filteredTeachers.filter(teacher => teacher.fullName?.toLowerCase().includes(filter.toLowerCase()));
+        }
+
+        setFilteredTeachers(filteredTeachers);
+    }, [filter, isFilterActive, teachers]);
 
 
     useEffect(() => {
@@ -111,7 +118,7 @@ const TeacherPickPanel = ({
                         whiteSpace: 'nowrap',
                         position: "relative",
                     }}>
-                        {teachers.map((item) => (
+                        {filteredTeachers.map((item) => (
                             <div key={item.id} data-id={item.id} onClick={() => handleTeacherPick(item)}
                                  className="class-edit-option">
                                 {item.fullName}

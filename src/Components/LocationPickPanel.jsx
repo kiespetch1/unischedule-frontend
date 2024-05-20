@@ -6,7 +6,8 @@ import {ReactComponent as MoveLeftIcon} from "../assets/moveLeftIcon.svg"
 
 const LocationPickPanel = ({
                                handleLocationPick, handleLocationAdd, handleLocationSave, isAddingLocation,
-                               newLocationType, newLocation, handleLocationTypeChange, handleLocationChange, isActive
+                               newLocationType, newLocation, handleLocationTypeChange, handleLocationChange, isActive,
+                               isFilterActive, filter
                            }) => {
     const [scrollPosition, setScrollPosition] = useState(0);
     const [maxScrollPosition, setMaxScrollPosition] = useState(0);
@@ -14,6 +15,19 @@ const LocationPickPanel = ({
     const [refreshElement, setRefreshElement] = useState(0);
     const contentRef = useRef(null);
     const containerRef = useRef(null);
+    const [filteredLocations, setFilteredLocations] = useState([]);
+
+    useEffect(() => {
+        let filteredLocations = locations;
+
+        if (filter && isFilterActive) {
+            filteredLocations = filteredLocations
+                .filter(location => (location.classroom?.toLowerCase().includes(filter.toLowerCase())) ||
+                    (location.link?.toLowerCase().includes(filter.toLowerCase())));
+        }
+
+        setFilteredLocations(filteredLocations);
+    }, [filter, isFilterActive, locations]);
 
     useEffect(() => {
         const observedElement = containerRef.current;
@@ -104,7 +118,7 @@ const LocationPickPanel = ({
                         transition: 'transform 0.3s ease',
                         whiteSpace: 'nowrap'
                     }}>
-                        {locations.map((item, index) => (
+                        {filteredLocations.map((item, index) => (
                             <div key={index}
                                  onClick={() => handleLocationPick(item.locationType, item.locationType === 0 ?
                                      item.classroom : item.link, item.id)}
