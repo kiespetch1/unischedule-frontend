@@ -9,7 +9,8 @@ const Window = ({isEditing, isActive, onClick, onActiveChange, dayData, order}) 
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        credentials: 'include'
     }
 
     let dayId = order != null ? dayData.classes[order - 1].id : null; //todo тут наверное неправильно и нужно сделать как в class

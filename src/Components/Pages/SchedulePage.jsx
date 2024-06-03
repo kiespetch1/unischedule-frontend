@@ -1,14 +1,14 @@
 import React, {useState, useEffect, useContext} from 'react';
-import "../index.css";
-import Header from "./Header";
-import Day from "./Day";
-import Footer from "./Footer";
-import Context from "../Context";
-import {ReactComponent as AlertIcon} from "../assets/alert.svg";
-import WeeksText from "./WeeksText";
-import Filters from "./Filters";
+import "../../index.css";
+import Header from "../Header";
+import Day from "../Day";
+import Footer from "../Footer";
+import Context from "../../Context";
+import {ReactComponent as AlertIcon} from "../../assets/alert.svg";
+import WeeksText from "../WeeksText";
+import Filters from "../Filters";
 import {useParams} from "react-router-dom";
-import GroupNotFoundPage from "./GroupNotFoundPage";
+import GroupNotFoundAlert from "../GroupNotFoundAlert";
 
 const SchedulePage = () => {
     const [weekInfo, setWeekInfo] = useState(null);
@@ -72,7 +72,8 @@ const SchedulePage = () => {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials: 'include'
         }
 
         fetch("https://localhost:7184/api/groups/getUsedIds", getRequestOptions)
@@ -115,7 +116,7 @@ const SchedulePage = () => {
     }, [group, setSubgroup, setWeekType, subgroup, weekType, refreshElement, isIdPresent]);
 
     if (!isIdPresent)
-        return (<GroupNotFoundPage/>);
+        return (<GroupNotFoundAlert/>);
 
     return (
         <div className="schedule-page">

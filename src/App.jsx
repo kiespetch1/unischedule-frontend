@@ -1,7 +1,8 @@
-import SchedulePage from "./Components/SchedulePage";
+import SchedulePage from "./Components/Pages/SchedulePage";
 import {ContextProvider} from "./Context";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import GroupsListPage from "./Components/GroupsListPage";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import GroupsListPage from "./Components/Pages/GroupsListPage";
+import HomePage from "./Components/Pages/HomePage";
 
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
         <ContextProvider>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Navigate to="/groups" replace/>}/>
+                    <Route path="/" element={<HomePage/>}/>
                     <Route path="/group/:groupId" element={<SchedulePage />}/>
                     <Route path="/groups" element={<GroupsListPage/>}/>
                 </Routes>

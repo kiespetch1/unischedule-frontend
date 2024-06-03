@@ -13,7 +13,7 @@ import {ReactComponent as EmptyIcon} from "../assets/emptyWeekTypeIcon.svg";
 import LocationPickPanel from "./LocationPickPanel";
 import TeacherPickPanel from "./TeacherPickPanel";
 import {ReactComponent as DeleteIcon} from "../assets/delete.svg";
-import ClassPropertiesPanel from "./ClassPropertiesPanel";
+import ClassPropertiesPopup from "./ClassPropertiesPopup";
 
 export const EvenWeekIconWithTitle = (props) => (
     <EvenWeekIcon title="Четная неделя" {...props} />
@@ -151,21 +151,24 @@ const Class = forwardRef(({
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        credentials: 'include'
     };
 
     const deleteRequestOptions = {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        credentials: 'include'
     };
 
     const putRequestOptions = {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        credentials: 'include'
     };
 
     function containsLetters(str) {
@@ -773,7 +776,7 @@ const Class = forwardRef(({
             </section>
 
             {isActive ? <div className="class-edit-panel-container">
-                {isWeekTypeEditing && <ClassPropertiesPanel ref={popupRef}
+                {isWeekTypeEditing && <ClassPropertiesPopup ref={popupRef}
                                                             newWeekType={newWeekType}
                                                             handleWeekTypeChange={handleWeekTypeChange}
                                                             newSubgroup={newSubgroup}

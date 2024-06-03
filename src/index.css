@@ -495,7 +495,7 @@ header {
 .days-container {
     position: relative;
     width: calc(100% - 56px);
-    min-height: calc(100vh - 90px - 71px - 100px - 148px);
+    min-height: calc(100vh - 361px);
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
@@ -928,7 +928,14 @@ header {
     margin: 0 auto 0 auto;
     height: auto;
     width: calc(100vw - 80px);
+}
+
+.group-list-container {
     min-height: calc(100vh - 163px);
+}
+
+.homepage-container {
+    min-height: calc(100vh - 292px);
 }
 
 .groups-choose-text {
@@ -1432,6 +1439,7 @@ header {
     font-size: 24px;
     display: block;
 }
+
 .not-found-text {
     font-family: 'Raleway', serif;
     font-style: normal;
@@ -1440,12 +1448,37 @@ header {
     display: block;
 }
 
+.button-click-accent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 11px;
+    transition: transform 0.1s linear;
+    background-color: #fafafa;
+}
+
+.button-click-accent.active {
+    background-color: #E9E9E9;
+    transform: scale(1.1);
+}
+
 .login-popup-container {
+    position: absolute;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
     width: 300px;
     height: 246px;
     background: #F0F0F0;
+    z-index: 5;
+    top: 76px;
+    right: 0;
+    left: calc(100vw - 352px);
+
     border: 2px solid #CDCDCD;
     box-shadow: 0 4px 13px 1px rgba(0, 0, 0, 0.25);
     border-radius: 7px;
@@ -1470,16 +1503,25 @@ header {
     background: #F5F5F5;
     border: 2px solid #ADADAD;
     border-radius: 6px;
+    padding: 0 6px;
+    font-family: 'Raleway', serif;
+    font-size: 15px;
+}
+
+
+.login-popup-input:focus {
+    border: 2px solid #676767;
+    outline: none;
 }
 
 .login-popup-button {
+    position: relative;
     box-sizing: content-box;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Raleway', serif;
     font-feature-settings: 'pnum' on, 'lnum' on;
-    position: absolute;
     width: 135px;
     height: 32px;
     font-weight: 650;
@@ -1490,7 +1532,33 @@ header {
     border: 3px solid #075093;
     border-radius: 11px;
     cursor: pointer;
-    animation: fadeIn 0.2s ease-in-out;
+}
+
+.welcome-header {
+    max-width: 65vw;
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    margin: 24px 0 0 0;
+    display: flex;
+    padding-left: 40px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+
+    color: #000000;
+}
+
+.welcome-text {
+    max-width: 65vw;
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    display: flex;
+    padding-left: 40px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+
+    color: #000000;
 }
 
 /* <= 930 px cтили */

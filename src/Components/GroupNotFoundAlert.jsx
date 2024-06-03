@@ -2,7 +2,7 @@ import React from 'react';
 import Header from "./Header";
 import Footer from "./Footer";
 
-const GroupNotFoundPage = () => {
+const GroupNotFoundAlert = () => {
 
     return (
         <>
@@ -16,4 +16,4 @@ const GroupNotFoundPage = () => {
     );
 };
 
-export default GroupNotFoundPage;
+export default GroupNotFoundAlert;

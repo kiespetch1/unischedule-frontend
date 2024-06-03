@@ -16,7 +16,9 @@ const WeekToggle = () => {
 
     const iconAnimation = {
         animationName: "smooth-expanding-20px",
-        animationDuration: "0.1s"
+        animationDuration: "0.1s",
+        width: "21px",
+        height: "21px"
     }
     const iconDecayAnimation = {
         animationName: "smooth-shrinking-20px",

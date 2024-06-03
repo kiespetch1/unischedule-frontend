@@ -88,7 +88,8 @@ const LocationPickPanel = ({
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials: 'include'
         }
         const fetchData = async () => {
             try {

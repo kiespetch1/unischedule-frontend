@@ -1,7 +1,7 @@
 import React from 'react';
 import "../index.css";
 
-const ClassPropertiesPanel = React.forwardRef((props, ref) => {
+const ClassPropertiesPopup = React.forwardRef((props, ref) => {
     const {newWeekType, handleWeekTypeChange, newSubgroup, handleSubgroupChange} = props;
 
     return (
@@ -32,4 +32,4 @@ const ClassPropertiesPanel = React.forwardRef((props, ref) => {
     );
 });
 
-export default ClassPropertiesPanel;
+export default ClassPropertiesPopup;
