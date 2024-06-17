@@ -1,12 +1,9 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import "../index.css";
+import {ReactComponent as FirstSG} from "../assets/1sg.svg";
+import {ReactComponent as SecondSG} from "../assets/2sg.svg"
 import Context from "../Context";
 import {useNavigate, useLocation} from 'react-router-dom';
-import {ReactComponent as FirstSG} from "../assets/1sg.svg";
-import {ReactComponent as FirstSGSmall} from "../assets/1sgSmall.svg";
-import {ReactComponent as SecondSG} from "../assets/2sg.svg"
-import {ReactComponent as SecondSGSmall} from "../assets/2sgSmall.svg"
-
 
 const SubgroupToggle = () => {
     const {setSubgroup, subgroup} = useContext(Context);
@@ -27,11 +24,13 @@ const SubgroupToggle = () => {
     }
 
     const iconSmallAnimation = {
-        animationName: "smooth-expanding-9px",
-        animationDuration: "0.1s"
+        animationName: "smooth-expanding-10px",
+        animationDuration: "0.1s",
+        width: "10px",
+        height: "10px"
     }
     const iconDecaySmallAnimation = {
-        animationName: "smooth-shrinking-9px",
+        animationName: "smooth-shrinking-10px",
         animationDuration: "0.1s"
     }
 
@@ -50,7 +49,8 @@ const SubgroupToggle = () => {
     const setSubgroupOne = useCallback(() => {
         const searchParams = new URLSearchParams(location.search);
         searchParams.set('subgroup', '1');
-        navigate(`?${searchParams.toString()}`);        setSubgroup(1);
+        navigate(`?${searchParams.toString()}`);
+        setSubgroup(1);
     }, [setSubgroup, navigate, location.search]);
 
     const setSubgroupTwo = useCallback(() => {
@@ -106,11 +106,12 @@ const SubgroupToggle = () => {
                 <div className="toggle-slider-container">
                     <div className={subgroup === 2 ? "toggle-slider-toggled" : "toggle-slider-untoggled"}></div>
                 </div>
+
                 <button className={subgroup === 2 ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={deactivateClickHandler}>
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center", zIndex: "2"}}>
                         {subgroup === 1 ?
-                            (windowWidth <= 930 ? <FirstSGSmall style={iconSmallAnimation}/> :
+                            (windowWidth <= 930 ? <FirstSG style={iconSmallAnimation}/> :
                                 <FirstSG style={iconAnimation}/>) : (windowWidth <= 930 ?
                                 <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)
                         }
@@ -123,12 +124,11 @@ const SubgroupToggle = () => {
 
                 {windowWidth <= 930 ? <div style={{width: "4px"}}></div> : null}
 
-
                 <button className={subgroup === 1 ? "toggle-inner-inactive" : "toggle-inner-active"}
                      onClick={activateClickHandler}>
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center", zIndex: "2"}}>
                         {subgroup === 2 ?
-                            (windowWidth <= 930 ? <SecondSGSmall style={iconSmallAnimation}/> :
+                            (windowWidth <= 930 ? <SecondSG style={iconSmallAnimation}/> :
                                 <SecondSG style={iconAnimation}/>) : (windowWidth <= 930 ?
                                 <div style={iconDecaySmallAnimation}></div> : <div style={iconDecayAnimation}></div>)
                         }
@@ -144,4 +144,3 @@ const SubgroupToggle = () => {
     );
 };
 export default SubgroupToggle;
-

@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react';
 import CourseGroups from "./CourseGroups";
 import {ReactComponent as SearchIcon} from "../assets/search.svg";
 import {ReactComponent as CrossIcon} from "../assets/cross.svg";
+import Skeleton from "react-loading-skeleton";
 
 const GroupsComponent = () => {
     const [inputValue, setInputValue] = useState('');
     const [groupsInfo, setGroupsInfo] = useState("");
+    const [isLoaded, setLoaded] = useState(false);
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
 
     const crossIconStyle = {
@@ -66,16 +68,13 @@ const GroupsComponent = () => {
         fetch("https://localhost:7184/api/groups", getRequestOptions)
             .then(response => response.json())
             .then(data => {
-                setGroupsInfo(data);
+                setGroupsInfo(data.data);
+                setLoaded(true);
             })
             .catch(error => {
                 console.log("Ошибка при загрузке данных: " + error);
             });
     }, []);
-
-    useEffect(() => {
-        console.log(groupsInfo);
-    }, [groupsInfo]);
 
     return (
 
@@ -92,11 +91,24 @@ const GroupsComponent = () => {
                                onClick={clearInput}/> : null}
             </div>
 
-
-            <CourseGroups grade="1" groups={groupsInfo} filter={inputValue}/>
-            <CourseGroups grade="2" groups={groupsInfo} filter={inputValue}/>
-            <CourseGroups grade="3" groups={groupsInfo} filter={inputValue}/>
-            <CourseGroups grade="4" groups={groupsInfo} filter={inputValue}/>
+            {!isLoaded ? <div style={{maxWidth: '300px'}}>
+                    {[...Array(3)].map((_, index) => (
+                        <div key={index} style={{marginBottom: '20px'}}>
+                            <Skeleton height={18} width={100} style={{marginBottom: '10px', marginTop: "24px"}}/>
+                            <div style={{display: "flex", flexDirection: 'row'}}>
+                                <Skeleton height={39} width={150} style={{borderRadius: '20px', marginTop: '16px', marginRight: "16px"}}/>
+                                <Skeleton height={39} width={150} style={{borderRadius: '20px', marginTop: '16px', marginRight: "16px"}}/>
+                            </div>
+                        </div>
+                    ))}
+                </div> :
+                <>
+                    <CourseGroups grade="1" groups={groupsInfo} filter={inputValue}/>
+                    <CourseGroups grade="2" groups={groupsInfo} filter={inputValue}/>
+                    <CourseGroups grade="3" groups={groupsInfo} filter={inputValue}/>
+                    <CourseGroups grade="4" groups={groupsInfo} filter={inputValue}/>
+                </>
+            }
 
             <div className="group-add-text">Вашей группы нет в списке? Напишите <a
                 style={{whiteSpace: 'nowrap', color: "#767676"}}
@@ -104,7 +116,8 @@ const GroupsComponent = () => {
                 target="_blank" rel="noreferrer"> мне</a>.
             </div>
         </div>
-    );
+    )
+        ;
 }
 
 export default GroupsComponent;

@@ -1,14 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "../index.css";
 import DayHeader from "./DayHeader";
 import Class from "./Class";
 import Window from "./Window";
-import { ReactComponent as AddIcon } from "../assets/addIcon.svg";
+import {ReactComponent as AddIcon} from "../assets/addIcon.svg";
 import SaveButton from "./SaveButton";
 
-const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, togglePlaceholder, refreshComponent }) => {
+const Day = ({
+                 dayData,
+                 dayName,
+                 downloadFailure,
+                 current,
+                 onEditToggle,
+                 togglePlaceholder,
+                 refreshComponent,
+             }) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [saveButtonPosition, setSaveButtonPosition] = useState({ top: 0, left: 0 });
+    const [saveButtonPosition, setSaveButtonPosition] = useState({top: 0, left: 0});
     const [activeClassIndex, setActiveClassIndex] = useState(null);
     const [newClasses, setNewClasses] = useState([]);
     const [realIndex, setRealIndex] = useState(null);
@@ -27,16 +35,20 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
         setClassesCount((prevCount) => prevCount - 1);
     };
 
-    function compareStartTime(a, b) {
+    const compareStartTime = (a, b) => {
 
         const timeToSeconds = (time) => {
-        if (!time) return 0;
-        const [hours, minutes, seconds] = time.split(":").map(Number);
-        return hours * 3600 + minutes * 60 + seconds;
-    };
+            if (!time) return 0;
+            const [hours, minutes, seconds] = time.split(":").map(Number);
+            return hours * 3600 + minutes * 60 + seconds;
+        };
 
 
         return timeToSeconds(a.startTime) - timeToSeconds(b.startTime);
+    };
+
+    const clearNewClassesList = () => {
+        setNewClasses([]);
     }
 
     useEffect(() => {
@@ -66,12 +78,12 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
     const handleClassUpdate = (index, field, value) => {
         setNewClasses((prevClasses) => {
             const updatedClasses = [...prevClasses];
-            updatedClasses[index] = { ...updatedClasses[index], [field]: value };
+            updatedClasses[index] = {...updatedClasses[index], [field]: value};
             return updatedClasses;
         });
     };
 
-    function calculateDistanceBetweenElements(elementId1, elementId2) {
+    const calculateDistanceBetweenElements = (elementId1, elementId2) => {
         const getElementDistanceFromTop = function (elementId) {
             const element = document.getElementById(elementId);
             const elementRect = element.getBoundingClientRect();
@@ -81,7 +93,7 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
         const distance1 = getElementDistanceFromTop(elementId1);
         const distance2 = getElementDistanceFromTop(elementId2);
         return Math.abs(distance2 - distance1);
-    }
+    };
 
     const handleDayEditToggle = () => {
         setIsEditing(!isEditing);
@@ -90,7 +102,7 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
     };
 
     const handleClassAdd = () => {
-        const newClassData = { id: dayData.dayInfo.id };
+        const newClassData = {id: dayData.dayInfo.id};
         setNewClasses((prevClasses) => [...prevClasses, newClassData]);
         classRefs.current.push(React.createRef());
     };
@@ -101,7 +113,7 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
         classRefs.current = classRefs.current.filter((_, index) => index !== indexToRemove - realIndex - 1);
     };
 
-    function handleDaySave() {
+    const handleDaySave = () => {
         const ref = classRefs.current[activeClassIndex];
         if (ref && ref.current) {
             ref.current.forceSaveClass();
@@ -116,7 +128,7 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
             setNewClasses([]);
             refreshComponent();
         }, 200);
-    }
+    };
 
     useEffect(() => {
         const targetElement = document.getElementById("day-full editing");
@@ -124,7 +136,7 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
         if (targetElement) {
             const resizeObserver = new ResizeObserver((entries) => {
                 for (let entry of entries) {
-                    const { width, height } = entry.contentRect;
+                    const {width, height} = entry.contentRect;
                     setSaveButtonPosition({
                         top: height + 12,
                         left: width - 172,
@@ -163,7 +175,7 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
     }, [dayData?.classes, newClasses.length]);
 
     const editText = isEditing ? (
-        <div className="day-edit-text" style={{ top: "-34px", left: "20px" }}>
+        <div className="day-edit-text" style={{top: "-34px", left: "20px"}}>
             Редактирование
         </div>
     ) : null;
@@ -177,6 +189,7 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
                 isEditing={isEditing}
                 editing={handleDayEditToggle}
                 placeholder={togglePlaceholder}
+                clearNewClassesList={clearNewClassesList}
             />
             {downloadFailure || classesCount === 0 ? (
                 <div className="day-empty-block-top">
@@ -233,13 +246,13 @@ const Day = ({ dayData, dayName, downloadFailure, current, onEditToggle, toggleP
             {isEditing ? (
                 <button className="day-end-block animated" onClick={handleClassAdd}>
                     <div className="add-icon">
-                        <AddIcon />
+                        <AddIcon/>
                     </div>
                 </button>
             ) : (
                 <div className="day-end-block"></div>
             )}
-            <SaveButton isEditing={isEditing} saveButtonPosition={saveButtonPosition} onSave={handleDaySave} />
+            <SaveButton isEditing={isEditing} saveButtonPosition={saveButtonPosition} onSave={handleDaySave}/>
         </div>
     );
 };

@@ -710,7 +710,6 @@ header {
 }
 
 .toggle-outer {
-
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -783,9 +782,9 @@ header {
     padding: 0;
 }
 
-@keyframes smooth-shrinking-9px {
+@keyframes smooth-shrinking-10px {
     from {
-        width: 9px;
+        width: 10px;
     }
     to {
         width: 0;
@@ -810,12 +809,12 @@ header {
     }
 }
 
-@keyframes smooth-expanding-9px {
+@keyframes smooth-expanding-10px {
     from {
         width: 0;
     }
     to {
-        width: 9px;
+        width: 10px;
     }
 }
 
@@ -935,7 +934,7 @@ header {
 }
 
 .homepage-container {
-    min-height: calc(100vh - 292px);
+    min-height: calc(100vh - 312px);
 }
 
 .groups-choose-text {
@@ -1561,6 +1560,33 @@ header {
     color: #000000;
 }
 
+.user-popup-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.user-popup-light-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.filters-skeleton {
+    display: flex;
+
+}
+
 /* <= 930 px cтили */
 
 @media screen and (max-width: 930px) {
@@ -1607,7 +1633,7 @@ header {
 
     .toggle-outer {
         border: 1px solid #0966BB;
-        width: 120px;
+        width: 122px;
         height: 22px;
         padding: 0 1px;
     }
@@ -1615,12 +1641,12 @@ header {
     .toggle-slider-toggled, .toggle-slider-untoggled, .toggle-inner-inactive, .toggle-inner-active {
         width: 57px;
         height: 18px;
-        margin-right: 1.2%;
-        margin-left: 1.2%;
+        margin-right: 1px;
+        margin-left: 1px;
     }
 
     .toggle-slider-toggled {
-        transform: translateX(59px);
+        transform: translateX(60px);
     }
 
     .toggle-text-inactive, .toggle-text-active {

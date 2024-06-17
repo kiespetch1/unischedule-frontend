@@ -478,10 +478,10 @@ const Class = forwardRef(({
                         .then(response => {
                             if (response.status === 204 || response.status === 200) {
                                 console.log('Request was successful, but no content returned.');
-                                return response.json(); // добавляем return здесь для передачи response в следующий then
+                                return response.json();
                             } else {
                                 console.log('Статус ответа не 200 и не 204');
-                                throw new Error('Статус ответа не 200 и не 204'); // добавляем выброс ошибки
+                                throw new Error('Статус ответа не 200 и не 204');
                             }
                         })
                         .then(data => {

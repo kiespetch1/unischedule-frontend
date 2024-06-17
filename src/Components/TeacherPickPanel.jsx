@@ -36,7 +36,7 @@ const TeacherPickPanel = ({
                 const containerWidth = observedElement.offsetWidth;
                 const contentWidth = contentElement.offsetWidth;
                 const maxScroll = Math.max(0, contentWidth - containerWidth);
-                setMaxScrollPosition(maxScroll + 20); // если проблемы со скроллом, мб можно убрать 20
+                setMaxScrollPosition(maxScroll); // если проблемы со скроллом, мб можно убрать 20
             } else {
                 console.log('Observed element or content element is missing.');
             }

@@ -8,7 +8,9 @@ import {ReactComponent as AlertIcon} from "../../assets/alert.svg";
 import WeeksText from "../WeeksText";
 import Filters from "../Filters";
 import {useParams} from "react-router-dom";
-import GroupNotFoundAlert from "../GroupNotFoundAlert";
+import GroupNotFoundPage from "./GroupNotFoundPage";
+import Skeleton from "react-loading-skeleton";
+import ScheduleSkeleton from "../Skeletons/ScheduleSkeleton";
 
 const SchedulePage = () => {
     const [weekInfo, setWeekInfo] = useState(null);
@@ -19,9 +21,12 @@ const SchedulePage = () => {
     const [placeholderHeight, setPlaceholderHeight] = useState(0);
     const [refreshElement, setRefreshElement] = useState(0);
     const [isIdPresent, setIsIdPresent] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [hasSubgroups, setHasSubgroups] = useState("false");
+    const [groupName, setGroupName]  = useState(null);
     const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     let params = useParams();
-    const group = params.groupId;
+    const groupId = params.groupId;
 
     const alertStyle = {
         width: "24px",
@@ -74,54 +79,69 @@ const SchedulePage = () => {
                 'Content-Type': 'application/json'
             },
             credentials: 'include'
-        }
+        };
 
-        fetch("https://localhost:7184/api/groups/getUsedIds", getRequestOptions)
-            .then(response => response.json())
-            .then(data => {
-                if (data.includes(parseInt(group))) {
-                    setIsIdPresent(true);
-                } else {
-                    setIsIdPresent(false);
-                }
-            })
+        const fetchData = async () => {
+            try {
+                const response = await fetch("https://localhost:7184/api/groups/getUsedIds", getRequestOptions);
+                const data = await response.json();
+                const isPresent = data.includes(parseInt(groupId));
+                setIsIdPresent(isPresent);
 
-        if (isIdPresent) {
-            const urlParams = new URLSearchParams(window.location.search);
-            const weekParam = urlParams.get('week');
-            const subgroupParam = urlParams.get('subgroup');
+                if (isPresent) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const weekParam = urlParams.get('week');
+                    const subgroupParam = urlParams.get('subgroup');
 
-            if (!weekParam && weekType === null)
-                setWeekType("odd")
+                    if (!weekParam && weekType === null) setWeekType("odd");
+                    if (!subgroupParam && subgroup === null) setSubgroup(1);
 
-            if (!subgroupParam && subgroup === null)
-                setSubgroup(1)
+                    const groupResponse = await fetch(`https://localhost:7184/api/groups/${groupId}`, getRequestOptions);
+                    const groupData = await groupResponse.json();
+                    setHasSubgroups(groupData.hasSubgroups);
+                    setGroupName(groupData.name);
 
-            if (group != null && subgroup != null && weekType != null && weekType !== "null") {
-                fetch("https://localhost:7184/api/weeks?weekType=" + (weekType === "odd" ? 1 : 2) +
-                    "&groupId=" + group + "&subgroup=" + subgroup, getRequestOptions)
-                    .then(response => response.json())
-                    .then(data => {
+                    if (groupId != null && subgroup != null && weekType != null && weekType !== "null") {
+                        let url = `https://localhost:7184/api/weeks?weekType=${weekType === "odd" ? 1 : 2}&groupId=${groupId}`;
+
+                        if (groupData.hasSubgroups) {
+                            url += `&subgroup=${subgroup}`;
+                        }
+
+                        const weekResponse = await fetch(url, getRequestOptions);
+                        const weekData = await weekResponse.json();
                         setDownloadFailureStatus(false);
-                        setWeekInfo(data);
-                    })
-                    .catch(error => {
-                        console.log("Ошибка при загрузке данных: " + error);
-                        setDownloadFailureStatus(true);
-                    });
+                        setWeekInfo(weekData);
+                    }
+                }
+
+                setIsLoading(false); // Установка isLoading в false после завершения всех асинхронных операций
+            } catch (error) {
+                console.log("Ошибка при загрузке данных: " + error);
+                setDownloadFailureStatus(true);
+                setIsLoading(false);
             }
+        };
+
+        fetchData();
+    }, [groupId, setSubgroup, setWeekType, subgroup, weekType, refreshElement]);
+
+
+    if (!isIdPresent) {
+        if (isLoading) {
+            return (<ScheduleSkeleton/>)
+        } else {
+            return (<GroupNotFoundPage/>);
         }
+    }
 
-
-    }, [group, setSubgroup, setWeekType, subgroup, weekType, refreshElement, isIdPresent]);
-
-    if (!isIdPresent)
-        return (<GroupNotFoundAlert/>);
 
     return (
         <div className="schedule-page">
             <Header/>
-            <Filters groupName={weekInfo && weekInfo.group.name}/>
+            <Filters groupName={groupName}
+                     hasSubgroups={hasSubgroups}
+                     isLoading={isLoading}/>
             <div className="schedule-container">
                 <div className={isEditing ? "blur-element" : null}></div>
                 <WeeksText currentWeekType={weekType}/>
@@ -146,7 +166,6 @@ const SchedulePage = () => {
                 </div>
                 <div style={{height: placeholderHeight + "px", width: "auto"}}></div>
             </div>
-
             <Footer/>
         </div>
     );

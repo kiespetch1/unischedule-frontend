@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import "../index.css";
-import {ReactComponent as DotDivider} from "../assets/dot.svg";
-import {ReactComponent as EditIcon} from "../assets/edit.svg";
-import {ReactComponent as ExitIcon} from "../assets/stopEdit.svg";
+import { ReactComponent as DotDivider } from "../assets/dot.svg";
+import { ReactComponent as EditIcon } from "../assets/edit.svg";
+import { ReactComponent as ExitIcon } from "../assets/stopEdit.svg";
+import Context from "../Context";
 
-const DayHeader = ({name, classCount, current, editing, isEditing, placeholder}) => {
+const DayHeader = ({ name, classCount, current, editing, isEditing, placeholder, clearNewClassesList }) => {
     const dotStyle = {
         height: "5px",
         width: "5px",
@@ -19,6 +20,7 @@ const DayHeader = ({name, classCount, current, editing, isEditing, placeholder})
         paddingRight: "9px",
     };
 
+    const { editPermissions } = useContext(Context);
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
 
     useEffect(() => {
@@ -43,9 +45,10 @@ const DayHeader = ({name, classCount, current, editing, isEditing, placeholder})
             const icon = document.querySelector('.add-icon');
             icon?.classList.remove('appear');
             placeholder(false);
+            clearNewClassesList();
         }
 
-        editing(!isEditing)
+        editing(!isEditing);
     };
 
     function num_word(value, words) {
@@ -57,17 +60,17 @@ const DayHeader = ({name, classCount, current, editing, isEditing, placeholder})
         return words[2];
     }
 
-    let classesText = num_word(classCount, ['пара', 'пары', 'пар'])
+    let classesText = num_word(classCount, ['пара', 'пары', 'пар']);
 
     return (
         <div className="day-header">
-            <div className="day-header-text" style={current ? {textDecoration: "underline"} : null}>{name}</div>
-            <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>
+            <div className="day-header-text" style={current ? { textDecoration: "underline" } : null}>{name}</div>
+            <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle} />
             <div className="classes-text">{classCount === 0 ? "выходной" : classCount + " " + classesText}</div>
             {windowWidth <= 930 ? null :
-                <button onClick={handleEditing} className="edit-icon-wrapper">
-                    {isEditing ? <ExitIcon/> : <EditIcon className="edit-icon"/>}
-                </button>}
+                (editPermissions ? <button onClick={handleEditing} className="edit-icon-wrapper">
+                    {isEditing ? <ExitIcon /> : <EditIcon className="edit-icon" />}
+                </button> : null)}
         </div>
     );
 };

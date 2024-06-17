@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "../Header";
+import Footer from "../Footer";
 
-const GroupNotFoundAlert = () => {
+const GroupNotFoundPage = () => {
 
     return (
         <>
@@ -16,4 +16,4 @@ const GroupNotFoundAlert = () => {
     );
 };
 
-export default GroupNotFoundAlert;
+export default GroupNotFoundPage;
