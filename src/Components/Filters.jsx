@@ -9,6 +9,7 @@ import SubgroupToggle from "./SubgroupToggle";
 
 const Filters = ({ groupName, hasSubgroups, isLoading }) => {
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
+    const [isFirstLoad, setIsFirstLoad] = useState(true); // Новое состояние
 
     useEffect(() => {
         const handleResize = () => {
@@ -21,6 +22,13 @@ const Filters = ({ groupName, hasSubgroups, isLoading }) => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        if (!isLoading && isFirstLoad) {
+            setIsFirstLoad(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading]);
 
     return (
         <div className="filters-container">
@@ -46,7 +54,7 @@ const Filters = ({ groupName, hasSubgroups, isLoading }) => {
                         </a>
                     </div>
                 </div>
-                {isLoading ? (
+                {isLoading && isFirstLoad ? (
                     <FiltersSkeleton />
                 ) : (
                     <div style={{ display: "flex" }}>

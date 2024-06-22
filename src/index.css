@@ -62,7 +62,7 @@ header {
 
 .week-container {
     display: flex;
-    padding: 24px 40px;
+    padding: 24px 40px 17px 40px;
     width: calc(100% - 80px);
     align-items: flex-start;
     flex-flow: column wrap;
@@ -1584,8 +1584,203 @@ header {
 
 .filters-skeleton {
     display: flex;
-
 }
+
+.notification-header-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #000000;
+    margin-left: 12px;
+}
+
+.notification-secondary-header-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    align-items: flex-end;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #5E5E5E;
+    margin-left: 12px;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.notification-secondary-header-text:hover {
+    text-decoration: underline;
+}
+
+.notification-date-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #5E5E5E;
+    margin: 0;
+}
+
+.notification-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    align-items: flex-end;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #000000;
+    margin: 14px 0 0 6px;
+    text-wrap: wrap;
+}
+
+.notification-text.no-top-margin {
+    margin: 0 0 0 6px;
+}
+
+.notification-announcement-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: flex-end;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #000000;
+    margin: 14px 0 0 6px;
+    text-wrap: wrap;
+}
+.notification-announcement-text.no-top-margin {
+    margin: 0 0 0 6px;
+}
+
+ .notification-important-announcement-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: flex-end;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #000000;
+    margin: 14px 0 0 6px;
+    text-wrap: wrap;
+}
+
+.notification-important-announcement-text.no-top-margin {
+    margin: 0 0 0 6px;
+}
+
+.notification-container {
+    position: absolute;
+    width: 700px;
+    height: 250px;
+    background: #F0F0F0;
+    border: 2px solid #CDCDCD;
+    box-shadow: 0 4px 13px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 7px;
+    top: 76px;
+    right: 0;
+    left: calc(100vw - 811px);
+    overflow-y: auto; /* Добавлено для прокрутки содержимого */
+    overflow-x: hidden;
+}
+
+.notification-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: #E6E6E6;
+}
+.notification-inner-header {
+    display: flex;
+    height: 45px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.notification-divider {
+    width: 100%;
+    height: 2px;
+    background: #BABABA;
+    border-radius: 7px;
+}
+
+.notification-block {
+    width: calc(100% - 16px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 8px 0 8px 8px;
+}
+
+.notification-divider-secondary {
+    width: 100%;
+    height: 1px;
+    background: #CDCDCD;
+    border-radius: 7px;
+}
+
+.notification-line-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 24px;
+    margin-left: 40px;
+    flex-direction: column;
+}
+
+.notification-line-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+}
+
+.notification-line-header-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #000000;
+    margin: 0;
+}
+
+.notification-line-secondary-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #7E7E7E;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+.notification-line-primary-text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #000000;
+    margin: 0;
+}
+
 
 /* <= 930 px cтили */
 

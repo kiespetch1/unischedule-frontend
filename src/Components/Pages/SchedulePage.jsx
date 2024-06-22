@@ -9,8 +9,8 @@ import WeeksText from "../WeeksText";
 import Filters from "../Filters";
 import {useParams} from "react-router-dom";
 import GroupNotFoundPage from "./GroupNotFoundPage";
-import Skeleton from "react-loading-skeleton";
 import ScheduleSkeleton from "../Skeletons/ScheduleSkeleton";
+import Notifications from "../Notifications";
 
 const SchedulePage = () => {
     const [weekInfo, setWeekInfo] = useState(null);
@@ -23,7 +23,7 @@ const SchedulePage = () => {
     const [isIdPresent, setIsIdPresent] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [hasSubgroups, setHasSubgroups] = useState("false");
-    const [groupName, setGroupName]  = useState(null);
+    const [groupName, setGroupName] = useState(null);
     const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     let params = useParams();
     const groupId = params.groupId;
@@ -82,6 +82,7 @@ const SchedulePage = () => {
         };
 
         const fetchData = async () => {
+            setIsLoading(true);
             try {
                 const response = await fetch("https://localhost:7184/api/groups/getUsedIds", getRequestOptions);
                 const data = await response.json();
@@ -110,15 +111,14 @@ const SchedulePage = () => {
 
                         const weekResponse = await fetch(url, getRequestOptions);
                         const weekData = await weekResponse.json();
-                        setDownloadFailureStatus(false);
                         setWeekInfo(weekData);
+                        setDownloadFailureStatus(false);
                     }
                 }
-
-                setIsLoading(false); // Установка isLoading в false после завершения всех асинхронных операций
             } catch (error) {
                 console.log("Ошибка при загрузке данных: " + error);
                 setDownloadFailureStatus(true);
+            } finally {
                 setIsLoading(false);
             }
         };
@@ -127,12 +127,27 @@ const SchedulePage = () => {
     }, [groupId, setSubgroup, setWeekType, subgroup, weekType, refreshElement]);
 
 
+    if (isLoading) {
+        return (
+            <div className="schedule-page">
+                <Header />
+                <Filters groupName={groupName} hasSubgroups={hasSubgroups} isLoading={isLoading} />
+                <div className="schedule-container">
+                    <WeeksText currentWeekType={weekType} />
+                    <div className="days-container">
+                        {[...Array(6)].map((_, index) => (
+                            <div key={index} className="day-full">
+                                <ScheduleSkeleton />
+                            </div>))}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+
     if (!isIdPresent) {
-        if (isLoading) {
-            return (<ScheduleSkeleton/>)
-        } else {
-            return (<GroupNotFoundPage/>);
-        }
+        return (<GroupNotFoundPage/>);
     }
 
 
@@ -145,6 +160,7 @@ const SchedulePage = () => {
             <div className="schedule-container">
                 <div className={isEditing ? "blur-element" : null}></div>
                 <WeeksText currentWeekType={weekType}/>
+                <Notifications/>
                 {downloadFailure ? <div className="alert-container">
                     <AlertIcon style={windowWidth <= 930 ? alertSmallStyle : alertStyle}/>
                     <div className="alert-text">Ошибка загрузки расписания, заполнена не вся неделя.</div>
