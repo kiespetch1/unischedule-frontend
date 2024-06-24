@@ -9,7 +9,7 @@ const NotificationPopup = forwardRef(({ groupName }, ref) => {
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const scrollPositionRef = useRef(0);
-    const containerRef = useRef(null);
+    const containerRef = useRef(ref);
 
     const loadNotifications = useCallback((page) => {
         setIsLoading(true);
@@ -49,7 +49,6 @@ const NotificationPopup = forwardRef(({ groupName }, ref) => {
     const handleScroll = useCallback(debounce(() => {
         const container = containerRef.current;
         if (container && container.scrollTop + container.clientHeight >= container.scrollHeight && !isLoading) {
-            // Сохранение текущей позиции прокрутки
             scrollPositionRef.current = container.scrollTop;
 
             setPage(prevPage => prevPage + 1);
@@ -93,15 +92,16 @@ const NotificationPopup = forwardRef(({ groupName }, ref) => {
             <div className="notification-header">
                 <div className="notification-inner-header">
                     <p className="notification-header-text">Объявления группы</p>
+                    <p className="notification-group-header-text" style={{ marginLeft: "6px" }}>{groupName} </p>
                     <Dot style={{ marginLeft: "12px" }} />
-                    <button className="notification-secondary-header-text">отметить все как прочитанные</button>
+                    <button onClick={() => {}} className="notification-secondary-header-text">сменить группу</button>
                 </div>
                 <div className="notification-divider"></div>
             </div>
             {isLoading && page === 1 ? (
                 <NotificationsSkeleton />
             ) : (
-                groupedNotifications.map((notification, index) => (
+                groupedNotifications.map((notification) => (
                     <NotificationBlock key={notification.id} notification={notification} showDate={notification.showDate} />
                 ))
             )}

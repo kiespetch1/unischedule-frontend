@@ -54,8 +54,8 @@ const Filters = ({ groupName, hasSubgroups, isLoading }) => {
                         </a>
                     </div>
                 </div>
-                {isLoading && isFirstLoad ? (
-                    <FiltersSkeleton />
+                {(isLoading && isFirstLoad) ? (
+                    <FiltersSkeleton windowWidth={windowWidth}/>
                 ) : (
                     <div style={{ display: "flex" }}>
                         <div className="week-type-container">

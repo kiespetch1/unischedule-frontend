@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {useEffect, useState, useRef} from "react";
 import "../index.css";
-import { ReactComponent as IateLogo } from "../assets/iateLogo.svg";
-import { ReactComponent as AuthIcon } from "../assets/user.svg";
-import { ReactComponent as NotificationsIcon } from "../assets/notification.svg";
-import { useNavigate } from 'react-router-dom';
+import {ReactComponent as IateLogo} from "../assets/iateLogo.svg";
+import {ReactComponent as AuthIcon} from "../assets/user.svg";
+import {ReactComponent as NotificationsIcon} from "../assets/notification.svg";
+import {useNavigate} from 'react-router-dom';
 import LoginPopup from "./LoginPopup";
 import NotificationsPopup from "./NotificationsPopup";
 
-const Header = () => {
+const Header = ({groupName}) => {
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
     const [isAuthPopupOpen, setIsAuthPopupOpen] = useState(false);
     const [isNotificationsPopupOpen, setIsNotificationsPopupOpen] = useState(false);
@@ -74,37 +74,42 @@ const Header = () => {
         <header className="header-container">
             <div className="header-content-container">
                 <div className="logo-container" onClick={handleLogoClick}>
-                    <IateLogo style={windowWidth <= 930 ? { width: "30px", height: "30px" } :
-                        { width: "69px", height: "69px" }} />
+                    <IateLogo style={windowWidth <= 930 ? {width: "30px", height: "30px"} :
+                        {width: "70px", height: "70px"}}/>
                     <div className="schedule-header-text">
                         Расписание занятий
                     </div>
                 </div>
 
-                <div style={{ display: "flex", height: "auto" }}>
+                <div style={{display: "flex", height: "auto"}}>
                     <button ref={notificationsButtonRef}
                             className={isNotificationsPopupOpen ? "button-click-accent active" : "button-click-accent"}
-                            onClick={handleNotificationClick}>
-                        <NotificationsIcon
-                            style={windowWidth <= 930 ? { width: "18px", height: "18px", paddingRight: "16px" } :
-                                { width: "35px", height: "35px" }} />
-                    </button>
-                    {isNotificationsPopupOpen && <NotificationsPopup ref={notificationsPopupRef} />}
+                            onClick={handleNotificationClick}
+                            style={windowWidth <= 930 ? {padding: "2px"} :
+                                {padding: "8px"}}>
+                    <NotificationsIcon
+                        style={windowWidth <= 930 ? {width: "18px", height: "18px"} :
+                            {width: "35px", height: "35px"}}/>
+                </button>
+                {isNotificationsPopupOpen && <NotificationsPopup ref={notificationsPopupRef} groupName={groupName}/>}
 
-                    <div style={{ paddingRight: "40px" }} />
+                <div style={windowWidth <= 930 ? {paddingRight: "14px"} : {paddingRight: "40px"}}/>
 
-                    <button ref={authButtonRef}
-                            className={isAuthPopupOpen ? "button-click-accent active" : "button-click-accent"}
-                            onClick={handleAuthClick}>
-                        <AuthIcon
-                            style={windowWidth <= 930 ? { width: "18px", height: "18px" } :
-                                { width: "35px", height: "35px" }} />
-                    </button>
-                    {isAuthPopupOpen && <LoginPopup ref={authPopupRef} />}
-                </div>
+                <button ref={authButtonRef}
+                        className={isAuthPopupOpen ? "button-click-accent active" : "button-click-accent"}
+                        onClick={handleAuthClick}
+                        style={windowWidth <= 930 ? {padding: "2px"} :
+                            {padding: "8px"}}>
+                    <AuthIcon
+                        style={windowWidth <= 930 ? {width: "18px", height: "18px"} :
+                            {width: "35px", height: "35px"}}/>
+                </button>
+                {isAuthPopupOpen && <LoginPopup ref={authPopupRef}/>}
             </div>
-        </header>
-    );
+        </div>
+</header>
+)
+    ;
 };
 
 export default Header;

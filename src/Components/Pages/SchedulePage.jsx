@@ -10,7 +10,8 @@ import Filters from "../Filters";
 import {useParams} from "react-router-dom";
 import GroupNotFoundPage from "./GroupNotFoundPage";
 import ScheduleSkeleton from "../Skeletons/ScheduleSkeleton";
-import Notifications from "../Notifications";
+import NotificationsLine from "../NotificationsLine";
+import NotificationLineSkeleton from "../Skeletons/NotificationLineSkeleton";
 
 const SchedulePage = () => {
     const [weekInfo, setWeekInfo] = useState(null);
@@ -130,14 +131,15 @@ const SchedulePage = () => {
     if (isLoading) {
         return (
             <div className="schedule-page">
-                <Header />
-                <Filters groupName={groupName} hasSubgroups={hasSubgroups} isLoading={isLoading} />
+                <Header groupName={groupName}/>
+                <Filters groupName={groupName} hasSubgroups={hasSubgroups} isLoading={isLoading}/>
                 <div className="schedule-container">
-                    <WeeksText currentWeekType={weekType} />
+                    <WeeksText currentWeekType={weekType}/>
+                    <NotificationLineSkeleton windowWidth={windowWidth}/>
                     <div className="days-container">
                         {[...Array(6)].map((_, index) => (
                             <div key={index} className="day-full">
-                                <ScheduleSkeleton />
+                                <ScheduleSkeleton windowWidth={windowWidth}/>
                             </div>))}
                     </div>
                 </div>
@@ -153,14 +155,14 @@ const SchedulePage = () => {
 
     return (
         <div className="schedule-page">
-            <Header/>
+            <Header groupName={groupName}/>
             <Filters groupName={groupName}
                      hasSubgroups={hasSubgroups}
                      isLoading={isLoading}/>
             <div className="schedule-container">
                 <div className={isEditing ? "blur-element" : null}></div>
-                <WeeksText currentWeekType={weekType}/>
-                <Notifications/>
+                <WeeksText currentWeekType={weekType} windowWidth={windowWidth}/>
+                <NotificationsLine windowWidth={windowWidth}/>
                 {downloadFailure ? <div className="alert-container">
                     <AlertIcon style={windowWidth <= 930 ? alertSmallStyle : alertStyle}/>
                     <div className="alert-text">Ошибка загрузки расписания, заполнена не вся неделя.</div>
