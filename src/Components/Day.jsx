@@ -14,6 +14,7 @@ const Day = ({
                  onEditToggle,
                  togglePlaceholder,
                  refreshComponent,
+                 weekInfo
              }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [saveButtonPosition, setSaveButtonPosition] = useState({top: 0, left: 0});
@@ -49,6 +50,19 @@ const Day = ({
 
     const clearNewClassesList = () => {
         setNewClasses([]);
+    }
+
+    const clearAllClassesList = () => {
+        const deleteRequestOptions = {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        };
+        fetch(`https://localhost:7184/api/days?id=${dayData && dayData.dayInfo.id}`, deleteRequestOptions)
+        clearNewClassesList();
+        dayData.classes = [];
     }
 
     useEffect(() => {
@@ -185,11 +199,14 @@ const Day = ({
             <DayHeader
                 name={dayName}
                 classCount={classesCount}
-                current={current}
+                isToday={current}
                 isEditing={isEditing}
                 editing={handleDayEditToggle}
                 placeholder={togglePlaceholder}
                 clearNewClassesList={clearNewClassesList}
+                clearAllClasses={clearAllClassesList}
+                dayData={dayData}
+                weekInfo={weekInfo}
             />
             {downloadFailure || classesCount === 0 ? (
                 <div className="day-empty-block-top">

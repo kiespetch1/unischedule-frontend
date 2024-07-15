@@ -333,7 +333,6 @@ const Class = forwardRef(({
                     console.log("Ошибка при отправке данных: " + error);
                 });
         }
-        console.log(classId + " ща удалится");
         setIsDeleted(true);
         decreaseClassesCount();
     };
@@ -483,7 +482,7 @@ const Class = forwardRef(({
                                 console.log('Статус ответа не 200 и не 204');
                                 throw new Error('Статус ответа не 200 и не 204');
                             }
-                        })
+                            })
                         .then(data => {
                             let numbers = data.classesId;
                             newAddedIdRef.current = Math.max(...numbers);
@@ -495,7 +494,6 @@ const Class = forwardRef(({
 
                     if (isNew && !isSubmited) {
                         setIsSubmited(true);
-                        console.log("submited");
                     }
 
                     if (forceSave) {

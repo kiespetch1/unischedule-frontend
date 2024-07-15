@@ -131,7 +131,7 @@ const SchedulePage = () => {
     if (isLoading) {
         return (
             <div className="schedule-page">
-                <Header groupName={groupName}/>
+                <Header groupName={groupName} groupId={groupId}/>
                 <Filters groupName={groupName} hasSubgroups={hasSubgroups} isLoading={isLoading}/>
                 <div className="schedule-container">
                     <WeeksText currentWeekType={weekType}/>
@@ -155,14 +155,14 @@ const SchedulePage = () => {
 
     return (
         <div className="schedule-page">
-            <Header groupName={groupName}/>
+            <Header groupName={groupName} groupId={groupId}/>
             <Filters groupName={groupName}
                      hasSubgroups={hasSubgroups}
                      isLoading={isLoading}/>
             <div className="schedule-container">
                 <div className={isEditing ? "blur-element" : null}></div>
                 <WeeksText currentWeekType={weekType} windowWidth={windowWidth}/>
-                <NotificationsLine windowWidth={windowWidth}/>
+                <NotificationsLine windowWidth={windowWidth} groupId={groupId}/>
                 {downloadFailure ? <div className="alert-container">
                     <AlertIcon style={windowWidth <= 930 ? alertSmallStyle : alertStyle}/>
                     <div className="alert-text">Ошибка загрузки расписания, заполнена не вся неделя.</div>
@@ -179,6 +179,7 @@ const SchedulePage = () => {
                             current={getTodayName() === dayName}
                             onEditToggle={setIsEditing}
                             togglePlaceholder={togglePlaceholder}
+                            weekInfo={weekInfo}
                         />
                     ))}
                 </div>

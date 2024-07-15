@@ -1,11 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "../index.css";
-import { ReactComponent as DotDivider } from "../assets/dot.svg";
-import { ReactComponent as EditIcon } from "../assets/edit.svg";
-import { ReactComponent as ExitIcon } from "../assets/stopEdit.svg";
+import {ReactComponent as DotDivider} from "../assets/dot.svg";
+import {ReactComponent as EditIcon} from "../assets/edit.svg";
+import {ReactComponent as ExitIcon} from "../assets/stopEdit.svg";
+import {ReactComponent as EraseIcon} from "../assets/eraser.svg";
+import {ReactComponent as CopyIcon} from "../assets/copy.svg";
 import Context from "../Context";
 
-const DayHeader = ({ name, classCount, current, editing, isEditing, placeholder, clearNewClassesList }) => {
+const DayHeader = ({
+                       name,
+                       classCount,
+                       isToday,
+                       editing,
+                       isEditing,
+                       placeholder,
+                       clearNewClassesList,
+                       clearAllClasses,
+                       dayData,
+                       weekInfo
+                   }) => {
     const dotStyle = {
         height: "5px",
         width: "5px",
@@ -20,8 +33,12 @@ const DayHeader = ({ name, classCount, current, editing, isEditing, placeholder,
         paddingRight: "9px",
     };
 
-    const { editPermissions } = useContext(Context);
+    const {editPermissions} = useContext(Context);
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
+    const [oppositeWeekType, setOppositeWeekType] = useState(1);
+    const [oppositeSubgroup, setOppositeSubgroup] = useState(1);
+    const [oppositeWeek, setOppositeWeek] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -51,6 +68,83 @@ const DayHeader = ({ name, classCount, current, editing, isEditing, placeholder,
         editing(!isEditing);
     };
 
+    const handleClassesClear = () => {
+        clearAllClasses();
+    }
+
+    const handleClassCopy = async () => {
+        const newOppositeWeekType = weekInfo.monday.dayInfo.weekType === 1 ? 2 : 1;
+        const newOppositeSubgroup = weekInfo.monday.dayInfo.subgroup === 1 ? 2 : weekInfo.monday.dayInfo.subgroup === 2 ? 1 : 0;
+
+        setOppositeWeekType(newOppositeWeekType);
+        setOppositeSubgroup(newOppositeSubgroup);
+
+        const getRequestOptions = {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        };
+
+        setLoading(true);
+        try {
+            const response1 = await fetch(`https://localhost:7184/api/weeks?WeekType=${newOppositeWeekType}&GroupId=${weekInfo.monday.dayInfo.groupId}&Subgroup=${newOppositeSubgroup}&fetchDetails=true`, getRequestOptions);
+            const data1 = await response1.json();
+            setOppositeWeek(Object.values(data1));
+        } catch (error) {
+            console.error('Error fetching week data:', error);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        const putRequestOptions = {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        };
+
+        const copyDayData = async ()=> {
+            if (oppositeWeek.length === 0 || !dayData) return;
+
+            try {
+                console.log('oppositeWeek:', oppositeWeek);
+                console.log('dayData:', dayData);
+
+                const dayToCopyTo = oppositeWeek.find(w => {
+                    console.log('Checking:', w);
+                    return w.dayInfo && dayData.dayInfo && w.dayInfo.name === dayData.dayInfo.name;
+                });
+
+                console.log('dayToCopyTo:', dayToCopyTo);
+
+                if (dayToCopyTo) {
+                    const dayToCopyToId = dayToCopyTo.dayInfo.id;
+
+                    const response2 = await fetch(`https://localhost:7184/api/days/copy?dayToCopyFromId=${dayData.dayInfo.id}&dayToCopyToId=${dayToCopyToId}`, putRequestOptions);
+
+                    if (response2.status === 204 || response2.status === 200) {
+                        console.log('Request was successful, but no content returned.');
+                    } else {
+                        console.log('Статус ответа не 200 и не 204');
+                        throw new Error('Статус ответа не 200 и не 204');
+                    }
+                } else {
+                    throw new Error('Matching day not found in opposite week data');
+                }
+            } catch (error) {
+                console.error('Error copying day data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        copyDayData();
+    }, [oppositeWeek, dayData]);
+
     function num_word(value, words) {
         value = Math.abs(value) % 100;
         let num = value % 10;
@@ -64,13 +158,25 @@ const DayHeader = ({ name, classCount, current, editing, isEditing, placeholder,
 
     return (
         <div className="day-header">
-            <div className="day-header-text" style={current ? { textDecoration: "underline" } : null}>{name}</div>
-            <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle} />
+            <div className="day-header-text" style={isToday ? {textDecoration: "underline"} : null}>{name}</div>
+            <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>
             <div className="classes-text">{classCount === 0 ? "выходной" : classCount + " " + classesText}</div>
             {windowWidth <= 930 ? null :
-                (editPermissions ? <button onClick={handleEditing} className="edit-icon-wrapper">
-                    {isEditing ? <ExitIcon /> : <EditIcon className="edit-icon" />}
-                </button> : null)}
+                (editPermissions ?
+                    <div style={{order: 9, marginLeft: "auto"}}>
+                        {isEditing && <button onClick={handleClassCopy} className="copy-icon-wrapper">
+                            <CopyIcon/>
+                        </button>}
+                        {isEditing && <button onClick={handleClassesClear} className="erase-icon-wrapper">
+                            <EraseIcon/>
+                        </button>}
+                        <button onClick={handleEditing}
+                                className={isEditing ? "edit-icon-wrapper editing" : "edit-icon-wrapper"}>
+                            {isEditing ? <ExitIcon style={{paddingLeft: "3px"}}/> :
+                                <EditIcon className="edit-icon"/>}
+                        </button>
+
+                    </div> : null)}
         </div>
     );
 };

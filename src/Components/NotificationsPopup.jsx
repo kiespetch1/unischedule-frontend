@@ -1,15 +1,41 @@
-import React, { forwardRef, useEffect, useState, useRef, useCallback, useLayoutEffect } from 'react';
-import { ReactComponent as Dot } from "../assets/darkGrayDot.svg";
+import React, {forwardRef, useEffect, useState, useRef, useCallback, useLayoutEffect} from 'react';
+import {ReactComponent as Dot} from "../assets/darkGrayDot.svg";
 import NotificationBlock from './NotificationBlock';
 import debounce from 'lodash/debounce';
 import NotificationsSkeleton from "./Skeletons/NotificationsSkeleton";
+import GroupsComponent from "./GroupsComponent";
 
-const NotificationPopup = forwardRef(({ groupName }, ref) => {
+const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
     const [notifications, setNotifications] = useState([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const scrollPositionRef = useRef(0);
     const containerRef = useRef(ref);
+    const defaultGroupId = 1;
+    const [groupIdDuplicate, setGroupIdDuplicate] = useState(groupId || defaultGroupId);
+    const [groupNameDuplicate, setGroupNameDuplicate] = useState(groupName || "");
+    const [isChoosingGroup, setIsChoosingGroup] = useState(false);
+
+    const enableGroupChooser = () => {
+        setIsChoosingGroup(!isChoosingGroup);
+    }
+
+    const fetchGroupName = useCallback((id) => {
+        const getRequestOptions = {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        };
+        return fetch(`https://localhost:7184/api/groups/${id}`, getRequestOptions)
+            .then(response => response.json())
+            .then(data => {
+                setGroupNameDuplicate(data.name);
+            })
+            .catch(error => {
+                console.error('Error fetching group name:', error);
+            });
+    }, []);
 
     const loadNotifications = useCallback((page) => {
         setIsLoading(true);
@@ -19,25 +45,40 @@ const NotificationPopup = forwardRef(({ groupName }, ref) => {
                 'Content-Type': 'application/json'
             },
         };
-        fetch(`https://localhost:7184/notifications?page=${page}`, getRequestOptions)
-            .then(response => response.json())
-            .then(data => {
-                setNotifications((prevItems) => {
-                    const newNotifications = data.data.filter(newItem =>
-                        !prevItems.some(item => item.id === newItem.id));
-                    return [...prevItems, ...newNotifications];
+
+        const fetchNotifications = () => {
+            fetch(`https://localhost:7184/notifications?groupId=${groupIdDuplicate}&page=${page}`,
+                getRequestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    setNotifications((prevItems) => {
+                        const newNotifications = data.data.filter(newItem =>
+                            !prevItems.some(item => item.id === newItem.id));
+                        return [...prevItems, ...newNotifications];
+                    });
+                    setIsLoading(false);
+                })
+                .catch(error => {
+                    console.error('Error fetching notifications:', error);
+                    setIsLoading(false);
                 });
-                setIsLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching notifications:', error);
-                setIsLoading(false);
+        };
+
+        if (groupNameDuplicate === "") {
+            fetchGroupName(groupIdDuplicate).then(() => {
+                fetchNotifications();
             });
-    }, []);
+        } else {
+            fetchNotifications();
+        }
+    }, [groupIdDuplicate, groupNameDuplicate, fetchGroupName]);
 
     useEffect(() => {
+        if (!groupName) {
+            fetchGroupName(groupIdDuplicate);
+        }
         loadNotifications(page);
-    }, [page, loadNotifications]);
+    }, [page, loadNotifications, groupId, groupName, groupIdDuplicate, fetchGroupName]);
 
     useLayoutEffect(() => {
         const container = containerRef.current;
@@ -50,7 +91,6 @@ const NotificationPopup = forwardRef(({ groupName }, ref) => {
         const container = containerRef.current;
         if (container && container.scrollTop + container.clientHeight >= container.scrollHeight && !isLoading) {
             scrollPositionRef.current = container.scrollTop;
-
             setPage(prevPage => prevPage + 1);
         }
     }, 200), [isLoading]);
@@ -75,7 +115,7 @@ const NotificationPopup = forwardRef(({ groupName }, ref) => {
         notifications.forEach((notification) => {
             const notificationDate = notification.createdAt.split('T')[0];
             const showDate = notificationDate !== lastDate;
-            groupedNotifications.push({ ...notification, showDate });
+            groupedNotifications.push({...notification, showDate});
             lastDate = notificationDate;
         });
 
@@ -92,22 +132,43 @@ const NotificationPopup = forwardRef(({ groupName }, ref) => {
             <div className="notification-header">
                 <div className="notification-inner-header">
                     <p className="notification-header-text">Объявления группы</p>
-                    <p className="notification-group-header-text" style={{ marginLeft: "6px" }}>{groupName} </p>
-                    <Dot style={{ marginLeft: "12px" }} />
-                    <button onClick={() => {}} className="notification-secondary-header-text">сменить группу</button>
+                    <p className="notification-group-header-text" style={{marginLeft: "6px"}}>{groupNameDuplicate} </p>
+                    <Dot style={{marginLeft: "12px"}}/>
+                    <button onClick={enableGroupChooser} className="notification-secondary-header-text">сменить группу
+                    </button>
                 </div>
                 <div className="notification-divider"></div>
             </div>
-            {isLoading && page === 1 ? (
-                <NotificationsSkeleton />
-            ) : (
-                groupedNotifications.map((notification) => (
-                    <NotificationBlock key={notification.id} notification={notification} showDate={notification.showDate} />
-                ))
-            )}
-            {isLoading && page > 1 && <NotificationsSkeleton />}
+            {isChoosingGroup ?
+                <div style={{margin: "16px"}}>
+                    <GroupsComponent isNotificationsVersion={true}/>
+                </div>
+                :
+                <div>
+                    {isLoading ? (
+                        <NotificationsSkeleton/>
+                    ) : (
+                        groupedNotifications.length === 0 ? (
+                            <div style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height: "200px"
+                            }}>
+                                <p className="notification-header-text">Здесь пока ничего нет...</p>
+                            </div>
+                        ) : (
+                            groupedNotifications.map((notification) => (
+                                <NotificationBlock key={notification.id} notification={notification}
+                                                   showDate={notification.showDate}/>
+                            ))
+                        )
+                    )}
+                    {isLoading && page > 1 && <NotificationsSkeleton/>}
+                </div>}
         </div>
     );
+
 });
 
 export default NotificationPopup;

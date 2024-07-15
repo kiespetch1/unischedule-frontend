@@ -1,6 +1,5 @@
 import React, { forwardRef, useEffect, useRef, useState, useContext } from 'react';
 import Cookies from 'js-cookie';
-import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Context from '../Context';
 import LoginSkeleton from "./Skeletons/LoginSkeleton";
@@ -90,8 +89,6 @@ const LoginPopup = forwardRef((props, ref) => {
             const response = await fetch("https://localhost:7184/api/users/login", postRequestOptions.current);
 
             if (response.ok) {
-                const data = await response.json();
-                console.log(data.message);
                 setIsAuthorized(true);
                 await checkAuthorization();
             } else {

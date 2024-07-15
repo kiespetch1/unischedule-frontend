@@ -4,7 +4,7 @@ import {ReactComponent as SearchIcon} from "../assets/search.svg";
 import {ReactComponent as CrossIcon} from "../assets/cross.svg";
 import Skeleton from "react-loading-skeleton";
 
-const GroupsComponent = () => {
+const GroupsComponent = ({isNotificationsVersion}) => {
     const [inputValue, setInputValue] = useState('');
     const [groupsInfo, setGroupsInfo] = useState("");
     const [isLoaded, setLoaded] = useState(false);
@@ -78,8 +78,8 @@ const GroupsComponent = () => {
 
     return (
 
-        <div className="groups-container">
-            <div className="groups-choose-text">Группы</div>
+        <div className={isNotificationsVersion ? "groups-container small" : "groups-container"}>
+            {!isNotificationsVersion && <div className="groups-choose-text">Группы</div>}
             <div className="search-bar">
                 <SearchIcon style={windowWidth <= 930 ? searchIconSmallStyle : searchIconStyle}/>
                 <input className="search-bar-input" type="search" placeholder="Введите название группы"
@@ -116,8 +116,7 @@ const GroupsComponent = () => {
                 target="_blank" rel="noreferrer"> мне</a>.
             </div>
         </div>
-    )
-        ;
+    );
 }
 
 export default GroupsComponent;
