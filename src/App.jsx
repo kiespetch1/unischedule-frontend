@@ -1,21 +1,27 @@
-import SchedulePage from "./Components/Pages/SchedulePage";
-import {ContextProvider} from "./Context";
+import SchedulePage from "./pages/SchedulePage";
+import {ScheduleContextProvider} from "./context/ScheduleContext";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import GroupsListPage from "./Components/Pages/GroupsListPage";
-import HomePage from "./Components/Pages/HomePage";
+import GroupsListPage from "./pages/GroupsListPage";
+import HomePage from "./pages/HomePage";
+import {PopupsContextProvider} from "./context/PopupsContext";
+import {AuthContextProvider} from "./context/AuthContext";
 
 
 function App() {
     return (
-        <ContextProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<HomePage/>}/>
-                    <Route path="/group/:groupId" element={<SchedulePage />}/>
-                    <Route path="/groups" element={<GroupsListPage/>}/>
-                </Routes>
-            </BrowserRouter>
-        </ContextProvider>
+        <AuthContextProvider>
+            <PopupsContextProvider>
+                <ScheduleContextProvider>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<HomePage/>}/>
+                            <Route path="/group/:groupId" element={<SchedulePage/>}/>
+                            <Route path="/groups" element={<GroupsListPage/>}/>
+                        </Routes>
+                    </BrowserRouter>
+                </ScheduleContextProvider>
+            </PopupsContextProvider>
+        </AuthContextProvider>
     );
 }
 
