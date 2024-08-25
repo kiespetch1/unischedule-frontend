@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import CourseGroups from "./CourseGroups";
-import {ReactComponent as SearchIcon} from "../assets/search.svg";
-import {ReactComponent as CrossIcon} from "../assets/cross.svg";
+import SearchIcon from "../assets/search.svg?react";
+import CrossIcon from "../assets/cross.svg?react";
 import Skeleton from "react-loading-skeleton";
 import {GET_REQUEST_OPTIONS_WITH_AUTH, useWindowWidth} from "../common";
 

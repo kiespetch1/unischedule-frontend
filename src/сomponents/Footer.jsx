@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from "react";
 import "../index.css"
-import {ReactComponent as DotDivider} from "../assets/grayDot.svg";
+import DotDivider from "../assets/grayDot.svg?react";
 import {useWindowWidth} from "../common";
 
 const Footer = () => {

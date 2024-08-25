@@ -1,7 +1,7 @@
-import React from 'react';
+import {forwardRef} from 'react';
 import "../index.css";
 
-const ClassPropertiesPopup = React.forwardRef((props, ref) => {
+const ClassPropertiesPopup = forwardRef((props, ref) => {
     const {newWeekType, handleWeekTypeChange, newSubgroup, handleSubgroupChange} = props;
 
     return (

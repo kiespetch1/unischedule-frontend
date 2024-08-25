@@ -1,4 +1,6 @@
-@import-normalize;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
     background: #f7f7f7;
@@ -46,7 +48,7 @@ header {
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 1;
+    z-index: 20;
     color: #fafafafa;
     background: #fafafafa;
 }

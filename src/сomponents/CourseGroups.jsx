@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import GroupButton from "./GroupButton";
 
 const CourseGroups = ({ grade, groups, filter }) => {

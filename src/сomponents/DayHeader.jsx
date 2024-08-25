@@ -1,12 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import "../index.css";
-import {ReactComponent as DotDivider} from "../assets/dot.svg";
-import {ReactComponent as EditIcon} from "../assets/edit.svg";
-import {ReactComponent as ExitIcon} from "../assets/stopEdit.svg";
-import {ReactComponent as EraseIcon} from "../assets/eraser.svg";
-import {ReactComponent as CopyIcon} from "../assets/copy.svg";
-import ScheduleContext from "../context/ScheduleContext";
+import DotDivider from "../assets/dot.svg?react";
+import EditIcon from "../assets/edit.svg?react";
+import ExitIcon from "../assets/stopEdit.svg?react";
+import EraseIcon from "../assets/eraser.svg?react";
+import CopyIcon from "../assets/copy.svg?react";
 import {GET_REQUEST_OPTIONS_WITH_AUTH, PUT_REQUEST_OPTIONS_WITH_AUTH, useWindowWidth} from "../common";
+import AuthContext from "../context/AuthContext.jsx";
 
 const DayHeader = ({
                        name,
@@ -34,13 +34,11 @@ const DayHeader = ({
         paddingRight: "9px",
     };
 
-    const {editPermissions} = useContext(ScheduleContext);
+    const {editPermissions} = useContext(AuthContext);
     const windowWidth = useWindowWidth();
     const [oppositeWeekType, setOppositeWeekType] = useState(1);
     const [oppositeSubgroup, setOppositeSubgroup] = useState(1);
     const [oppositeWeek, setOppositeWeek] = useState([]);
-    const [loading, setLoading] = useState(false);
-
 
     const handleEditing = () => {
         if (!isEditing) {
@@ -69,16 +67,14 @@ const DayHeader = ({
         setOppositeWeekType(newOppositeWeekType);
         setOppositeSubgroup(newOppositeSubgroup);
 
-        setLoading(true);
         try {
             const response1 =
-                await fetch(`https://localhost:7184/api/weeks?WeekType=${newOppositeWeekType}&GroupId=${weekInfo.monday.dayInfo.groupId}&Subgroup=${newOppositeSubgroup}&fetchDetails=true`,
+                await fetch(`https://localhost:7184/api/weeks?WeekType=${oppositeWeekType}&GroupId=${weekInfo.monday.dayInfo.groupId}&Subgroup=${oppositeSubgroup}&fetchDetails=true`,
                     GET_REQUEST_OPTIONS_WITH_AUTH);
             const data1 = await response1.json();
             setOppositeWeek(Object.values(data1));
         } catch (error) {
             console.error('Error fetching week data:', error);
-            setLoading(false);
         }
     };
 
@@ -114,8 +110,6 @@ const DayHeader = ({
                 }
             } catch (error) {
                 console.error('Error copying day data:', error);
-            } finally {
-                setLoading(false);
             }
         };
 

@@ -1,18 +1,18 @@
-import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from "react";
+import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from "react";
 import "../index.css";
-import {ReactComponent as EvenWeekIcon} from "../assets/evenWeek.svg";
-import {ReactComponent as EvenWeekIconSmall} from "../assets/evenWeekSmall.svg";
-import {ReactComponent as OddWeekIcon} from "../assets/oddWeek.svg";
-import {ReactComponent as OddWeekIconSmall} from "../assets/oddWeekSmall.svg";
-import {ReactComponent as DotDivider} from "../assets/blackDot.svg";
-import {ReactComponent as FirstSG} from "../assets/1sg.svg";
-import {ReactComponent as FirstSGSmall} from "../assets/1sgSmall.svg";
-import {ReactComponent as SecondSG} from "../assets/2sg.svg";
-import {ReactComponent as SecondSGSmall} from "../assets/2sgSmall.svg";
-import {ReactComponent as EmptyIcon} from "../assets/emptyWeekTypeIcon.svg";
+import EvenWeekIcon from "../assets/evenWeek.svg?react";
+import EvenWeekIconSmall from "../assets/evenWeekSmall.svg?react";
+import OddWeekIcon from "../assets/oddWeek.svg?react";
+import OddWeekIconSmall from "../assets/oddWeekSmall.svg?react";
+import DotDivider from "../assets/blackDot.svg?react";
+import FirstSG from "../assets/1sg.svg?react";
+import FirstSGSmall from "../assets/1sgSmall.svg?react";
+import SecondSG from "../assets/2sg.svg?react";
+import SecondSGSmall from "../assets/2sgSmall.svg?react";
+import DeleteIcon from "../assets/delete.svg?react";
+import EmptyIcon from "../assets/emptyWeekTypeIcon.svg?react";
 import LocationPickPanel from "./LocationPickPanel";
 import TeacherPickPanel from "./TeacherPickPanel";
-import {ReactComponent as DeleteIcon} from "../assets/delete.svg";
 import ClassPropertiesPopup from "./ClassPropertiesPopup";
 import {
     DELETE_REQUEST_OPTIONS_WITH_AUTH,
@@ -22,35 +22,35 @@ import {
 } from "../common";
 
 export const EvenWeekIconWithTitle = (props) => (
-    <EvenWeekIcon title="Четная неделя" {...props} />
+    <EvenWeekIcon aria-label="Четная неделя" {...props} />
 );
 
 export const EvenWeekIconSmallWithTitle = (props) => (
-    <EvenWeekIconSmall title="Четная неделя" {...props} />
+    <EvenWeekIconSmall aria-label="Четная неделя" {...props} />
 );
 
 export const OddWeekIconWithTitle = (props) => (
-    <OddWeekIcon title="Нечетная неделя" {...props} />
+    <OddWeekIcon aria-label="Нечетная неделя" {...props} />
 );
 
 export const OddWeekIconSmallWithTitle = (props) => (
-    <OddWeekIconSmall title="Нечетная неделя" {...props} />
+    <OddWeekIconSmall aria-label="Нечетная неделя" {...props} />
 );
 
 export const FirstSGWithTitle = (props) => (
-    <FirstSG title="Первая подгруппа" {...props} />
+    <FirstSG aria-label="Первая подгруппа" {...props} />
 );
 
 export const FirstSGSmallWithTitle = (props) => (
-    <FirstSGSmall title="Первая подгруппа" {...props} />
+    <FirstSGSmall aria-label="Первая подгруппа" {...props} />
 );
 
 export const SecondSGWithTitle = (props) => (
-    <SecondSG title="Вторая подгруппа" {...props} />
+    <SecondSG aria-label="Вторая подгруппа" {...props} />
 );
 
 export const SecondSGSmallWithTitle = (props) => (
-    <SecondSGSmall title="Вторая подгруппа" {...props} />
+    <SecondSGSmall aria-label="Вторая подгруппа" {...props} />
 );
 
 const Class = forwardRef(({

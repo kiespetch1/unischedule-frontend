@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import "../index.css";
 import Header from "../сomponents/Header";
 import Day from "../сomponents/Day";
 import Footer from "../сomponents/Footer";
 import ScheduleContext from "../context/ScheduleContext";
-import {ReactComponent as AlertIcon} from "../assets/alert.svg";
+import AlertIcon from "../assets/alert.svg?react";
 import WeeksText from "../сomponents/WeeksText";
 import Filters from "../сomponents/Filters";
 import {useParams} from "react-router-dom";

@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {ReactComponent as ExpandIcon} from "../assets/expandIcon.svg";
+import {useContext, useEffect, useState} from 'react';
+import ExpandIcon from "../assets/expandIcon.svg?react";
 import {GET_REQUEST_OPTIONS} from "../common";
+import PopupsContext from "../context/PopupsContext.jsx";
 
-
-const NotificationsLine = ({windowWidth, togglePopup, groupId,}) => {
+const NotificationsLine = ({windowWidth, groupId,}) => {
+    const {setIsNotificationPopupOpen, isNotificationPopupOpen } = useContext(PopupsContext);
     const [lastNotification, setLastNotification] = useState(null);
     const [noNotification, setNoNotification] = useState(false);
     const [isNotificationOpen, setIsNotificationOpen] = useState(true);
@@ -29,6 +30,10 @@ const NotificationsLine = ({windowWidth, togglePopup, groupId,}) => {
                 console.error('Error fetching last notification:', error);
             });
     }, [groupId]);
+
+    const handleNotificationClick = () => {
+        setIsNotificationPopupOpen(!isNotificationPopupOpen);
+    };
 
     if (noNotification) {
         return null;
@@ -59,7 +64,7 @@ const NotificationsLine = ({windowWidth, togglePopup, groupId,}) => {
                             paddingTop: '0px',
                             cursor: 'pointer'
                         }}/></button>
-                <button className="notification-line-secondary-text" onClick={togglePopup}>посмотреть другие
+                <button className="notification-line-secondary-text"  onClick={handleNotificationClick}>посмотреть другие
                     объявления
                 </button>
             </div>

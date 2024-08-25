@@ -1,7 +1,6 @@
-import React, {forwardRef, useEffect, useState, useRef, useCallback, useLayoutEffect} from 'react';
-import {ReactComponent as Dot} from "../assets/darkGrayDot.svg";
+import {forwardRef, useEffect, useState, useRef, useCallback, useLayoutEffect} from 'react';
+import Dot from "../assets/darkGrayDot.svg?react";
 import NotificationBlock from './NotificationBlock';
-import debounce from 'lodash/debounce';
 import NotificationsSkeleton from "./skeletons/NotificationsSkeleton";
 import GroupsComponent from "./GroupsComponent";
 import {GET_REQUEST_OPTIONS, GET_REQUEST_OPTIONS_WITH_AUTH} from "../common";
@@ -75,27 +74,6 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
             container.scrollTop = scrollPositionRef.current;
         }
     }, [notifications]);
-
-    const handleScroll = useCallback(debounce(() => {
-        const container = containerRef.current;
-        if (container && container.scrollTop + container.clientHeight >= container.scrollHeight && !isLoading) {
-            scrollPositionRef.current = container.scrollTop;
-            setPage(prevPage => prevPage + 1);
-        }
-    }, 200), [isLoading]);
-
-    useEffect(() => {
-        const container = containerRef.current;
-        if (container) {
-            container.addEventListener('scroll', handleScroll);
-        }
-        return () => {
-            if (container) {
-                container.removeEventListener('scroll', handleScroll);
-            }
-            handleScroll.cancel();
-        };
-    }, [handleScroll]);
 
     const groupNotificationsByDate = (notifications) => {
         const groupedNotifications = [];

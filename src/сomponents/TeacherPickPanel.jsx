@@ -1,8 +1,8 @@
-import React, {useState, useRef, useEffect} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import "../index.css";
-import {ReactComponent as AddIcon} from "../assets/addInfoIcon.svg"
-import {ReactComponent as MoveRightIcon} from "../assets/moveRightIcon.svg"
-import {ReactComponent as MoveLeftIcon} from "../assets/moveLeftIcon.svg"
+import AddIcon from "../assets/addInfoIcon.svg?react"
+import MoveRightIcon from "../assets/moveRightIcon.svg?react"
+import MoveLeftIcon from "../assets/moveLeftIcon.svg?react"
 import {GET_REQUEST_OPTIONS_WITH_AUTH, useMaxScrollPosition} from "../common";
 
 const TeacherPickPanel = ({

@@ -1,4 +1,3 @@
-import React from 'react';
 import Header from "../сomponents/Header";
 import Footer from "../сomponents/Footer";
 

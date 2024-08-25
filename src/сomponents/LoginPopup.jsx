@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef, useState, useContext } from 'react';
+import { forwardRef, useEffect, useRef, useState, useContext } from 'react';
 import Cookies from 'js-cookie';
 import 'react-loading-skeleton/dist/skeleton.css';
 import AuthContext from '../context/AuthContext';
@@ -72,6 +72,7 @@ const LoginPopup = forwardRef((props, ref) => {
         }
         try {
             const response = await fetch("https://localhost:7184/api/users/login", postRequestOptions.current);
+            setPassword("");
 
             if (response.ok) {
                 setIsAuthorized(true);

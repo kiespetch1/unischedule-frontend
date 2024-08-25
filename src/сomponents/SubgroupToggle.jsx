@@ -1,7 +1,7 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import "../index.css";
-import {ReactComponent as FirstSG} from "../assets/1sg.svg";
-import {ReactComponent as SecondSG} from "../assets/2sg.svg"
+import FirstSG from "../assets/1sg.svg?react";
+import SecondSG from "../assets/2sg.svg?react"
 import ScheduleContext from "../context/ScheduleContext";
 import {useNavigate, useLocation} from 'react-router-dom';
 import {useWindowWidth} from "../common";

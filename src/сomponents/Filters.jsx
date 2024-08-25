@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { ReactComponent as ChangeIcon } from "../assets/change.svg";
-import { ReactComponent as ChangeIconSmall } from "../assets/changeSmall.svg";
+import { useEffect, useState } from "react";
+import ChangeIcon from "../assets/change.svg?react";
+import ChangeIconSmall from "../assets/changeSmall.svg?react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import FiltersSkeleton from "./skeletons/FiltersSkeleton";

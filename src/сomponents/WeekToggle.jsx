@@ -1,7 +1,7 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import "../index.css";
-import {ReactComponent as EvenWeekIcon} from "../assets/evenWeek.svg";
-import {ReactComponent as OddWeekIcon} from "../assets/oddWeek.svg";
+import EvenWeekIcon from "../assets/evenWeek.svg?react";
+import OddWeekIcon from "../assets/oddWeek.svg?react";
 import ScheduleContext from "../context/ScheduleContext";
 import {useNavigate, useLocation} from 'react-router-dom';
 import {useWindowWidth} from "../common";

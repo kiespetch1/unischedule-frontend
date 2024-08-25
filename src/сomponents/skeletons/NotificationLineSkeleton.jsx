@@ -1,5 +1,5 @@
 import Skeleton from "react-loading-skeleton";
-import {ReactComponent as ExpandIcon} from "../../assets/expandIcon.svg";
+import ExpandIcon from "../../assets/expandIcon.svg?react";
 import {useWindowWidth} from "../../common";
 
 const NotificationLineSkeleton = () => {

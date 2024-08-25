@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from 'react';
+import {useCallback, useContext} from 'react';
 import GetCurrentWeekText from "../utility/components/CurrentWeekText";
 import GetNextWeekText from "../utility/components/NextWeekText";
 import {useLocation, useNavigate} from "react-router-dom";

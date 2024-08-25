@@ -1,5 +1,3 @@
-import React from 'react';
-
 const SaveButton = ({isEditing, saveButtonPosition, onSave}) => {
     if (!isEditing) {
         return null;

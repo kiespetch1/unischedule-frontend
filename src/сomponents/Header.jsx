@@ -1,8 +1,8 @@
-import React, {useEffect, useState, useRef, useContext} from "react";
+import {useEffect, useRef, useContext} from "react";
 import "../index.css";
-import {ReactComponent as IateLogo} from "../assets/iateLogo.svg";
-import {ReactComponent as AuthIcon} from "../assets/user.svg";
-import {ReactComponent as NotificationsIcon} from "../assets/notification.svg";
+import IateLogo from  "../assets/iateLogo.svg?react";
+import AuthIcon from "../assets/user.svg?react";
+import NotificationsIcon from "../assets/notification.svg?react";
 import {useNavigate} from 'react-router-dom';
 import LoginPopup from "./LoginPopup";
 import NotificationsPopup from "./NotificationsPopup";
@@ -41,7 +41,7 @@ const Header = ({groupName, groupId}) => {
         e.stopPropagation();
         setIsNotificationPopupOpen(!isNotificationPopupOpen);
         if (!isNotificationPopupOpen) {
-            setIsUserPopupOpen(false); // Закрыть авторизацию, если открыта
+            setIsUserPopupOpen(false);
         }
     };
 

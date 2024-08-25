@@ -1,5 +1,3 @@
-import React from "react";
-
 const GroupButton = ({group, link}) => {
     return (
         <div className="group-buttons-container">

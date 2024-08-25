@@ -2,8 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import "../index.css";
 import DayHeader from "./DayHeader";
 import Class from "./Class";
-import Window from "./Window";
-import {ReactComponent as AddIcon} from "../assets/addIcon.svg";
+import AddIcon from "../assets/addIcon.svg?react";
 import SaveButton from "./SaveButton";
 import {DELETE_REQUEST_OPTIONS_WITH_AUTH} from "../common";
 
@@ -209,16 +208,6 @@ const Day = ({
             ) : (
                 dayData?.classes?.sort(compareStartTime).map((classData, index) => (
                     <React.Fragment key={index}>
-                        {classData.isWindow ? (
-                            <Window
-                                order={(index + 1).toString()}
-                                dayData={dayData}
-                                isEditing={isEditing}
-                                isActive={isEditing && activeClassIndex === index}
-                                onClick={() => handleClassClick(index)}
-                                onActiveChange={(isActive) => handleActiveChange(index, isActive)}
-                            />
-                        ) : (
                             <Class
                                 ref={classRefs.current[index]}
                                 order={(index + 1).toString()}
@@ -230,7 +219,6 @@ const Day = ({
                                 isNew={false}
                                 decreaseClassesCount={decreaseClassesCount}
                             />
-                        )}
                     </React.Fragment>
                 ))
             )}
