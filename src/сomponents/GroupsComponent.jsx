@@ -5,7 +5,7 @@ import CrossIcon from "../assets/cross.svg?react";
 import Skeleton from "react-loading-skeleton";
 import {GET_REQUEST_OPTIONS_WITH_AUTH, useWindowWidth} from "../common";
 
-const GroupsComponent = ({isNotificationsVersion}) => {
+const GroupsComponent = () => {
     const [inputValue, setInputValue] = useState('');
     const [groupsInfo, setGroupsInfo] = useState("");
     const [isLoaded, setLoaded] = useState(false);
@@ -59,8 +59,8 @@ const GroupsComponent = ({isNotificationsVersion}) => {
 
     return (
 
-        <div className={isNotificationsVersion ? "groups-container small" : "groups-container"}>
-            {!isNotificationsVersion && <div className="groups-choose-text">Группы</div>}
+        <div className="groups-container">
+            {<div className="groups-choose-text">Группы</div>}
             <div className="search-bar">
                 <SearchIcon style={windowWidth <= 930 ? searchIconSmallStyle : searchIconStyle}/>
                 <input className="search-bar-input" type="search" placeholder="Введите название группы"
@@ -77,8 +77,10 @@ const GroupsComponent = ({isNotificationsVersion}) => {
                         <div key={index} style={{marginBottom: '20px'}}>
                             <Skeleton height={18} width={100} style={{marginBottom: '10px', marginTop: "24px"}}/>
                             <div style={{display: "flex", flexDirection: 'row'}}>
-                                <Skeleton height={39} width={150} style={{borderRadius: '20px', marginTop: '16px', marginRight: "16px"}}/>
-                                <Skeleton height={39} width={150} style={{borderRadius: '20px', marginTop: '16px', marginRight: "16px"}}/>
+                                <Skeleton height={39} width={150}
+                                          style={{borderRadius: '20px', marginTop: '16px', marginRight: "16px"}}/>
+                                <Skeleton height={39} width={150}
+                                          style={{borderRadius: '20px', marginTop: '16px', marginRight: "16px"}}/>
                             </div>
                         </div>
                     ))}

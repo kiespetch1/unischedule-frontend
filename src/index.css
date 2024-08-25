@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import-normalize;
 
 body {
     background: #f7f7f7;
@@ -10,6 +8,7 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    height: 100vh;
 }
 
 code {
@@ -323,7 +322,7 @@ header {
 
 .class-teacher.editing {
     padding: 4px 6px;
-    width: 120px;
+    width: 155px;
 
     background: #F5F5F5;
     border-radius: 6px;
@@ -533,11 +532,18 @@ header {
     justify-content: center;
     max-width: 1920px;
     width: 100vw;
+    margin-top: auto;
 }
 
 @media screen and (min-width: 1920px) {
-    .footer-container, .filters-container, .schedule-container {
+    filters-container, .schedule-container {
         margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .footer-container {
+        margin: auto auto;
     }
 }
 
@@ -932,9 +938,8 @@ header {
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
-    margin: 0 auto 0 auto;
     height: auto;
-    width: calc(100vw - 80px);
+    width: calc(100vw - 84px);
 }
 
 .groups-container.small {
@@ -952,7 +957,9 @@ header {
 }
 
 .homepage-container {
+    width: calc(100vw - 42px);
     min-height: calc(100vh - 312px);
+    display: flex;
 }
 
 .groups-choose-text {
@@ -1515,11 +1522,17 @@ header {
     z-index: 5;
     top: 76px;
     right: 0;
-    left: calc(100vw - 352px);
+    left: calc(100vw - 321px);
 
     border: 2px solid #CDCDCD;
     box-shadow: 0 4px 13px 1px rgba(0, 0, 0, 0.25);
     border-radius: 7px;
+}
+
+@media screen and (min-width: 1870px) {
+    .login-popup-container {
+        left: 1545px;
+    }
 }
 
 .login-popup-text {
@@ -1572,17 +1585,45 @@ header {
     cursor: pointer;
 }
 
+.fix-me-container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    flex-direction: column;
+}
+
+.fix-me {
+    width: calc(100vw - 42px);
+    max-width: 1836px;
+    padding: 0 0 0 42px;
+    margin-top: 24px;
+}
+
+.homepage-container {
+    width: calc(100vw - 84px);
+    max-width: 1836px;
+    padding: 0 42px;
+}
+
+@media screen and (min-width: 1920px) {
+    .fix-me {
+        margin: 24px auto 0 auto;
+    }
+
+    .homepage-container {
+        margin: 0 auto;
+    }
+}
+
 .welcome-header {
     max-width: 65vw;
     font-family: 'Raleway', serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 24px;
-    margin: 24px 0 0 0;
+    font-size: 1.5rem;
     display: flex;
-    padding-left: 40px;
     font-feature-settings: 'pnum' on, 'lnum' on;
-
+    margin: 0 0 8px 0;
     color: #000000;
 }
 
@@ -1591,9 +1632,9 @@ header {
     font-family: 'Raleway', serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 1.125rem;
     display: flex;
-    padding-left: 40px;
+    margin: 0 0 8px 0;
     font-feature-settings: 'pnum' on, 'lnum' on;
 
     color: #000000;
@@ -1692,7 +1733,7 @@ header {
     font-feature-settings: 'pnum' on, 'lnum' on;
     color: #000000;
     margin: 14px 0 0 6px;
-    text-wrap: wrap;
+    text-wrap: normal;
 }
 
 .notification-text.no-top-margin {
@@ -1709,7 +1750,7 @@ header {
     font-feature-settings: 'pnum' on, 'lnum' on;
     color: #000000;
     margin: 14px 0 0 6px;
-    text-wrap: wrap;
+    text-wrap: normal;
 }
 
 .notification-announcement-text.no-top-margin {
@@ -1726,12 +1767,14 @@ header {
     font-feature-settings: 'pnum' on, 'lnum' on;
     color: #000000;
     margin: 14px 0 0 6px;
-    text-wrap: wrap;
+    text-wrap: normal;
 }
 
 .notification-important-announcement-text.no-top-margin {
     margin: 0 0 0 6px;
 }
+
+
 
 .notification-container {
     position: absolute;
@@ -1746,6 +1789,12 @@ header {
     left: calc(100vw - 811px);
     overflow-y: auto; /* Добавлено для прокрутки содержимого */
     overflow-x: hidden;
+}
+
+@media screen and (min-width: 1870px) {
+    .notification-container {
+        left: 1060px;
+    }
 }
 
 .notification-container * {
@@ -2007,7 +2056,7 @@ header {
 
     .footer-text, .footer-clickable-text {
         font-size: 8px;
-        padding: 16px 9px;
+        padding: 16px 5px;
     }
 
     .footer-text-container {
@@ -2030,7 +2079,7 @@ header {
     }
 
     .groups-container {
-        width: calc(100vw - 18px);
+        width: calc(100vw - 84px);
         min-height: calc(100vh - 45px - 41px);
     }
 
@@ -2049,7 +2098,7 @@ header {
 
     .groups-choose-text {
         font-size: 11px;
-        margin: 12px 0 0 0;
+        margin: 10px 0 0 0;
     }
 
     .search-bar {
@@ -2138,5 +2187,25 @@ header {
 
     .notification-line-container {
         padding: 0 16px 6px 16px;
+    }
+
+    .welcome-header {
+        margin: 0 0 4px 0;
+        font-size: 0.6875rem;
+    }
+
+    .welcome-text {
+        margin: 0 0 4px 0;
+        font-size: 0.5rem;
+    }
+
+    .fix-me {
+        padding: 0 9px 0 9px;
+        margin: 9px 0 9px 0;
+    }
+
+    .homepage-container {
+        padding: 0 9px 0 9px;
+        margin: 9px 0 9px 0;
     }
 }

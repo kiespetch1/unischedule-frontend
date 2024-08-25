@@ -10,7 +10,6 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const scrollPositionRef = useRef(0);
-    const containerRef = useRef(ref);
     const defaultGroupId = 1;
     const [groupIdDuplicate, setGroupIdDuplicate] = useState(groupId || defaultGroupId);
     const [groupNameDuplicate, setGroupNameDuplicate] = useState(groupName || "");
@@ -69,7 +68,7 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
     }, [page, loadNotifications, groupId, groupName, groupIdDuplicate, fetchGroupName]);
 
     useLayoutEffect(() => {
-        const container = containerRef.current;
+        const container = ref.current;
         if (container) {
             container.scrollTop = scrollPositionRef.current;
         }
@@ -93,7 +92,7 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
 
     return (
         <div
-            ref={containerRef}
+            ref={ref}
             className="notification-container"
         >
             <div className="notification-header">

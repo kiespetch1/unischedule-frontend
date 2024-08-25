@@ -53,7 +53,7 @@ const Day = ({
     }
 
     const clearAllClassesList = () => {
-        fetch(`https://localhost:7184/api/days?id=${dayData && dayData.dayInfo.id}`, DELETE_REQUEST_OPTIONS_WITH_AUTH)
+        fetch(`https://localhost:7184/api/days?dayId=${dayData && dayData.dayInfo.id}`, DELETE_REQUEST_OPTIONS_WITH_AUTH)
         clearNewClassesList();
         dayData.classes = [];
     }

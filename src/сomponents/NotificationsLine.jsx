@@ -1,23 +1,22 @@
 import {useContext, useEffect, useState} from 'react';
 import ExpandIcon from "../assets/expandIcon.svg?react";
-import {GET_REQUEST_OPTIONS} from "../common";
+import {GET_REQUEST_OPTIONS, useWindowWidth} from "../common";
 import PopupsContext from "../context/PopupsContext.jsx";
 
-const NotificationsLine = ({windowWidth, groupId,}) => {
+const NotificationsLine = ({groupId}) => {
     const {setIsNotificationPopupOpen, isNotificationPopupOpen } = useContext(PopupsContext);
     const [lastNotification, setLastNotification] = useState(null);
-    const [noNotification, setNoNotification] = useState(false);
+    const [isNotificationPresent, setIsNotificationPresent] = useState(false);
     const [isNotificationOpen, setIsNotificationOpen] = useState(true);
+    const windowWidth = useWindowWidth();
     useEffect(() => {
-        //TODO подвязать в куки то что уведа скрыта и там типа чтобы еще она раскрывалась если после этого новая появилась бубубубу
-
         fetch(`https://localhost:7184/notifications/${groupId}/last`, GET_REQUEST_OPTIONS)
             .then(response => {
                 if (response.status === 404) {
-                    setNoNotification(true);
+                    setIsNotificationPresent(false);
                     return null;
                 } else {
-                    setNoNotification(false);
+                    setIsNotificationPresent(true);
                     return response.json();
                 }
             })
@@ -35,7 +34,7 @@ const NotificationsLine = ({windowWidth, groupId,}) => {
         setIsNotificationPopupOpen(!isNotificationPopupOpen);
     };
 
-    if (noNotification) {
+    if (!isNotificationPresent) {
         return null;
     }
 

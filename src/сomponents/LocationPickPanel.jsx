@@ -52,6 +52,10 @@ const LocationPickPanel = ({
     };
 
     useEffect(() => {
+        setScrollPosition(0);
+    }, [isFilterActive]);
+
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch("https://localhost:7184/api/locations", GET_REQUEST_OPTIONS_WITH_AUTH);

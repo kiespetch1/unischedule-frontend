@@ -284,12 +284,23 @@ const Class = forwardRef(({
 
     const handleTeacherFilterChange = (event) => {
         setTeacherFilter(event.target.value);
-        setIsTeacherFilterActive(true);
+        if (event.target.value === '') {
+            setIsTeacherFilterActive(false);
+        }
+        else {
+            setIsTeacherFilterActive(true);
+        }
     };
 
     const handleLocationFilterChange = (event) => {
         setLocationFilter(event.target.value);
-        setIsLocationFilterActive(true);
+        if (event.target.value === '') {
+            setIsLocationFilterActive(false);
+        }
+        else {
+            setIsLocationFilterActive(true);
+        }
+
     }
 
     useImperativeHandle(ref, () => ({

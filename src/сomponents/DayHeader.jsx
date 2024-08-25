@@ -147,8 +147,8 @@ const DayHeader = ({
                         </button>}
                         <button onClick={handleEditing}
                                 className={isEditing ? "edit-icon-wrapper editing" : "edit-icon-wrapper"}
-                                title="Выйти из режима редактирования">
-                            {isEditing ? <ExitIcon style={{paddingLeft: "3px"}}/> :
+                                title={isEditing ? "Выйти из режима редактирования" : "Редактировать день"}>
+                            {isEditing ? <ExitIcon style={{paddingLeft: "2px"}}/> :
                                 <EditIcon className="edit-icon"/>}
                         </button>
 

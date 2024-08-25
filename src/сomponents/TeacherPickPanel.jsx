@@ -19,7 +19,6 @@ const TeacherPickPanel = ({
 
     useEffect(() => {
         let filteredTeachers = teachers;
-
         if (filter && isFilterActive) {
             filteredTeachers = filteredTeachers.filter(teacher => teacher.fullName?.toLowerCase().includes(filter.toLowerCase()));
         }
@@ -43,6 +42,10 @@ const TeacherPickPanel = ({
 
         setScrollPosition(newPosition);
     };
+
+    useEffect(() => {
+        setScrollPosition(0);
+    }, [isFilterActive]);
 
     const refreshComponent = () => {
         setRefreshElement(refreshElement + 1);

@@ -1,6 +1,6 @@
 import {useEffect, useRef, useContext} from "react";
 import "../index.css";
-import IateLogo from  "../assets/iateLogo.svg?react";
+import IateLogo from "../assets/iateLogo.svg?react";
 import AuthIcon from "../assets/user.svg?react";
 import NotificationsIcon from "../assets/notification.svg?react";
 import {useNavigate} from 'react-router-dom';
@@ -63,7 +63,7 @@ const Header = ({groupName, groupId}) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isNotificationPopupOpen,isUserPopupOpen, setIsNotificationPopupOpen, setIsUserPopupOpen]);
+    }, [isNotificationPopupOpen, isUserPopupOpen, setIsNotificationPopupOpen, setIsUserPopupOpen]);
 
     return (
         <header className="header-container">
@@ -86,9 +86,8 @@ const Header = ({groupName, groupId}) => {
                             style={windowWidth <= 930 ? {width: "18px", height: "18px"} :
                                 {width: "35px", height: "35px"}}/>
                     </button>
-                    {isNotificationPopupOpen &&
-                        <NotificationsPopup ref={notificationsPopupRef} groupName={groupName} groupId={groupId}/>}
-
+                        {isNotificationPopupOpen &&
+                            <NotificationsPopup ref={notificationsPopupRef} groupName={groupName} groupId={groupId}/>}
                     <div style={windowWidth <= 930 ? {paddingRight: "14px"} : {paddingRight: "40px"}}/>
 
                     <button ref={authButtonRef}
