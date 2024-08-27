@@ -9,7 +9,9 @@ const GroupsListPage = () => {
         <div>
             <Header/>
             <div className="group-list-container">
-                <GroupsComponent/>
+                <div className="groups-main-container">
+                    <GroupsComponent/>
+                </div>
             </div>
             <Footer/>
         </div>

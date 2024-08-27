@@ -18,15 +18,15 @@ function App() {
                             style: {
                                 fontFamily: 'Raleway, sans-serif',
                                 success: {
-                                    duration: 3000,
+                                    duration: 6000,
                                     style: {
                                         padding: "0 10px 0 10px"
                                     },
                                 },
                                 error: {
-                                    duration: 6000,
+                                    duration: 8000,
                                     style: {
-
+                                        padding: "0 10px 0 10px"
                                     },
                                 },
                             }
