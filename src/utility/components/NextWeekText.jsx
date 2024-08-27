@@ -10,13 +10,13 @@ function GetNextWeekText({ date }) {
     if (currentStudyWeek % 2 === 0) {
         return (
             <div>
-                Следующая неделя четная {windowWidth <= 445 ? <br /> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (нижняя/четная)
+                Следующая неделя четная (нижняя) {windowWidth <= 445 ? <br /> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя
             </div>
         );
     } else {
         return (
             <div>
-                Следующая неделя нечетная {windowWidth <= 445 ? <br /> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (верхняя/нечетная)
+                Следующая неделя нечетная (верхняя) {windowWidth <= 445 ? <br /> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя
             </div>
         );
     }

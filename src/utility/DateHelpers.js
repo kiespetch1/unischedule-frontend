@@ -1,3 +1,8 @@
+import config from '../config.json';
+
+const currentDay = parseInt(config.AcademicYearStart.day)
+const currentMonth = parseInt(config.AcademicYearStart.month)
+
 export function getStartAndEndOfWeek(date) {
     const currentDay = date.getDay();
 
@@ -25,14 +30,14 @@ export function getStartAndEndOfWeek(date) {
 }
 
 export function getWeekNumber(date) {
-    let academicYearStart = new Date(date.getFullYear(), 8, 2); // 2 сентября нынешнего года
-                                                                //TODO: добавить конфиг какой то откуда задавать дату начала академического года
+    let academicYearStart = new Date(date.getFullYear(), currentMonth - 1, currentDay);
+
     // Вычисляем разницу в днях между сегодняшней датой и датой начала
     let diffDays = Math.floor((date.getTime() - academicYearStart.getTime()) / (1000 * 60 * 60 * 24));
 
     // Если сегодняшняя дата находится до 5 февраля, отступаем на год назад
     if (diffDays < 0) {
-        academicYearStart = new Date(date.getFullYear() - 1, 1, 5);
+        academicYearStart = new Date(date.getFullYear() - 1, currentMonth - 1, currentDay);
         diffDays = Math.floor((date.getTime() - academicYearStart.getTime()) / (1000 * 60 * 60 * 24));
     }
 

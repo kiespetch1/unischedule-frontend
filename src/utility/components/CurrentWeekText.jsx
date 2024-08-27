@@ -10,13 +10,13 @@ function GetCurrentWeekText({ date }) {
     if (currentStudyWeek % 2 === 0) {
         return (
             <div>
-                Сейчас четная неделя {windowWidth <= 445 ? <br/> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (нижняя/четная)
+                Сейчас четная (нижняя) неделя {windowWidth <= 445 ? <br/> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя
             </div>
         );
     } else {
         return (
             <div>
-                Сейчас нечетная неделя {windowWidth <= 445 ? <br/> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя (верхняя/нечетная)
+                Сейчас нечетная (верхняя) неделя {windowWidth <= 445 ? <br/> : "-"} с {startOfWeek} по {endOfWeek} - {currentStudyWeek} неделя
             </div>
         );
     }
