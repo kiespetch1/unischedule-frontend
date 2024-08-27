@@ -4,6 +4,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import AuthContext from '../context/AuthContext';
 import LoginSkeleton from "./skeletons/LoginSkeleton";
 import {DELETE_REQUEST_OPTIONS_WITH_AUTH, GET_REQUEST_OPTIONS_WITH_AUTH} from "../common";
+import toast from "react-hot-toast";
 
 const LoginPopup = forwardRef((props, ref) => {
     const { updateAuthorization } = useContext(AuthContext);
@@ -38,6 +39,7 @@ const LoginPopup = forwardRef((props, ref) => {
         setIsAuthorized(false);
         setCurrentEmail('');
         updateAuthorization(false, "");
+        toast.success("Вы вышли из аккаунта.");
     };
 
     const checkAuthorization = async () => {
@@ -91,10 +93,16 @@ const LoginPopup = forwardRef((props, ref) => {
             if (response.ok) {
                 setIsAuthorized(true);
                 await checkAuthorization();
+                toast.success("Успешная авторизация!")
             } else {
-                console.error('Login failed');
+                if (response.status === 400) {
+                    toast.error("Неправильный логин или пароль.")
+                } else {
+                    toast.error("Неизвестная ошибка")
+                }
             }
         } catch (error) {
+            toast.error("Неизвестная ошибка")
             console.error('Error logging in', error);
         }
     };

@@ -5,6 +5,7 @@ import GroupsListPage from "./pages/GroupsListPage";
 import HomePage from "./pages/HomePage";
 import {PopupsContextProvider} from "./context/PopupsContext";
 import {AuthContextProvider} from "./context/AuthContext";
+import {Toaster} from "react-hot-toast";
 
 
 function App() {
@@ -13,6 +14,23 @@ function App() {
             <PopupsContextProvider>
                 <ScheduleContextProvider>
                     <BrowserRouter>
+                        <Toaster position="bottom-right" toastOptions={{
+                            style: {
+                                fontFamily: 'Raleway, sans-serif',
+                                success: {
+                                    duration: 3000,
+                                    style: {
+                                        padding: "0 10px 0 10px"
+                                    },
+                                },
+                                error: {
+                                    duration: 6000,
+                                    style: {
+
+                                    },
+                                },
+                            }
+                            }}/>
                         <Routes>
                             <Route path="/" element={<HomePage/>}/>
                             <Route path="/group/:groupId" element={<SchedulePage/>}/>

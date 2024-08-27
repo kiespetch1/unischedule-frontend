@@ -4,6 +4,8 @@ import NotificationBlock from './NotificationBlock';
 import NotificationsSkeleton from "./skeletons/NotificationsSkeleton";
 import GroupsComponent from "./GroupsComponent";
 import {GET_REQUEST_OPTIONS, GET_REQUEST_OPTIONS_WITH_AUTH} from "../common";
+import toast from "react-hot-toast";
+
 
 const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
     const [notifications, setNotifications] = useState([]);
@@ -48,6 +50,7 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
                 .catch(error => {
                     console.error('Error fetching notifications:', error);
                     setIsLoading(false);
+                    toast.error("Не удалось загрузить уведомления.")
                 });
         };
 

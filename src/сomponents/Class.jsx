@@ -20,6 +20,7 @@ import {
     PUT_REQUEST_OPTIONS_WITH_AUTH,
     useWindowWidth
 } from "../common";
+import toast from "react-hot-toast";
 
 export const EvenWeekIconWithTitle = (props) => (
     <EvenWeekIcon aria-label="Четная неделя" {...props} />
@@ -176,10 +177,15 @@ const Class = forwardRef(({
             fetch("https://localhost:7184/api/teachers?fullName=" + name, POST_REQUEST_OPTIONS_WITH_AUTH)
                 .then(response => {
                     if (!response.ok) {
+                        toast.error("Не удалось добавить преподавателя.")
                         throw new Error('Network response was not ok: ' + response.status);
+                    }
+                    else {
+                        toast.success("Преподаватель успешно добавлен.");
                     }
                 })
                 .catch(error => {
+
                     console.log("Ошибка при отправке данных: " + error);
                 });
         }
@@ -208,14 +214,17 @@ const Class = forwardRef(({
             fetch("https://localhost:7184/api/locations?" + typeQuery + locationQuery, POST_REQUEST_OPTIONS_WITH_AUTH)
                 .then(response => {
                     if (!response.ok) {
+                        toast.error("Не удалось добавить локацию.")
                         throw new Error('Network response was not ok: ' + response.status);
+                    }
+                    else {
+                        toast.success("Локация успешно добавлена.");
                     }
                 })
                 .catch(error => {
                     console.log("Ошибка при отправке данных: " + error);
                 });
         }
-
         setIsAddingLocation(false);
     };
 
