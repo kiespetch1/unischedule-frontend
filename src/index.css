@@ -1647,6 +1647,7 @@ header {
     font-size: 16px;
     display: flex;
     align-items: center;
+    margin: 0;
 
     color: #000000;
 }
@@ -1658,6 +1659,8 @@ header {
     font-size: 14px;
     display: flex;
     align-items: center;
+    margin: 0;
+
 
     color: #000000;
 }

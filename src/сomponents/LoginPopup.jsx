@@ -11,8 +11,19 @@ const LoginPopup = forwardRef((props, ref) => {
     const [password, setPassword] = useState('');
     const postRequestOptions = useRef({});
     const [isAuthorized, setIsAuthorized] = useState(false);
-    const [authorizedEmail, setAuthorizedEmail] = useState('');
+    const [currentEmail, setCurrentEmail] = useState('');
+    const [currentRole, setCurrentRole] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+
+    const getRussianRoleName = (role) => {
+        switch (role.toLowerCase()) {
+            case "admin": return "Администратор";
+            case "user": return "Пользователь";
+            case "staff": return "Сотрудник ВУЗа";
+            case "groupleader": return "Староста группы";
+            default: return "";
+        }
+    }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -25,27 +36,30 @@ const LoginPopup = forwardRef((props, ref) => {
     const handleLogout = async () => {
         await fetch('https://localhost:7184/api/users/logout', DELETE_REQUEST_OPTIONS_WITH_AUTH);
         setIsAuthorized(false);
-        setAuthorizedEmail('');
+        setCurrentEmail('');
         updateAuthorization(false, "");
     };
 
     const checkAuthorization = async () => {
         const value = Cookies.get("auth");
         if (value === "true") {
-            const response = await fetch('https://localhost:7184/api/users/get-email', GET_REQUEST_OPTIONS_WITH_AUTH);
+            const response = await fetch('https://localhost:7184/api/users/me', GET_REQUEST_OPTIONS_WITH_AUTH);
             if (response.ok) {
-                const data = await response.text();
-                setAuthorizedEmail(data);
+                const data = await response.json();
+                setCurrentEmail(data.email);
+                setCurrentRole(data.role);
                 setIsAuthorized(true);
                 updateAuthorization(true, "edit");
             } else {
                 setIsAuthorized(false);
-                setAuthorizedEmail('');
+                setCurrentEmail('');
+                setCurrentRole('');
                 updateAuthorization(false, "");
             }
         } else {
             setIsAuthorized(false);
-            setAuthorizedEmail('');
+            setCurrentEmail('');
+            setCurrentRole('');
             updateAuthorization(false, "");
         }
         setIsLoading(false);
@@ -108,11 +122,13 @@ const LoginPopup = forwardRef((props, ref) => {
                     display: "flex",
                     flexDirection: "column",
                     width: "300px",
-                    height: "246px"
+                    height: "246px",
+                    padding: "20px 0 10px 0"
                 }}>
-                    <div>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", height: "45%", justifyContent: "space-around" }}>
                         <p className="user-popup-text">Вы вошли как:</p>
-                        <p className="user-popup-light-text">{authorizedEmail}</p>
+                        <p className="user-popup-light-text">{currentEmail}</p>
+                        <p className="user-popup-light-text" style={{ marginTop: "8px" }}>{getRussianRoleName(currentRole)}</p>
                     </div>
                     <button onClick={handleLogout} className="login-popup-button">Выйти</button>
                 </div>

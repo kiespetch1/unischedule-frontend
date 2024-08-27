@@ -25,8 +25,8 @@ export function getStartAndEndOfWeek(date) {
 }
 
 export function getWeekNumber(date) {
-    let academicYearStart = new Date(date.getFullYear(), 8, 1); // дата начала семестра
-
+    let academicYearStart = new Date(date.getFullYear(), 8, 2); // 2 сентября нынешнего года
+                                                                //TODO: добавить конфиг какой то откуда задавать дату начала академического года
     // Вычисляем разницу в днях между сегодняшней датой и датой начала
     let diffDays = Math.floor((date.getTime() - academicYearStart.getTime()) / (1000 * 60 * 60 * 24));
 

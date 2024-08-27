@@ -11,9 +11,10 @@ const LoginSkeleton = () => {
             width: "300px",
             height: "246px"
         }}>
-            <Skeleton height={25} width={150} style={{marginTop: 20}}/>
-            <Skeleton height={20} width={200} style={{marginTop: 10}}/>
-            <Skeleton height={40} width={152} style={{marginTop: 60}}/>
+            <Skeleton height={20} width={150} style={{marginTop: 20}}/>
+            <Skeleton height={16} width={130} style={{marginTop: 10}}/>
+            <Skeleton height={16} width={130} style={{marginTop: 20}}/>
+            <Skeleton height={40} width={152} style={{marginTop: 30}}/>
         </div>
     );
 
