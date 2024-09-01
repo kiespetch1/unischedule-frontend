@@ -27,7 +27,8 @@ const Filters = ({ groupName, hasSubgroups, isLoading }) => {
                     <div className="group-filter-text">Группа</div>
                     <div className="group-name">
                         {groupName === null ? (
-                            <Skeleton width="125px" height="27px" />
+                            <Skeleton width={windowWidth <= 930 ? 50 : 125}
+                                      height={windowWidth <= 930 ? 14 : 27} />
                         ) : (
                             <div className="bold-group-text">{groupName}</div>
                         )}
@@ -44,7 +45,7 @@ const Filters = ({ groupName, hasSubgroups, isLoading }) => {
                         </a>
                     </div>
                 </div>
-                {(isLoading && isFirstLoad) ? (
+                {(!isLoading && isFirstLoad) ? (
                     <FiltersSkeleton windowWidth={windowWidth}/>
                 ) : (
                     <div style={{ display: "flex" }}>

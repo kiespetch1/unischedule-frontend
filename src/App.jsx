@@ -1,37 +1,37 @@
 import SchedulePage from "./pages/SchedulePage";
 import {ScheduleContextProvider} from "./context/ScheduleContext";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import GroupsListPage from "./pages/GroupsListPage";
 import HomePage from "./pages/HomePage";
 import {PopupsContextProvider} from "./context/PopupsContext";
 import {AuthContextProvider} from "./context/AuthContext";
 import {Toaster} from "react-hot-toast";
+import LoginPage from "./pages/mobile/LoginPage.jsx";
+import {useWindowWidth} from "./common.ts";
 
 
 function App() {
+    const windowWidth = useWindowWidth()
     return (
         <AuthContextProvider>
             <PopupsContextProvider>
                 <ScheduleContextProvider>
                     <BrowserRouter>
-                        <Toaster position="bottom-right" toastOptions={{
-                            style: {
-                                fontFamily: 'Raleway, sans-serif',
+                        <Toaster
+                            position="bottom-right"
+                            toastOptions={{
+                                style: {
+                                    fontFamily: 'Raleway, sans-serif',},
                                 success: {
                                     duration: 6000,
-                                    style: {
-                                        padding: "0 10px 0 10px"
-                                    },
                                 },
                                 error: {
-                                    duration: 8000,
-                                    style: {
-                                        padding: "0 10px 0 10px"
-                                    },
+                                    duration: 10000,
                                 },
-                            }
-                            }}/>
+                            }}
+                        />
                         <Routes>
+                            <Route path="/login" element={windowWidth <= 930 ? <LoginPage/> : <Navigate to="/"/>}/>
                             <Route path="/" element={<HomePage/>}/>
                             <Route path="/group/:groupId" element={<SchedulePage/>}/>
                             <Route path="/groups" element={<GroupsListPage/>}/>

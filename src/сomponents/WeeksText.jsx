@@ -33,7 +33,6 @@ const WeeksText = ({currentWeekType, windowWidth}) => {
         return academicWeekNumber % 2 === 0;
     }
 
-
     return (
         <div className="week-container">
 

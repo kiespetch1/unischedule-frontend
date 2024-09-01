@@ -4,7 +4,7 @@ import {GET_REQUEST_OPTIONS, useWindowWidth} from "../common";
 import PopupsContext from "../context/PopupsContext.jsx";
 
 const NotificationsLine = ({groupId}) => {
-    const {setIsNotificationPopupOpen, isNotificationPopupOpen } = useContext(PopupsContext);
+    const {setIsNotificationPopupOpen, isNotificationPopupOpen} = useContext(PopupsContext);
     const [lastNotification, setLastNotification] = useState(null);
     const [isNotificationPresent, setIsNotificationPresent] = useState(false);
     const [isNotificationOpen, setIsNotificationOpen] = useState(true);
@@ -42,7 +42,13 @@ const NotificationsLine = ({groupId}) => {
         <div className="notification-line-container">
             <div className="notification-line-header-container">
                 <p className="notification-line-header-text">Последнее объявление</p>
-                <button style={{
+                <button style={windowWidth <= 930 ? {
+                    width: '16px',
+                    cursor: 'pointer',
+                    background: "none",
+                    border: "none",
+                    padding: "0"
+                } : {
                     width: '33px',
                     cursor: 'pointer',
                     background: "none",
@@ -50,20 +56,38 @@ const NotificationsLine = ({groupId}) => {
                     padding: "0"
                 }}
                         onClick={() => setIsNotificationOpen(!isNotificationOpen)}>
-                    <ExpandIcon
-                        style={windowWidth <= 930 ? {
-                            marginLeft: '3px',
-                            marginRight: '6px',
-                            height: '5px',
-                            width: '6px',
-                            cursor: 'pointer'
-                        } : {
-                            marginLeft: '8px',
-                            marginRight: '16px',
-                            paddingTop: '0px',
-                            cursor: 'pointer'
-                        }}/></button>
-                <button className="notification-line-secondary-text"  onClick={handleNotificationClick}>посмотреть другие
+                    {!isNotificationOpen ?
+                        <ExpandIcon
+                            style={windowWidth <= 930 ? {
+                                marginLeft: '3px',
+                                marginRight: '6px',
+                                height: '4px',
+                                width: '5px',
+                                cursor: 'pointer'
+                            } : {
+                                marginLeft: '8px',
+                                marginRight: '16px',
+                                paddingTop: '0px',
+                                cursor: 'pointer'
+                            }}/> :
+                        <ExpandIcon
+                            style={windowWidth <= 930 ? {
+                                marginLeft: '3px',
+                                marginRight: '6px',
+                                height: '4px',
+                                width: '5px',
+                                cursor: 'pointer',
+                                rotate: '180deg'
+                            } : {
+                                marginLeft: '8px',
+                                marginRight: '16px',
+                                paddingTop: '0px',
+                                cursor: 'pointer',
+                                rotate: '180deg'
+                            }}/>
+                    }
+                </button>
+                <button className="notification-line-secondary-text" onClick={handleNotificationClick}>посмотреть другие
                     объявления
                 </button>
             </div>

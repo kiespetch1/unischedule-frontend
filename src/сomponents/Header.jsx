@@ -30,19 +30,28 @@ const Header = ({groupName, groupId}) => {
     };
 
     const handleAuthClick = (e) => {
-        e.stopPropagation();
-        setIsUserPopupOpen(!isUserPopupOpen);
-        if (!isUserPopupOpen) {
-            setIsNotificationPopupOpen(false); // Закрыть уведомления, если открыты
+        if (windowWidth <= 930) {
+            navigate("/login");
+        }
+        else {
+            e.stopPropagation();
+            setIsUserPopupOpen(!isUserPopupOpen);
+            if (!isUserPopupOpen) {
+                setIsNotificationPopupOpen(false);
+            }
         }
     };
 
     const handleNotificationClick = (e) => {
+        if (windowWidth <= 930) {
+            navigate("/notifications");
+        }
+        else {
         e.stopPropagation();
         setIsNotificationPopupOpen(!isNotificationPopupOpen);
         if (!isNotificationPopupOpen) {
             setIsUserPopupOpen(false);
-        }
+        }}
     };
 
     useEffect(() => {

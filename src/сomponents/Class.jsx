@@ -179,8 +179,7 @@ const Class = forwardRef(({
                     if (!response.ok) {
                         toast.error("Не удалось добавить преподавателя.")
                         throw new Error('Network response was not ok: ' + response.status);
-                    }
-                    else {
+                    } else {
                         toast.success("Преподаватель успешно добавлен.");
                     }
                 })
@@ -216,8 +215,7 @@ const Class = forwardRef(({
                     if (!response.ok) {
                         toast.error("Не удалось добавить локацию.")
                         throw new Error('Network response was not ok: ' + response.status);
-                    }
-                    else {
+                    } else {
                         toast.success("Локация успешно добавлена.");
                     }
                 })
@@ -295,8 +293,7 @@ const Class = forwardRef(({
         setTeacherFilter(event.target.value);
         if (event.target.value === '') {
             setIsTeacherFilterActive(false);
-        }
-        else {
+        } else {
             setIsTeacherFilterActive(true);
         }
     };
@@ -305,8 +302,7 @@ const Class = forwardRef(({
         setLocationFilter(event.target.value);
         if (event.target.value === '') {
             setIsLocationFilterActive(false);
-        }
-        else {
+        } else {
             setIsLocationFilterActive(true);
         }
 
@@ -327,13 +323,19 @@ const Class = forwardRef(({
             }
             fetch("https://localhost:7184/api/classes/" + classId, DELETE_REQUEST_OPTIONS_WITH_AUTH)
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok: ' + response.status);
+                    if (response.ok) {
+                        toast.success("Пара успешно удалена.");
                     }
+                    else
+                    {
+                        if (response.status === 404) {
+                            toast.error("Не удалось найти эту пару. Возможно она уже удалена?")
+                        }
+                        else
+                            toast.error("Не удалось удалить пару.")
+                    }
+
                 })
-                .catch(error => {
-                    console.log("Ошибка при отправке данных: " + error);
-                });
         }
         setIsDeleted(true);
         decreaseClassesCount();
@@ -399,7 +401,7 @@ const Class = forwardRef(({
         setIsLocationFilterActive(false);
         setIsTeacherFilterActive(false);
     }, [isEditing]); // eslint-disable-line react-hooks/exhaustive-deps
-                            //мб тут все таки надо добавить все в зависимости, но через иф сделать чтобы выполнялось только при изменении isEditing
+    //мб тут все таки надо добавить все в зависимости, но через иф сделать чтобы выполнялось только при изменении isEditing
 
     useEffect(() => {
         if (!isEditing) {
@@ -462,17 +464,15 @@ const Class = forwardRef(({
                 }
 
                 if ((isEditing && !isActive) || (forceSave && !isDeleted)) {
-                    console.log(`Final URL: ${url}`);
                     fetch(url, PUT_REQUEST_OPTIONS_WITH_AUTH)
                         .then(response => {
                             if (response.status === 204 || response.status === 200) {
                                 console.log('Request was successful, but no content returned.');
                                 return response.json();
                             } else {
-                                console.log('Статус ответа не 200 и не 204');
-                                throw new Error('Статус ответа не 200 и не 204');
+                                toast.error("Не удалось создать пару. Убедитесь что все поля заполнены корректно.");
                             }
-                            })
+                        })
                         .then(data => {
                             let numbers = data.classesId;
                             newAddedIdRef.current = Math.max(...numbers);

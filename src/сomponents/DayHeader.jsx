@@ -7,6 +7,7 @@ import EraseIcon from "../assets/eraser.svg?react";
 import CopyIcon from "../assets/copy.svg?react";
 import {GET_REQUEST_OPTIONS_WITH_AUTH, PUT_REQUEST_OPTIONS_WITH_AUTH, useWindowWidth} from "../common";
 import AuthContext from "../context/AuthContext.jsx";
+import toast from "react-hot-toast";
 
 const DayHeader = ({
                        name,
@@ -34,11 +35,12 @@ const DayHeader = ({
         paddingRight: "9px",
     };
 
-    const {editPermissions} = useContext(AuthContext);
+    const {editPermissions, allowedGroup} = useContext(AuthContext);
     const windowWidth = useWindowWidth();
-    const [oppositeWeekType, setOppositeWeekType] = useState(1);
-    const [oppositeSubgroup, setOppositeSubgroup] = useState(1);
+    const [oppositeWeekType, setOppositeWeekType] = useState(undefined);
+    const [oppositeSubgroup, setOppositeSubgroup] = useState(undefined);
     const [oppositeWeek, setOppositeWeek] = useState([]);
+    const [isStatesUpdated, setIsStatesUpdated] = useState(false);
 
     const handleEditing = () => {
         if (!isEditing) {
@@ -61,37 +63,42 @@ const DayHeader = ({
     }
 
     const handleClassCopy = async () => {
-        const newOppositeWeekType = weekInfo.monday.dayInfo.weekType === 1 ? 2 : 1;
-        const newOppositeSubgroup = weekInfo.monday.dayInfo.subgroup === 1 ? 2 : weekInfo.monday.dayInfo.subgroup === 2 ? 1 : 0;
+        const newOppositeWeekType = weekInfo.info.type === 1 ? 2 : 1;
+        let newOppositeSubgroup = weekInfo.info.subgroup === 1 ? 2 : weekInfo.info.subgroup === 2 ? 1 : 0;
+
+        if (weekInfo.group.hasSubgroups === false)
+            newOppositeSubgroup = 0;
 
         setOppositeWeekType(newOppositeWeekType);
         setOppositeSubgroup(newOppositeSubgroup);
-
-        try {
-            const response1 =
-                await fetch(`https://localhost:7184/api/weeks?WeekType=${oppositeWeekType}&GroupId=${weekInfo.monday.dayInfo.groupId}&Subgroup=${oppositeSubgroup}&fetchDetails=true`,
-                    GET_REQUEST_OPTIONS_WITH_AUTH);
-            const data1 = await response1.json();
-            setOppositeWeek(Object.values(data1));
-        } catch (error) {
-            console.error('Error fetching week data:', error);
-        }
+        setIsStatesUpdated(!isStatesUpdated);
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response1 =
+                    await fetch(`https://localhost:7184/api/weeks?WeekType=${oppositeWeekType}&GroupId=${weekInfo.group.id}&Subgroup=${oppositeSubgroup}&fetchDetails=true`,
+                        GET_REQUEST_OPTIONS_WITH_AUTH);
+                const data1 = await response1.json();
+                setOppositeWeek(Object.values(data1));
+            } catch (error) {
+                console.error('Error fetching week data:', error);
+            }
+        };
+
+        if (oppositeWeekType !== undefined && oppositeSubgroup !== undefined) {
+            fetchData();
+        }
+    }, [isStatesUpdated]);
 
     useEffect(() => {
         const copyDayData = async () => {
             if (oppositeWeek.length === 0 || !dayData) return;
 
+            console.log(oppositeWeek);
             try {
-                console.log('oppositeWeek:', oppositeWeek);
-                console.log('dayData:', dayData);
-
-                const dayToCopyTo = oppositeWeek.find(w => {
-                    console.log('Checking:', w);
-                    return w.dayInfo && dayData.dayInfo && w.dayInfo.name === dayData.dayInfo.name;
-                });
-
-                console.log('dayToCopyTo:', dayToCopyTo);
+                const dayToCopyTo = oppositeWeek.find(w => w.dayInfo && dayData.dayInfo && w.dayInfo.name === dayData.dayInfo.name);
 
                 if (dayToCopyTo) {
                     const dayToCopyToId = dayToCopyTo.dayInfo.id;
@@ -100,16 +107,16 @@ const DayHeader = ({
                         await fetch(`https://localhost:7184/api/days/copy?dayToCopyFromId=${dayData.dayInfo.id}&dayToCopyToId=${dayToCopyToId}`, PUT_REQUEST_OPTIONS_WITH_AUTH);
 
                     if (response2.status === 204 || response2.status === 200) {
-                        console.log('Request was successful, but no content returned.');
+                        toast.success('День успешно скопирован.');
                     } else {
-                        console.log('Статус ответа не 200 и не 204');
-                        throw new Error('Статус ответа не 200 и не 204');
+                        throw new Error('Request was not successful');
                     }
                 } else {
                     throw new Error('Matching day not found in opposite week data');
                 }
             } catch (error) {
                 console.error('Error copying day data:', error);
+                toast.error('Не удалось скопировать день.');
             }
         };
 
@@ -133,7 +140,7 @@ const DayHeader = ({
             <DotDivider style={windowWidth <= 930 ? dotSmallStyle : dotStyle}/>
             <div className="classes-text">{classCount === 0 ? "выходной" : classCount + " " + classesText}</div>
             {windowWidth <= 930 ? null :
-                (editPermissions ?
+                (editPermissions && allowedGroup && weekInfo && (allowedGroup === weekInfo.group.id.toString() || allowedGroup === "all") ?
                     <div style={{order: 9, marginLeft: "auto"}}>
                         {isEditing && <button onClick={handleClassCopy}
                                               className="copy-icon-wrapper"

@@ -5,6 +5,7 @@ import Class from "./Class";
 import AddIcon from "../assets/addIcon.svg?react";
 import SaveButton from "./SaveButton";
 import {DELETE_REQUEST_OPTIONS_WITH_AUTH} from "../common";
+import toast from "react-hot-toast";
 
 const Day = ({
                  dayData,
@@ -54,9 +55,19 @@ const Day = ({
 
     const clearAllClassesList = () => {
         fetch(`https://localhost:7184/api/days?dayId=${dayData && dayData.dayInfo.id}`, DELETE_REQUEST_OPTIONS_WITH_AUTH)
-        clearNewClassesList();
-        dayData.classes = [];
-    }
+            .then(response => {
+                if (response.ok) {
+                    clearNewClassesList();
+                    dayData.classes = [];
+                    toast.success('День успешно очищен.');
+                } else if (response.status === 404) {
+                    toast.error('Произошла ошибка при очистке дня.');
+                }
+            })
+            .catch((error) => {
+                console.error('Ошибка:', error);
+            });
+    };
 
     useEffect(() => {
         if (classesCount === 3 || classesCount === 4) {

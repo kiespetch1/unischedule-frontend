@@ -1,24 +1,29 @@
-import {forwardRef, useEffect, useState, useRef, useCallback, useLayoutEffect} from 'react';
+import {forwardRef, useEffect, useState, useCallback, useContext} from 'react';
 import Dot from "../assets/darkGrayDot.svg?react";
 import NotificationBlock from './NotificationBlock';
 import NotificationsSkeleton from "./skeletons/NotificationsSkeleton";
-import GroupsComponent from "./GroupsComponent";
 import {GET_REQUEST_OPTIONS, GET_REQUEST_OPTIONS_WITH_AUTH} from "../common";
 import toast from "react-hot-toast";
+import {useLocation, useNavigate} from 'react-router-dom';
+import PopupsContext from '../context/PopupsContext';
 
 
 const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
     const [notifications, setNotifications] = useState([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
-    const scrollPositionRef = useRef(0);
     const defaultGroupId = 1;
     const [groupIdDuplicate, setGroupIdDuplicate] = useState(groupId || defaultGroupId);
     const [groupNameDuplicate, setGroupNameDuplicate] = useState(groupName || "");
-    const [isChoosingGroup, setIsChoosingGroup] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [isGroupPage, setIsGroupPage] = useState(false);
+    const { setIsNotificationPopupOpen } = useContext(PopupsContext);
+
 
     const enableGroupChooser = () => {
-        setIsChoosingGroup(!isChoosingGroup);
+        setIsNotificationPopupOpen(false);
+        navigate("/groups");
     }
 
     const fetchGroupName = useCallback((id) => {
@@ -31,6 +36,12 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
                 console.error('Error fetching group name:', error);
             });
     }, []);
+
+    useEffect(() => {
+        if (location.pathname.includes("/group") && location.pathname !== "/groups") {
+            setIsGroupPage(true);
+        }
+    }, [location]);
 
     const loadNotifications = useCallback((page) => {
         setIsLoading(true);
@@ -70,12 +81,6 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
         loadNotifications(page);
     }, [page, loadNotifications, groupId, groupName, groupIdDuplicate, fetchGroupName]);
 
-    useLayoutEffect(() => {
-        const container = ref.current;
-        if (container) {
-            container.scrollTop = scrollPositionRef.current;
-        }
-    }, [notifications]);
 
     const groupNotificationsByDate = (notifications) => {
         const groupedNotifications = [];
@@ -91,7 +96,32 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
         return groupedNotifications;
     };
 
+    const handleNotificationsLoad = () => {
+        loadNotifications(page);
+        setPage(page + 1);
+    }
+
     const groupedNotifications = groupNotificationsByDate(notifications);
+
+    if (!isGroupPage) {
+        return (<div
+            ref={ref}
+            className="notification-container"
+        >
+                            <div style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height: "100%"
+                            }}>
+                                <p className="notification-header-text">Выберите группу чтобы увидеть уведомления</p>
+                                <button className="login-popup-button"
+                                        onClick={enableGroupChooser}
+                                        style={{width: "200px", marginTop: "20px"}}>К выбору группы</button>
+                            </div>
+        </div>);
+    }
 
     return (
         <div
@@ -108,11 +138,6 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
                 </div>
                 <div className="notification-divider"></div>
             </div>
-            {isChoosingGroup ?
-                <div style={{margin: "16px"}}>
-                    <GroupsComponent isNotificationsVersion={true}/>
-                </div>
-                :
                 <div>
                     {isLoading ? (
                         <NotificationsSkeleton/>
@@ -130,11 +155,16 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
                             groupedNotifications.map((notification) => (
                                 <NotificationBlock key={notification.id} notification={notification}
                                                    showDate={notification.showDate}/>
-                            ))
-                        )
+                            )))
                     )}
-                    {isLoading && page > 1 && <NotificationsSkeleton/>}
-                </div>}
+                    {!isLoading && groupedNotifications.length > 0 &&  groupedNotifications.length % 6 === 0 && (
+                        <div style={{ display: "flex", justifyContent: "center" }}>
+                            <button className="load-more-button" onClick={handleNotificationsLoad}>
+                                Загрузить более старые объявления
+                            </button>
+                        </div>
+                    )}
+                </div>
         </div>
     );
 
