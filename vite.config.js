@@ -5,19 +5,22 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig({
   plugins: [react(), svgr()],
   server: {
+    host: '0.0.0.0',
     port: 3000,
-    hmr: {
-      host: 'localhost',
-      protocol: 'ws',
-      port: 3000,
+    strictPort: true,
+    watch: {
+      usePolling: true,
     },
     proxy: {
       '/api': {
-        target: 'http://us-server:7148/api',
+        target: 'http://us-api:7148',
         changeOrigin: true,
         secure: false,
-        ws: true,
       },
     },
+  },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
   },
 });
