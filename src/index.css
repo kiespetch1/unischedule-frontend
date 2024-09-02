@@ -1934,17 +1934,17 @@ header {
     }
 
     .group-filter-text {
-        font-size: 8px;
-        margin-bottom: 8px;
+        font-size: 10px;
+        margin-bottom: 9px;
     }
 
     .filter-text {
-        font-size: 8px;
+        font-size: 10px;
         margin-bottom: 6px;
     }
 
     .bold-group-text {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .switch-icon-wrapper {
@@ -1961,24 +1961,24 @@ header {
 
     .toggle-outer {
         border: 1px solid #0966BB;
-        width: 122px;
-        height: 22px;
-        padding: 0 1px;
+        width: 139px;
+        height: 26px;
+        padding: 0 0;
     }
 
     .toggle-slider-toggled, .toggle-slider-untoggled, .toggle-inner-inactive, .toggle-inner-active {
-        width: 57px;
-        height: 18px;
+        width: 68px;
+        height: 22px;
         margin-right: 1px;
         margin-left: 1px;
     }
 
     .toggle-slider-toggled {
-        transform: translateX(60px);
+        transform: translateX(67px);
     }
 
     .toggle-text-inactive, .toggle-text-active {
-        font-size: 7px;
+        font-size: 8px;
     }
 
     .toggle-text-active {
@@ -1986,7 +1986,7 @@ header {
     }
 
     .week-text {
-        font-size: 8px;
+        font-size: 10px;
     }
 
     .week-text {
@@ -1994,7 +1994,7 @@ header {
     }
 
     .week-container {
-        padding: 12px 16px 4px;
+        padding: 12px 16px 6px;
         width: calc(100vw - 32px);
         align-self: flex-start;
     }
@@ -2170,7 +2170,7 @@ header {
     }
 
     .notification-line-header-text {
-        font-size: 8px;
+        font-size: 10px;
 
     }
 
@@ -2189,12 +2189,8 @@ header {
         margin-right: 8px;
     }
 
-    .notification-line-secondary-text {
-        height: 9px;
-    }
-
     .notification-line-button-text, .notification-line-primary-text, .notification-line-secondary-text {
-        font-size: 8px;
+        font-size: 10px;
     }
 
     .notification-line-primary-text {
@@ -2203,7 +2199,6 @@ header {
 
     .notification-line-header-text {
         padding: 0;
-        height: 9px;
     }
 
     .notification-line-header-container {

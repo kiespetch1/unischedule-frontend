@@ -7,16 +7,16 @@ const NotificationLineSkeleton = () => {
     return (
         <div className="notification-line-container">
             <div className="notification-line-header-container">
-                <Skeleton height={21} width={207} />
+                <Skeleton height={windowWidth <= 930 ? 14 : 21} width={windowWidth <= 930 ? 115 : 207}/>
                 <ExpandIcon
                     style={windowWidth <= 930 ? {marginLeft: '3px', marginRight: '6px', height: '5px', width: '6px'} : {
                         marginLeft: '8px',
                         marginRight: '16px',
                         paddingTop: '0px',
                     }}/>
-                <Skeleton height={21} width={273} />
+                <Skeleton height={windowWidth <= 930 ? 14 : 21} width={windowWidth <= 930 ? 152 : 273} />
             </div>
-            <Skeleton height={21} width={201} />
+            <Skeleton height={windowWidth <= 930 ? 14 : 21} width={windowWidth <= 930 ? 100 : 201} />
         </div>
     );
 }

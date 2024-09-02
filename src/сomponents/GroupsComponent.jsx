@@ -74,16 +74,26 @@ const GroupsComponent = () => {
 
             {!isLoaded ? <div style={{maxWidth: '300px'}}>
                     {[...Array(3)].map((_, index) => (
-                        <div key={index} style={{marginBottom: '20px'}}>
-                            <Skeleton height={18} width={100} style={{marginBottom: '10px', marginTop: "24px"}}/>
-                            <div style={{display: "flex", flexDirection: 'row'}}>
-                                <Skeleton height={39} width={150}
-                                          style={{borderRadius: '20px', marginTop: '16px', marginRight: "16px"}}/>
-                                <Skeleton height={39} width={150}
-                                          style={{borderRadius: '20px', marginTop: '16px', marginRight: "16px"}}/>
-                            </div>
-                        </div>
-                    ))}
+                        (windowWidth >= 930 ?
+                            <div key={index} style={{marginBottom: '20px'}}>
+                                <Skeleton height={18} width={100} style={{marginBottom: '10px', marginTop: "24px"}}/>
+                                <div style={{display: "flex", flexDirection: 'row'}}>
+                                    <Skeleton height={39} width={150}
+                                              style={{borderRadius: '20px', marginTop: '16px', marginRight: "16px"}}/>
+                                    <Skeleton height={39} width={150}
+                                              style={{borderRadius: '20px', marginTop: '16px', marginRight: "16px"}}/>
+                                </div>
+                            </div> :
+                            <div key={index} style={{marginBottom: '12px'}}>
+                                <Skeleton height={10} width={32} style={{marginBottom: '5px', marginTop: "8px"}}/>
+                                <div style={{display: "flex", flexDirection: 'row'}}>
+                                    <Skeleton height={20} width={65}
+                                              style={{borderRadius: '20px', marginTop: '8px', marginRight: "8px"}}/>
+                                    <Skeleton height={20} width={65}
+                                              style={{borderRadius: '20px', marginTop: '8px', marginRight: "8px"}}/>
+                                </div>
+                            </div>)
+                        ))}
                 </div> :
                 <>
                     <CourseGroups grade="1" groups={groupsInfo} filter={inputValue}/>
