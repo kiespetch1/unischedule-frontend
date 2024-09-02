@@ -54,7 +54,7 @@ const TeacherPickPanel = ({
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("https://localhost:7184/api/teachers", GET_REQUEST_OPTIONS_WITH_AUTH);
+                const response = await fetch("/api/teachers", GET_REQUEST_OPTIONS_WITH_AUTH);
                 const data = await response.json();
                 setTeachers(data);
             } catch (error) {

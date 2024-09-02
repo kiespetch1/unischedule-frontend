@@ -35,7 +35,7 @@ const LoginPopup = forwardRef((props, ref) => {
     };
 
     const handleLogout = async () => {
-        await fetch('https://localhost:7184/api/users/logout', DELETE_REQUEST_OPTIONS_WITH_AUTH);
+        await fetch('/api/users/logout', DELETE_REQUEST_OPTIONS_WITH_AUTH);
         setIsAuthorized(false);
         setCurrentEmail('');
         updateAuthorization(false, "");
@@ -45,7 +45,7 @@ const LoginPopup = forwardRef((props, ref) => {
     const checkAuthorization = async () => {
         const value = Cookies.get("auth");
         if (value === "true") {
-            const response = await fetch('https://localhost:7184/api/users/me', GET_REQUEST_OPTIONS_WITH_AUTH);
+            const response = await fetch('/api/users/me', GET_REQUEST_OPTIONS_WITH_AUTH);
             if (response.ok) {
                 const data = await response.json();
                 setCurrentEmail(data.email);
@@ -87,7 +87,7 @@ const LoginPopup = forwardRef((props, ref) => {
             event.preventDefault();
         }
         try {
-            const response = await fetch("https://localhost:7184/api/users/login", postRequestOptions.current);
+            const response = await fetch("/api/users/login", postRequestOptions.current);
             setPassword("");
 
             if (response.ok) {

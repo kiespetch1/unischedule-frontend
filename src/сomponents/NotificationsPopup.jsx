@@ -27,7 +27,7 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
     }
 
     const fetchGroupName = useCallback((id) => {
-        return fetch(`https://localhost:7184/api/groups/${id}`, GET_REQUEST_OPTIONS_WITH_AUTH)
+        return fetch(`/api/groups/${id}`, GET_REQUEST_OPTIONS_WITH_AUTH)
             .then(response => response.json())
             .then(data => {
                 setGroupNameDuplicate(data.name);
@@ -47,7 +47,7 @@ const NotificationPopup = forwardRef(({groupName, groupId}, ref) => {
         setIsLoading(true);
 
         const fetchNotifications = () => {
-            fetch(`https://localhost:7184/notifications?groupId=${groupIdDuplicate}&page=${page}`,
+            fetch(`/api/notifications?groupId=${groupIdDuplicate}&page=${page}`,
                 GET_REQUEST_OPTIONS)
                 .then(response => response.json())
                 .then(data => {

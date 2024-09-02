@@ -78,7 +78,7 @@ const DayHeader = ({
         const fetchData = async () => {
             try {
                 const response1 =
-                    await fetch(`https://localhost:7184/api/weeks?WeekType=${oppositeWeekType}&GroupId=${weekInfo.group.id}&Subgroup=${oppositeSubgroup}&fetchDetails=true`,
+                    await fetch(`/api/weeks?WeekType=${oppositeWeekType}&GroupId=${weekInfo.group.id}&Subgroup=${oppositeSubgroup}&fetchDetails=true`,
                         GET_REQUEST_OPTIONS_WITH_AUTH);
                 const data1 = await response1.json();
                 setOppositeWeek(Object.values(data1));
@@ -104,7 +104,7 @@ const DayHeader = ({
                     const dayToCopyToId = dayToCopyTo.dayInfo.id;
 
                     const response2 =
-                        await fetch(`https://localhost:7184/api/days/copy?dayToCopyFromId=${dayData.dayInfo.id}&dayToCopyToId=${dayToCopyToId}`, PUT_REQUEST_OPTIONS_WITH_AUTH);
+                        await fetch(`/api/days/copy?dayToCopyFromId=${dayData.dayInfo.id}&dayToCopyToId=${dayToCopyToId}`, PUT_REQUEST_OPTIONS_WITH_AUTH);
 
                     if (response2.status === 204 || response2.status === 200) {
                         toast.success('День успешно скопирован.');

@@ -174,7 +174,7 @@ const Class = forwardRef(({
     const handleTeacherSave = () => {
         if (newTeacherName !== '') {
             let name = newTeacherName.trim();
-            fetch("https://localhost:7184/api/teachers?fullName=" + name, POST_REQUEST_OPTIONS_WITH_AUTH)
+            fetch("/api/teachers?fullName=" + name, POST_REQUEST_OPTIONS_WITH_AUTH)
                 .then(response => {
                     if (!response.ok) {
                         toast.error("Не удалось добавить преподавателя.")
@@ -210,7 +210,7 @@ const Class = forwardRef(({
                 console.log("Unknown location type: " + newLocationType);
             }
 
-            fetch("https://localhost:7184/api/locations?" + typeQuery + locationQuery, POST_REQUEST_OPTIONS_WITH_AUTH)
+            fetch("/api/locations?" + typeQuery + locationQuery, POST_REQUEST_OPTIONS_WITH_AUTH)
                 .then(response => {
                     if (!response.ok) {
                         toast.error("Не удалось добавить локацию.")
@@ -321,7 +321,7 @@ const Class = forwardRef(({
             if (isNew && isSubmited) {
                 classId = newAddedIdRef.current
             }
-            fetch("https://localhost:7184/api/classes/" + classId, DELETE_REQUEST_OPTIONS_WITH_AUTH)
+            fetch("/api/classes/" + classId, DELETE_REQUEST_OPTIONS_WITH_AUTH)
                 .then(response => {
                     if (response.ok) {
                         toast.success("Пара успешно удалена.");
@@ -445,12 +445,12 @@ const Class = forwardRef(({
             if (paramString) {
                 let url;
                 if (isNew && !isSubmited) {
-                    url = "https://localhost:7184/api/days";
+                    url = "/api/days";
                 } else {
                     if (isNew && isSubmited) {
                         classId = newAddedIdRef.current;
                     }
-                    url = `https://localhost:7184/api/classes/${classId}`;
+                    url = `/api/classes/${classId}`;
                 }
 
                 let firstParam = true;

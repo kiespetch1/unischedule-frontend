@@ -46,7 +46,7 @@ const GroupsComponent = () => {
     }
 
     useEffect(() => {
-        fetch("https://localhost:7184/api/groups", GET_REQUEST_OPTIONS_WITH_AUTH)
+        fetch("/api/groups", GET_REQUEST_OPTIONS_WITH_AUTH)
             .then(response => response.json())
             .then(data => {
                 setGroupsInfo(data.data);

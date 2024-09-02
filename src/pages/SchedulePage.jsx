@@ -66,7 +66,7 @@ const SchedulePage = () => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch("https://localhost:7184/api/groups/getUsedIds", GET_REQUEST_OPTIONS_WITH_AUTH);
+                const response = await fetch("/api/groups/getUsedIds", GET_REQUEST_OPTIONS_WITH_AUTH);
                 const data = await response.json();
                 const isPresent = data.includes(parseInt(groupId));
                 setIsIdPresent(isPresent);
@@ -79,13 +79,13 @@ const SchedulePage = () => {
                     if (!weekParam && weekType === null) setWeekType("odd");
                     if (!subgroupParam && subgroup === null) setSubgroup(1);
 
-                    const groupResponse = await fetch(`https://localhost:7184/api/groups/${groupId}`, GET_REQUEST_OPTIONS_WITH_AUTH);
+                    const groupResponse = await fetch(`/api/groups/${groupId}`, GET_REQUEST_OPTIONS_WITH_AUTH);
                     const groupData = await groupResponse.json();
                     setHasSubgroups(groupData.hasSubgroups);
                     setGroupName(groupData.name);
 
                     if (groupId != null && subgroup != null && weekType != null && weekType !== "null") {
-                        let url = `https://localhost:7184/api/weeks?weekType=${weekType === "odd" ? 1 : 2}&groupId=${groupId}`;
+                        let url = `/api/weeks?weekType=${weekType === "odd" ? 1 : 2}&groupId=${groupId}`;
 
                         if (groupData.hasSubgroups) {
                             url += `&subgroup=${subgroup}`;
