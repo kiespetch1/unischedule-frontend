@@ -7,9 +7,9 @@ export default defineConfig({
   server: {
     port: 3000,
     hmr: {
-      host: 'unisc.ru',
-      protocol: 'wss',
-      port: 443,
+      host: 'localhost',
+      protocol: 'ws',
+      port: 3000,
     },
     proxy: {
       '/api': {
