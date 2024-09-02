@@ -10,7 +10,7 @@ const NotificationsLine = ({groupId}) => {
     const [isNotificationOpen, setIsNotificationOpen] = useState(true);
     const windowWidth = useWindowWidth();
     useEffect(() => {
-        fetch(`api/notifications/${groupId}/last`, GET_REQUEST_OPTIONS)
+        fetch(`/api/notifications/${groupId}/last`, GET_REQUEST_OPTIONS)
             .then(response => {
                 if (response.status === 404) {
                     setIsNotificationPresent(false);
