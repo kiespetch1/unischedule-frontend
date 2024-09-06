@@ -536,7 +536,7 @@ header {
 }
 
 @media screen and (min-width: 1920px) {
-    filters-container, .schedule-container {
+    .schedule-container {
         margin: 0 auto;
     }
 }
@@ -794,6 +794,7 @@ header {
     cursor: pointer;
     border: none;
     padding: 0;
+    background: #f0f0f0;
 }
 
 @keyframes smooth-shrinking-10px {
