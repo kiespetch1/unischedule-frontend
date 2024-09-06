@@ -7,8 +7,19 @@ const NotificationsLine = ({groupId}) => {
     const {setIsNotificationPopupOpen, isNotificationPopupOpen} = useContext(PopupsContext);
     const [lastNotification, setLastNotification] = useState(null);
     const [isNotificationPresent, setIsNotificationPresent] = useState(false);
-    const [isNotificationOpen, setIsNotificationOpen] = useState(true);
-    const windowWidth = useWindowWidth();
+    const [isNotificationOpen, setIsNotificationOpen] = useState(() => {
+        const storedValue = localStorage.getItem('isNotificationLineOpen');
+        return storedValue === 'true';
+    });    const windowWidth = useWindowWidth();
+
+    useEffect(() => {
+        localStorage.setItem('isNotificationLineOpen', isNotificationOpen);
+    }, [isNotificationOpen]);
+
+    const toggleNotification = () => {
+        setIsNotificationOpen(prevState => !prevState);
+    };
+    
     useEffect(() => {
         fetch(`/api/notifications/${groupId}/last`, GET_REQUEST_OPTIONS)
             .then(response => {
@@ -55,7 +66,7 @@ const NotificationsLine = ({groupId}) => {
                     border: "none",
                     padding: "0"
                 }}
-                        onClick={() => setIsNotificationOpen(!isNotificationOpen)}>
+                        onClick={toggleNotification}>
                     {!isNotificationOpen ?
                         <ExpandIcon
                             style={windowWidth <= 930 ? {
