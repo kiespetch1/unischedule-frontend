@@ -8,6 +8,7 @@ import {AuthContextProvider} from "./context/AuthContext";
 import {Toaster} from "react-hot-toast";
 import LoginPage from "./pages/mobile/LoginPage.jsx";
 import {useWindowWidth} from "./common.ts";
+import NotificationsPage from "./pages/mobile/NotificationsPage.jsx";
 
 
 function App() {
@@ -35,6 +36,8 @@ function App() {
                             <Route path="/" element={<HomePage/>}/>
                             <Route path="/group/:groupId" element={<SchedulePage/>}/>
                             <Route path="/groups" element={<GroupsListPage/>}/>
+                            <Route path="/notifications/:groupId" element={<NotificationsPage/>}/>
+                            <Route path="/notifications" element={<NotificationsPage/>}/>
                         </Routes>
                     </BrowserRouter>
                 </ScheduleContextProvider>

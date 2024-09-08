@@ -96,7 +96,6 @@ const DayHeader = ({
         const copyDayData = async () => {
             if (oppositeWeek.length === 0 || !dayData) return;
 
-            console.log(oppositeWeek);
             try {
                 const dayToCopyTo = oppositeWeek.find(w => w.dayInfo && dayData.dayInfo && w.dayInfo.name === dayData.dayInfo.name);
 

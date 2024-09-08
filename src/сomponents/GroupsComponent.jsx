@@ -5,7 +5,7 @@ import CrossIcon from "../assets/cross.svg?react";
 import Skeleton from "react-loading-skeleton";
 import {GET_REQUEST_OPTIONS_WITH_AUTH, useWindowWidth} from "../common";
 
-const GroupsComponent = () => {
+const GroupsComponent = (isMainScreen) => {
     const [inputValue, setInputValue] = useState('');
     const [groupsInfo, setGroupsInfo] = useState("");
     const [isLoaded, setLoaded] = useState(false);
@@ -20,8 +20,8 @@ const GroupsComponent = () => {
     }
 
     const crossIconSmallStyle = {
-        height: "7px",
-        width: "7px",
+        height: "9px",
+        width: "9px",
         cursor: "pointer",
         animationName: "smooth-expanding-7px",
         animationDuration: "0.1s"
@@ -35,8 +35,8 @@ const GroupsComponent = () => {
     }
 
     const searchIconSmallStyle = {
-        height: "9px",
-        width: "9px",
+        height: "11px",
+        width: "11px",
         margin: "0 8px 0 6px",
         transform: "scaleX(-1)"
     }
@@ -59,7 +59,7 @@ const GroupsComponent = () => {
 
     return (
 
-        <div className="groups-container">
+        <div className={isMainScreen.isMainScreen === true ? "groups-container main" : "groups-container"}>
             {<div className="groups-choose-text">Группы</div>}
             <div className="search-bar">
                 <SearchIcon style={windowWidth <= 930 ? searchIconSmallStyle : searchIconStyle}/>

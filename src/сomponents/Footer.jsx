@@ -6,6 +6,7 @@ const Footer = () => {
     const dotSmallStyle = {
         height: "2.5px",
         width: "2.5px",
+        padding: "1px"
     };
 
     const windowWidth = useWindowWidth();

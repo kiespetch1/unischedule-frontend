@@ -8,11 +8,9 @@ const GroupsListPage = () => {
     return (
         <div>
             <Header/>
-            <div className="group-list-container">
                 <div className="groups-main-container">
-                    <GroupsComponent/>
+                    <GroupsComponent isMainScreen={false}/>
                 </div>
-            </div>
             <Footer/>
         </div>
     )

@@ -44,7 +44,15 @@ const Header = ({groupName, groupId}) => {
 
     const handleNotificationClick = (e) => {
         if (windowWidth <= 930) {
-            navigate("/notifications");
+            const path = window.location.pathname;
+            if (path === "" || path === "/" || path === "/login" || path === "/groups") {
+                navigate("/notifications");
+            }
+            else {
+                const parts = path.split('/');
+                const number = parts[parts.length - 1];
+                navigate("/notifications/" + number);}
+
         }
         else {
         e.stopPropagation();

@@ -751,7 +751,7 @@ header {
     height: 37px;
     cursor: pointer;
     position: relative;
-    transition: transform 0.1s ease-in-out;
+    transition: transform 0.2s ease-in-out;
     background: #CDCDCD;
     border-radius: 20px;
     z-index: 1;
@@ -763,7 +763,7 @@ header {
     height: 37px;
     cursor: pointer;
     position: relative;
-    transition: transform 0.1s ease-in-out;
+    transition: transform 0.2s ease-in-out;
     background: #CDCDCD;
     border-radius: 20px;
     z-index: 1;
@@ -941,17 +941,17 @@ header {
     flex-direction: column;
     height: auto;
     width: calc(100vw - 84px);
-    min-height: calc(100vh - 282px);
+    min-height: calc(100vh - 71px - 92px);
 }
 
-.groups-container.small {
+.groups-container.main {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
-    margin: 0 auto 0 auto;
     height: auto;
-    width: 100%;
+    width: calc(100vw - 84px);
+    min-height: calc(100vh - 71px - 92px - 29px - 29px - 21px - 40px); /*магическое число в конце*/
 }
 
 .group-list-container {
@@ -1503,7 +1503,7 @@ header {
     cursor: pointer;
     padding: 7px;
     border-radius: 11px;
-    transition: transform 0.1s linear;
+    transition: transform 0.2s linear;
     background-color: #fafafa;
 }
 
@@ -1587,33 +1587,38 @@ header {
     cursor: pointer;
 }
 
-.fix-me-container {
+.welcome-text-container {
     display: flex;
     justify-content: center;
     width: 100vw;
     flex-direction: column;
 }
 
-.fix-me {
+.welcome-texts {
     width: calc(100vw - 42px);
     max-width: 1836px;
     padding: 0 0 0 42px;
     margin-top: 24px;
 }
 
-.homepage-container, .groups-main-container {
+.groups-main-container {
     width: calc(100vw - 84px);
     max-width: 1836px;
-    padding: 0 42px;
+    padding: 0 40px;
+}
+
+.homepage-container {
+    width: calc(100vw - 84px);
+    max-width: 1836px;
 }
 
 @media screen and (min-width: 1921px) {
-    .fix-me {
+    .welcome-texts {
         padding: 0;
         margin: 24px auto 0 auto;
     }
 
-    .homepage-container {
+    .homepage-container, .groups-main-container {
         margin: 0 auto;
     }
 }
@@ -2076,9 +2081,15 @@ header {
         border-bottom: 0;
     }
 
+    .homepage-container, .groups-main-container {
+        width: calc(100vw - 84px);
+        max-width: 1836px;
+        padding: 0 20px;
+    }
+
     .footer-text, .footer-clickable-text {
-        font-size: 8px;
-        padding: 16px 5px;
+        font-size: 10px;
+        padding: 16px 3px;
     }
 
     .footer-text-container {
@@ -2102,7 +2113,12 @@ header {
 
     .groups-container {
         width: calc(100vw - 84px);
-        min-height: calc(100vh - 182px);
+        min-height: calc(100vh - 45px - 41px);
+    }
+
+    .groups-container.main {
+        width: calc(100vw - 84px);
+        min-height: calc(100vh - 45px - 42px - 79px - 18px); /*последнее тупо магическое число */
     }
 
     .group-name {
@@ -2119,21 +2135,21 @@ header {
     }
 
     .groups-choose-text {
-        font-size: 11px;
+        font-size: 14px;
         margin: 10px 0 0 0;
     }
 
     .search-bar {
-        width: 240px;
-        height: 20px;
+        width: 300px;
+        height: 26px;
         margin: 12px 0 0 0;
         border: 1px solid #646464;
     }
 
     .search-bar-input {
-        height: 8px;
-        font-size: 7px;
-        width: 195px;
+        height: 12px;
+        font-size: 10px;
+        width: 250px;
         margin-right: 6px;
     }
 
@@ -2142,7 +2158,7 @@ header {
     }
 
     .grade-text {
-        font-size: 8px;
+        font-size: 10px;
         padding-right: 8px;
     }
 
@@ -2151,14 +2167,14 @@ header {
     }
 
     .group-button {
-        width: 61px;
-        height: 18px;
+        width: 74px;
+        height: 22px;
         border: 1px solid #0966BB;
         margin-right: 8px;
     }
 
     .group-button-text {
-        font-size: 9px;
+        font-size: 11px;
     }
 
     .group-buttons-container {
@@ -2166,7 +2182,7 @@ header {
     }
 
     .group-add-text {
-        font-size: 8px;
+        font-size: 10px;
         margin: 10px 0 10px 0;
     }
 
@@ -2212,22 +2228,17 @@ header {
 
     .welcome-header {
         margin: 0 0 8px 0;
-        font-size: 0.6875rem;
+        font-size: 14px;
     }
 
     .welcome-text {
         margin: 0 0 4px 0;
-        font-size: 0.5rem;
+        font-size: 10px;
     }
 
-    .fix-me {
-        padding: 0 9px 0 9px;
+    .welcome-texts {
+        padding: 0;
         margin: 9px 0 0 0;
-    }
-
-    .homepage-container {
-        padding: 0 9px 0 9px;
-        margin: 0 0 9px 0;
     }
 
     .login-container {
@@ -2277,5 +2288,72 @@ header {
         border-radius: 7px;
         margin-top: 6px;
         color: #ffffff;
+    }
+
+    .notifications-container-mobile {
+        display: flex;
+        flex-direction: row;
+        padding: 0 10px;
+        align-items: center;
+
+        box-sizing: border-box;
+
+        background: #E6E6E6;
+        border-bottom: 1px solid #BABABA;
+        border-radius: 0 0 4px 4px;
+
+    }
+
+    .notification-header-text {
+        font-weight: 400;
+        font-size: 14px;
+        margin: 0;
+        padding: 12px 0;
+    }
+
+    .notification-group-header-text {
+        font-size: 14px;
+        margin: 0 0 0 4px;
+        padding: 12px 0;
+    }
+
+    .notification-secondary-header-text {
+        font-size: 14px;
+        margin: 0 0 0 8px;
+        padding: 12px 0;
+    }
+
+    .notification-text {
+        font-size: 12px;
+        margin-top: 8px;
+        margin-left: 2px;
+    }
+
+    .notification-text.no-top-margin {
+        font-size: 12px;
+        margin-left: 2px;
+    }
+
+    .notification-date-text {
+        font-size: 12px;
+    }
+
+    .load-more-button {
+        width: 320px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .notification-container {
+        position: relative;
+        width: 80vw;
+        left: 0;
+    }
+
+
+    @media screen and (min-width: 400px) and (max-width: 930px) {
+        .footer-text, .footer-clickable-text {
+            padding: 16px 5px;
+        }
     }
 }
