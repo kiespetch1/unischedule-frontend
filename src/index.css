@@ -2323,13 +2323,13 @@ header {
         padding: 12px 0;
     }
 
-    .notification-text {
+    .notification-text, .notification-important-announcement-text, .notification-announcement-text {
         font-size: 12px;
         margin-top: 8px;
         margin-left: 2px;
     }
 
-    .notification-text.no-top-margin {
+    .notification-text.no-top-margin, .notification-important-announcement-text.no-top-margin, .notification-announcement-text.no-top-margin {
         font-size: 12px;
         margin-left: 2px;
     }
