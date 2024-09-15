@@ -1,18 +1,20 @@
-import SchedulePage from "./pages/SchedulePage";
-import {ScheduleContextProvider} from "./context/ScheduleContext";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import GroupsListPage from "./pages/GroupsListPage";
-import HomePage from "./pages/HomePage";
-import {PopupsContextProvider} from "./context/PopupsContext";
-import {AuthContextProvider} from "./context/AuthContext";
-import {Toaster} from "react-hot-toast";
-import LoginPage from "./pages/mobile/LoginPage.jsx";
-import {useWindowWidth} from "./common.ts";
-import NotificationsPage from "./pages/mobile/NotificationsPage.jsx";
-
+import SchedulePage from './pages/SchedulePage'
+import { ScheduleContextProvider } from './context/ScheduleContext'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import GroupsListPage from './pages/GroupsListPage'
+import HomePage from './pages/HomePage'
+import { PopupsContextProvider } from './context/PopupsContext'
+import { AuthContextProvider } from './context/AuthContext'
+import { Toaster } from 'react-hot-toast'
+import LoginPage from './pages/mobile/LoginPage.jsx'
+import { useWindowWidth } from './common.ts'
+import NotificationsPage from './pages/mobile/NotificationsPage.jsx'
+import AdminGroupsPage from './pages/AdminGroupsPage.jsx'
+import GroupEditPage from './pages/GroupEditPage.jsx'
 
 function App() {
     const windowWidth = useWindowWidth()
+
     return (
         <AuthContextProvider>
             <PopupsContextProvider>
@@ -22,7 +24,8 @@ function App() {
                             position="bottom-right"
                             toastOptions={{
                                 style: {
-                                    fontFamily: 'Raleway, sans-serif',},
+                                    fontFamily: 'Raleway, sans-serif',
+                                },
                                 success: {
                                     duration: 6000,
                                 },
@@ -32,18 +35,44 @@ function App() {
                             }}
                         />
                         <Routes>
-                            <Route path="/login" element={windowWidth <= 930 ? <LoginPage/> : <Navigate to="/"/>}/>
-                            <Route path="/" element={<HomePage/>}/>
-                            <Route path="/group/:groupId" element={<SchedulePage/>}/>
-                            <Route path="/groups" element={<GroupsListPage/>}/>
-                            <Route path="/notifications/:groupId" element={<NotificationsPage/>}/>
-                            <Route path="/notifications" element={<NotificationsPage/>}/>
+                            <Route
+                                path="/login"
+                                element={
+                                    windowWidth <= 930 ? (
+                                        <LoginPage />
+                                    ) : (
+                                        <Navigate to="/" />
+                                    )
+                                }
+                            />
+                            <Route path="/" element={<HomePage />} />
+                            <Route
+                                path="/group/:groupId"
+                                element={<SchedulePage />}
+                            />
+                            <Route
+                                path="/groups"
+                                element={<GroupsListPage />}
+                            />
+                            <Route
+                                path="/notifications/:groupId"
+                                element={<NotificationsPage />}
+                            />
+                            <Route
+                                path="/notifications"
+                                element={<NotificationsPage />}
+                            />
+                            <Route path="/edit" element={<AdminGroupsPage />} />
+                            <Route
+                                path="/edit/:groupId"
+                                element={<GroupEditPage />}
+                            />
                         </Routes>
                     </BrowserRouter>
                 </ScheduleContextProvider>
             </PopupsContextProvider>
         </AuthContextProvider>
-    );
+    )
 }
 
-export default App;
+export default App
