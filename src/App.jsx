@@ -11,6 +11,7 @@ import { useWindowWidth } from './common.ts'
 import NotificationsPage from './pages/mobile/NotificationsPage.jsx'
 import AdminGroupsPage from './pages/AdminGroupsPage.jsx'
 import GroupEditPage from './pages/GroupEditPage.jsx'
+import GroupNotFoundPage from "./pages/GroupNotFoundPage.jsx";
 
 function App() {
     const windowWidth = useWindowWidth()
@@ -66,6 +67,10 @@ function App() {
                             <Route
                                 path="/edit/:groupId"
                                 element={<GroupEditPage />}
+                            />
+                            <Route
+                                path="/*"
+                                element={<GroupNotFoundPage />}
                             />
                         </Routes>
                     </BrowserRouter>

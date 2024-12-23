@@ -62,6 +62,7 @@ const AdminGroupsPage = () => {
     }
 
     useEffect(() => {
+        document.title = "Управление группами"
         const fetchGroup = (id) => {
             if (id !== null && id !== undefined && id !== 'all') {
                 fetch(`/api/groups/${id}`, GET_REQUEST_OPTIONS_WITH_AUTH)

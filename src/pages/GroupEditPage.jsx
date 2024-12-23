@@ -42,9 +42,10 @@ const GroupEditPage = () => {
                 const data = await response.json()
                 setGroupName(data.name)
             }
+            document.title = `Редактирование группы ${groupName}`
         }
         fetchGroupName()
-    }, [groupId])
+    }, [groupId, groupName])
 
     const handleNotificationAdd = async () => {
         if (newNotificationText === '') {

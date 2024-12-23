@@ -1,7 +1,12 @@
 import Header from "../сomponents/Header";
 import Footer from "../сomponents/Footer";
+import {useEffect} from "react";
 
 const GroupNotFoundPage = () => {
+
+    useEffect(() => {
+        document.title = 'Страница не найдена';
+    }, []);
 
     return (
         <>

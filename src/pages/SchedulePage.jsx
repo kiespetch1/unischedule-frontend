@@ -84,6 +84,8 @@ const SchedulePage = () => {
                     setHasSubgroups(groupData.hasSubgroups);
                     setGroupName(groupData.name);
 
+                    document.title = `Расписание группы ${groupData.name}`;
+
                     if (groupId != null && subgroup != null && weekType != null && weekType !== "null") {
                         let url = `/api/weeks?weekType=${weekType === "odd" ? 1 : 2}&groupId=${groupId}`;
 
