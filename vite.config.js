@@ -12,11 +12,21 @@ export default defineConfig({
       usePolling: true,
     },
     proxy: {
-      '/api': {
-        target: 'http://us-api:7148',
+      "/api": {
+        target: 'https://unisc.ru',
         changeOrigin: true,
         secure: false,
       },
+      'identity/api': {
+        target: 'http://identity',
+        changeOrigin: true,
+        secure: false,
+      },
+      'schedule/api': {
+        target: 'http://schedule',
+        changeOrigin: true,
+        secure: false,
+      }
     },
   },
   build: {
