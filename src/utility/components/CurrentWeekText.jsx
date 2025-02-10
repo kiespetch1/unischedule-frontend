@@ -1,5 +1,4 @@
 import { getStartAndEndOfWeek, getWeekNumber } from "../DateHelpers.js";
-import { useWindowWidth } from "../../common";
 
 function GetCurrentWeekText({ date }) {
 

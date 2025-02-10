@@ -3,6 +3,10 @@ import GetCurrentWeekText from "../utility/components/CurrentWeekText";
 import GetNextWeekText from "../utility/components/NextWeekText";
 import {useLocation, useNavigate} from "react-router-dom";
 import ScheduleContext from "../context/ScheduleContext";
+import config from "../config.json";
+
+const currentDay = parseInt(config.AcademicYearStart.day)
+const currentMonth = parseInt(config.AcademicYearStart.month)
 
 const WeeksText = ({currentWeekType, windowWidth}) => {
     const {setWeekType} = useContext(ScheduleContext);
@@ -25,7 +29,7 @@ const WeeksText = ({currentWeekType, windowWidth}) => {
 
     function isWeekEven() {
         const today = new Date();
-        const academicYearStart = new Date(today.getFullYear(), 1, 5); // Начало учебного года
+        const academicYearStart = new Date(new Date().getFullYear(), currentMonth - 1, currentDay);
 
         const diffMilliseconds = today - academicYearStart;
         const oneWeekMilliseconds = 1000 * 60 * 60 * 24 * 7;
