@@ -1,4 +1,5 @@
-import React, { useState, createContext } from "react";
+import { useState, createContext } from "react";
+import { getWeekNumber } from "../utility/DateHelpers";
 
 const ScheduleContext = createContext({
     weekType: "even",
@@ -8,7 +9,9 @@ const ScheduleContext = createContext({
 });
 
 export const ScheduleContextProvider = ({ children }) => {
-    const [weekType, setWeekType] = useState(null);
+    const isWeekEven = getWeekNumber % 2 !== 0;
+
+    const [weekType, setWeekType] = useState(isWeekEven ? "even" : "odd");
     const [subgroup, setSubgroup] = useState(null);
 
     const updateWeekType = (newWeekType) => {

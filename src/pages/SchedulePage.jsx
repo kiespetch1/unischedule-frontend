@@ -143,7 +143,7 @@ const SchedulePage = () => {
             <div className="schedule-container">
                 <div className={isEditing ? "blur-element" : null}></div>
                 <WeeksText currentWeekType={weekType} windowWidth={windowWidth}/>
-                    <NotificationsLine groupId={groupId}/>
+                <NotificationsLine groupId={groupId}/>
                 {downloadFailure ? <div className="alert-container">
                     <AlertIcon style={windowWidth <= 930 ? alertSmallStyle : alertStyle}/>
                     <div className="alert-text">Ошибка загрузки расписания, заполнена не вся неделя.</div>
